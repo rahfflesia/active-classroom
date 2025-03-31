@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="signup.css" />
+    <title>Regístrate</title>
+  </head>
+  <body class="flex-column">
+    <div class="flex-column form">
+      <p
+        class="text-center"
+        style="color: rgb(48, 193, 130); font-size: 1.5rem"
+      >
+        ActiveClassroom
+      </p>
+      <p class="text-center">Regístrate</p>
+      <button
+        class="white-btn"
+        style="
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          src="../../../public/logos/google-logo.png"
+          width="24px"
+          height="24px"
+          alt="google-logo"
+        />REGÍSTRATE CON GOOGLE
+      </button>
+      <button
+        class="white-btn"
+        style="
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+        "
+      >
+        <img
+          src="../../../public/logos/Facebook_Logo_(2019).png"
+          alt="facebook-logo"
+          width="24px"
+          height="24px"
+        />
+        REGÍSTRATE CON FACEBOOK
+      </button>
+      <div class="flex" style="flex-wrap: wrap">
+        <div class="flex-column">
+          <span>Nombre(s)</span>
+          <input type="text" />
+        </div>
+        <div class="flex-column">
+          <span>Apellido(s)</span>
+          <input type="text" />
+        </div>
+      </div>
+      <div class="flex-column">
+        <span>Correo electrónico</span>
+        <input type="email" />
+      </div>
+      <div class="flex" style="flex-wrap: wrap">
+        <div class="flex-column">
+          <span>Contraseña</span>
+          <input type="password" />
+        </div>
+        <div class="flex-column">
+          <span>Confirmar contraseña</span>
+          <input type="password" />
+        </div>
+      </div>
+      <div
+        class="remember-me"
+        style="
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 0.25rem;
+        "
+      >
+        <input type="checkbox" />
+        <span>Recuérdame</span>
+      </div>
+      <button class="green-btn" style="font-weight: bold">REGISTRAR</button>
+      <hr />
+      <div class="text-center" style="margin: 0 auto">
+        <p style="display: flex; gap: 0.5rem">
+          ¿Ya tienes una cuenta?<a href="">Inicia sesión</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
