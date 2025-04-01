@@ -12,15 +12,6 @@
   --white-color: #fff;
 }
 
-body {
-  justify-content: center;
-  align-items: center;
-  background-image: url("../../../public/fondo/fondo.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-}
-
 .text-center {
   text-align: center;
 }
@@ -94,5 +85,28 @@ img {
 
 .flex {
   display: flex;
+  gap: 1rem;
+}
+
+.formulario-registro {
+  background-color: var(--white-color);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 450px;
+}
+
+.contenedor-interno,
+.contenedor-correo {
+  display: flex;
+  flex-direction: column;
+}
+
+.contenedor-input {
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }

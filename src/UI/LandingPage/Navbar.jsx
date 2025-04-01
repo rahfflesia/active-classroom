@@ -1,7 +1,14 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  const toSignup = () => {
+    navigate("/signup");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg shadow p-3">
@@ -49,10 +56,12 @@ function Navbar() {
             </ul>
 
             <div className="ms-lg-3 mt-3 mt-lg-0">
-              <button type="button" className="btn primary-color-btn">
-                <a href="" className="text-white">
-                  Regístrate
-                </a>
+              <button
+                type="button"
+                className="btn primary-color-btn"
+                onClick={toSignup}
+              >
+                Regístrate
               </button>
             </div>
           </div>
