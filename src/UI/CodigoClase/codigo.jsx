@@ -15,10 +15,13 @@ function Codigo() {
                 <div className='contenedor-interno'>
                 <span style={{
                     textAlign: "left"
-                }}>Clase</span>
+                }}>Ingresa el codigo</span>
                 <input type="text" />
 
                 </div>
+                <span className='Text-center verde'style={{
+                    textAlign : "center"
+                }}>¿Que es un codigo?</span>
             </div>
             <button className="green-btn">Comenzar</button>
         </div>
