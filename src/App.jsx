@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./UI/Login/login.jsx";
 import LandingPage from "../src/UI/LandingPage/LandingPage.jsx";
 import Signup from "./UI/Signup/Signup.jsx";
+import Roles from "./UI/RoleSelection/Roles.jsx";
+import Codigo from "./UI/CodigoClase/codigo.jsx"
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/roles" element={<Roles />} />
+        <Route path="/codigo" element={<Codigo />} />
       </Routes>
     </Router>
   );
