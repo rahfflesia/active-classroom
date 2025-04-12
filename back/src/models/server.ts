@@ -1,6 +1,6 @@
 import express,{Application, Request, Response} from 'express';
-import routeUser from '../routes/login'
-
+import routeUser from '../routes/rutas'
+import db from '../db/connection'
 
 class Server{
     private app: Application;
@@ -8,8 +8,12 @@ class Server{
     constructor(){
         this.app = express()
         this.port = process.env.PORT ?? '3001' 
+        
+        this.midlewares();
         this.listen();
         this.routes();
+        this.dbconnect();
+       
     }
 
     listen(){
@@ -25,6 +29,21 @@ class Server{
             })
         })
         this.app.use('/api/', routeUser)
+    }
+
+    midlewares(){
+        this.app.use(express.json())
+    }
+
+    async dbconnect(){
+        try{
+            await db.authenticate().then();
+        console.log ('Base de datos conectada')
+        }
+        catch{
+            console.log("Error al conectarse a la base de datos")
+        }
+        
     }
  
 }
