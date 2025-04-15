@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { User } from "../clases/User"
+import { Maestro } from "../clases/Maestro";
 
 //metdodo para el login
 export const getUser = async (req: Request, res: Response) =>{
@@ -32,4 +33,13 @@ export const getUsers = async (req: Request, res: Response) =>{
     const listausuarios = await user.listuser()
     res.json(listausuarios)
     
+}
+
+export const createsala = async (req:Request, res:Response) =>{
+    const {body} = req
+    const {username} = req.body
+    const maestro = new Maestro(username)
+
+    maestro.crearformulario(body)
+    maestro.crearsala()
 }
