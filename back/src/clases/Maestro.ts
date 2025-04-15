@@ -14,10 +14,15 @@ export class Maestro extends User{
     }
 
     crearformulario(body:any){
-        const filePath =  path.join(__dirname, 'formulario' + this.id.toString() + (Math.floor(Math.random() * (10000 - 1 + 1)) + 1).toString() + '.json')
-        const newData = body
-        const jsonString = JSON.stringify(newData, null, 2)
-        fs.writeFileSync(filePath)
+        const formsDir = path.resolve(__dirname, '..','..', 'forms') //sube dos niveles en los directorios
+        const fileName = `formulario_${this.id}_${Math.floor(Math.random() * 1000 + 1)}.json`
+        const filePath = path.join(formsDir, fileName)
+        
+        if(!fs.existsSync(formsDir)){
+            fs.mkdirSync(formsDir, {recursive:true})
+        }
+        const jsonString = JSON.stringify(body, null, 2)
+        fs.writeFileSync(filePath, jsonString, 'utf-8')
     }
 
     obtenerresultados(){
