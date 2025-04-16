@@ -54,7 +54,8 @@ a {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
   padding: 0.25rem 0.5rem;
   border: 2px solid lightgray;
   outline: none;
@@ -115,4 +116,15 @@ hr {
 .checkbox {
   display: flex;
   gap: 0.25rem;
+}
+
+.scale:hover {
+  transform: scale(1.02);
+}
+
+.flex-btn {
+  display: flex;
+  gap: 0.5rem;
+  justify-items: center;
+  align-items: center;
 }
