@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { User } from "../clases/User"
 import { Maestro } from "../clases/Maestro";
+import { Alumno } from "../clases/Alumno";
 
 //metdodo para el login
 export const getUser = async (req: Request, res: Response) =>{
@@ -50,4 +51,18 @@ export const createsala = async (req:Request, res:Response) =>{
     }
     
     //
+}
+
+export const getformulario = async (req:Request, res:Response) =>{
+    const {salaid} = req.params
+    const alumno = new Alumno()
+    console.log(salaid)
+    
+    try{
+        const rutaformulario = alumno.entrarasala(salaid)
+        res.json(rutaformulario)
+    }catch(error){
+        console.error('Error al buscar la sala', error)
+        res.json("No se pudo obtener la ruta")
+    }
 }
