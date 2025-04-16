@@ -1,24 +1,32 @@
 import db from '../db/connection'
 import { DataTypes } from 'sequelize'
 
-const Formmodel = db.define('formulario',{
+const Salamodel = db.define('sala',{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
-        autoIncrement: true
     },
-    rutaform:{
+    idcreador:{
+        type:DataTypes.INTEGER
+    },
+    idformulario:{
+        type:DataTypes.INTEGER
+    },
+    fechacreacion:{
         type:DataTypes.STRING
     },
-   
-    rutaformresult:{
+    fechacierre:{
         type:DataTypes.STRING
     },
-    cantparticipantes:{
+    rankingruta:{
         type:DataTypes.STRING
+    },
+    activo:{
+        type:DataTypes.CHAR
     }
+    
 },{
     freezeTableName: true,
     timestamps: false
 })
-export default Formmodel
+export default Salamodel

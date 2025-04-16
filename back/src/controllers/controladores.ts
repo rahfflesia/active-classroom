@@ -37,9 +37,17 @@ export const getUsers = async (req: Request, res: Response) =>{
 
 export const createsala = async (req:Request, res:Response) =>{
     const {body} = req
-    const {username} = req.body
-    const maestro = new Maestro(username)
-
-    maestro.crearformulario(body)
-    maestro.crearsala()
+    const {userId} = req.body
+    const {salaid} = req.body
+    const maestro = new Maestro(userId)
+    try{
+        const guardarform = maestro.crearformulario(body)
+        maestro.crearsala(userId, salaid, await guardarform)
+        res.json("Sala creada")
+    }catch(error){
+        res.json("error al crear la sala")
+        console.error(error)
+    }
+    
+    //
 }
