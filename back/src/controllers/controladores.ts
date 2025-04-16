@@ -43,7 +43,7 @@ export const createsala = async (req:Request, res:Response) =>{
     const maestro = new Maestro(userId)
     try{
         const guardarform = maestro.crearformulario(body)
-        maestro.crearsala(userId, salaid, await guardarform)
+        maestro.crearsala(salaid, userId, await guardarform)
         res.json("Sala creada")
     }catch(error){
         res.json("error al crear la sala")
@@ -59,8 +59,10 @@ export const getformulario = async (req:Request, res:Response) =>{
     console.log(salaid)
     
     try{
-        const rutaformulario = alumno.entrarasala(salaid)
+        const rutaformulario = await alumno.entrarasala(salaid)
+        //console.log("Ruta del formulario", rutaformulario)
         res.json(rutaformulario)
+        
     }catch(error){
         console.error('Error al buscar la sala', error)
         res.json("No se pudo obtener la ruta")

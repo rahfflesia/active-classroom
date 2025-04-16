@@ -1,6 +1,7 @@
 import Formmodel from "../models/formmodel";
 import Salamodel from "../models/salamodel";
 import { User } from "./User";
+import fs from 'fs'
 
 export class Alumno extends User{
     
@@ -25,7 +26,14 @@ export class Alumno extends User{
         
         const rutaformulario = formularioruta?.dataValues.rutaform
         console.log(rutaformulario)
-        return rutaformulario
+        
+        //recuperamos el contenido del json
+
+        const rawform = fs.readFileSync(rutaformulario, 'utf-8')
+        const jsonform = JSON.parse(rawform)
+
+        console.log (jsonform)
+        return jsonform
     }
 /*
     enviarrespuestas(){
