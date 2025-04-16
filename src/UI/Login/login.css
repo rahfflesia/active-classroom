@@ -116,3 +116,14 @@ hr {
   display: flex;
   gap: 0.25rem;
 }
+
+.scale:hover {
+  transform: scale(1.02);
+}
+
+.flex-btn {
+  display: flex;
+  gap: 0.5rem;
+  justify-items: center;
+  align-items: center;
+}
