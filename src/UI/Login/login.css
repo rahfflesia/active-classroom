@@ -54,7 +54,8 @@ a {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="text"] {
   padding: 0.25rem 0.5rem;
   border: 2px solid lightgray;
   outline: none;

@@ -1,4 +1,5 @@
 import "./login.css";
+import "../../validacionesForm/validaciones.css";
 import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
 import googleLogo from "../../../public/logos/google-plus-logo.png";
 
