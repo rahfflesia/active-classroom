@@ -4,12 +4,15 @@ import "./video.css";
 import video from "../../../public/video-lp/El ruido - Clase.mp4";
 import { useNavigate } from "react-router-dom";
 
-
 function Video() {
   const navigate = useNavigate();
 
   const toRoles = () => {
     navigate("/roles");
+  };
+
+  const toCode = () => {
+    navigate("/codigo");
   };
   return (
     <>
@@ -37,13 +40,18 @@ function Video() {
             </div>
 
             <div className="d-flex gap-2 flex-wrap">
-              <button 
-              type='button'
-              className="btn primary-color-btn p-2 fs-6 fs-md-5 fs-lg-4" 
-              onClick={toRoles}>
+              <button
+                type="button"
+                className="btn primary-color-btn p-2 fs-6 fs-md-5 fs-lg-4"
+                onClick={toRoles}
+              >
                 Click aquí
               </button>
-              <button className="btn transparent-white-btn p-2 fs-6 fs-md-5 fs-lg-4">
+              <button
+                type="button"
+                className="btn transparent-white-btn p-2 fs-6 fs-md-5 fs-lg-4"
+                onClick={toCode}
+              >
                 Más información
               </button>
             </div>

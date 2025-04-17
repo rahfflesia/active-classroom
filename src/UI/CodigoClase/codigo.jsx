@@ -1,33 +1,39 @@
-import React from 'react';
-import './codigo.css';
+import React from "react";
+import "./codigo.css";
+import { Link } from "react-router-dom";
 
 function Codigo() {
-    return(
-    <div className='clase-container' style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "2rem",
-    }}>
-        <div className='codigoClase'>
-            <h5 className='Text-center negro'>Empezar a trabajar</h5>
-            <div className='contenedor-input'>
-                <div className='contenedor-interno'>
-                <span style={{
-                    textAlign: "left"
-                }}>Ingresa el codigo</span>
-                <input type="text" />
-
-                </div>
-                <span className='Text-center verde'style={{
-                    textAlign : "center"
-                }}>¿Que es un codigo?</span>
+  return (
+    <>
+      <div className="clase-container">
+        <div className="contenedor">
+          <h3 className="text-center verde">
+            <strong>ActiveClassroom</strong>
+            <p className="text-center verde sm-font">
+              Ingresa tu código de clase
+            </p>
+            <div className="codigo-clase shadow">
+              <h4 className="gray-text">
+                <strong>Empezar a trabajar</strong>
+              </h4>
+              <div className="input-div">
+                <span className="gray-text text-left">Código de clase</span>
+                <input type="text" className="input-codigo" />
+              </div>
+              <p className="sm-font">¿Qué es un código de clase?</p>
+              <hr />
+              <div className="botones">
+                <button className="white-btn scale sm-font">
+                  Iniciar sesión
+                </button>
+                <button className="white-btn scale sm-font">Registrarte</button>
+              </div>
             </div>
-            <button className="green-btn">Comenzar</button>
+          </h3>
         </div>
-
-    </div>
-    );
-};
+      </div>
+    </>
+  );
+}
 
 export default Codigo;
