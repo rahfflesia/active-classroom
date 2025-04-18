@@ -8,7 +8,7 @@ function Banner() {
     <div className="container-fluid py-5">
       <div className="banner container p-0">
         <div className="bg-container container-fluid p-4 p-md-5 text-center">
-          <div className="inner-content col-lg-8 col-md-10 col-12 mx-auto">
+          <div className="contenido-interno-banner col-lg-8 col-md-10 col-12 mx-auto">
             <h1 className="text-white fs-3 fs-md-2">
               <strong>
                 Sigue el progreso de tus estudiantes con retroalimentación en

@@ -7,7 +7,7 @@ const Roles = () => {
   return (
     <div className="roles-container">
       <main className="main-content">
-        <div className="inner-content">
+        <div className="contenido-interno-roles">
           <h3 className="text-center verde">
             <strong>ActiveClassroom</strong>
           </h3>

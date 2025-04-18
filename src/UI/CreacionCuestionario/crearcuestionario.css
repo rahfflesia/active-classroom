@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --primary-color: rgb(48, 193, 130);
+}
+
+.select-cuestionario {
+  padding: 0.5rem;
+  background-color: #fff;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+}
+
+.green-btn-cuestionario {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+.white-btn-cuestionario {
+  background-color: #fff;
+  border: 1px solid gray;
+  color: gray;
+}
+
+.green-btn-cuestionario:hover,
+.white-btn-cuestionario:hover {
+  transform: scale(1.02);
+}
+
+.bold-span {
+  font-weight: bold;
+}
+
+.contenedor-preguntas {
+  background-image: url("../../../public/fondo/fondo.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.elemento-preguntas-agregar,
+.respuesta {
+  border-radius: 0.25rem;
+}
+
+.respuesta {
+  background-color: #fff;
+}
+
+.input-pregunta {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.input-respuesta {
+  border: none !important;
+}
+
+.contenedor-base {
+  min-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.cuestionario {
+  flex: 1;
+  display: flex;
+}
+
+.expand {
+  flex: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  .contenedor-preguntas {
+    width: 100%;
+  }
+
+  .seccion-preguntas {
+    display: flex;
+    flex-direction: column;
+  }
+}

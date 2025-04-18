@@ -9,12 +9,16 @@ function Navbar() {
     navigate("/signup");
   };
 
+  const toCrearCuestionario = () => {
+    navigate("/crearcuestionario");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg shadow p-3">
         <div className="container-md">
           <div>
-            <a className="navbar-brand" href="">
+            <a className="navbar-brand verde" href="">
               <strong>ActiveClassroom</strong>
             </a>
           </div>
@@ -43,7 +47,7 @@ function Navbar() {
                   Profesores
                 </a>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" onClick={toCrearCuestionario}>
                 <a href="#" className="nav-link gray-text">
                   Inicia sesión
                 </a>
