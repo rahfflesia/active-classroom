@@ -68,3 +68,13 @@ export const getformulario = async (req:Request, res:Response) =>{
         res.json("No se pudo obtener la ruta")
     }
 }
+
+export const enviarresultados = async (req:Request, res:Response) =>{
+    const {body} = req
+    const{salaid, participanteid, calificacion} = req.body
+    const alumno = new Alumno()
+    const insercion = await alumno.enviarrespuestas(body, participanteid, salaid, calificacion)
+    res.json({
+        msg:insercion
+    })
+}
