@@ -13,6 +13,10 @@ function Navbar() {
     navigate("/crearcuestionario");
   };
 
+  const toResponderCuestionario = () => {
+    navigate("/respondercuestionario");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg shadow p-3">
@@ -42,7 +46,7 @@ function Navbar() {
                   Estudiantes
                 </a>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" onClick={toResponderCuestionario}>
                 <a href="#" className="nav-link gray-text">
                   Profesores
                 </a>

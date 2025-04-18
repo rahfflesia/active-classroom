@@ -1,0 +1,54 @@
+.raiz {
+  min-height: 100vh;
+  background-image: url("../../../public/fondo/salon-clases.jpg");
+  position: relative;
+}
+
+.raiz-2 {
+  min-height: 100vh;
+}
+
+.white-text {
+  color: #fff;
+}
+
+.transparent {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.tiempo-restante {
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0.5rem;
+  border-radius: 100%;
+}
+
+.contenido-principal {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+
+.respuesta-pregunta {
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.respuesta-pregunta:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
+.titulo-pregunta {
+  font-size: 1.75rem;
+}
+
+.titulo-app-web {
+  font-size: 1.85rem;
+}
