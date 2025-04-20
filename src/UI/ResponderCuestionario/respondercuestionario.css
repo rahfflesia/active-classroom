@@ -1,54 +1,93 @@
 .raiz {
   min-height: 100vh;
-  background-image: url("../../../public/fondo/salon-clases.jpg");
-  position: relative;
-}
-
-.raiz-2 {
-  min-height: 100vh;
+  background-image: url("../../../public/fondo/fondo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  place-items: center;
 }
 
 .white-text {
   color: #fff;
 }
 
-.transparent {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.6) !important;
+.tiempo-restante {
+  background-color: rgb(48, 193, 130);
+  padding: 0.8rem;
+  border-radius: 100%;
+  color: #fff;
 }
 
-.tiempo-restante {
-  font-size: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 0.5rem;
-  border-radius: 100%;
+.tiempo-restante-interno {
+  font-size: 1.2rem;
 }
 
 .contenido-principal {
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 1rem 2rem;
-  border-radius: 1rem;
+  background-color: #fff;
+  padding: 2rem;
+  width: 50%;
+  border-top: 15px solid rgb(48, 193, 130);
+  border-radius: 0.5rem;
 }
 
 .respuesta-pregunta {
   padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255);
   border-radius: 0.5rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .respuesta-pregunta:hover {
   cursor: pointer;
   transform: scale(1.02);
+  background-color: rgb(48, 193, 130);
+  color: #fff !important;
+  .inciso {
+    background-color: #fff;
+    color: rgb(48, 193, 130);
+  }
 }
 
 .titulo-pregunta {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
 }
 
 .titulo-app-web {
-  font-size: 1.85rem;
+  font-size: 1.4rem;
+}
+
+.inciso {
+  background-color: rgb(48, 193, 130);
+  color: #fff;
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+}
+
+.contenido-principal-interno {
+  max-width: 400px;
+}
+
+.green-btn-responder-cuestionario {
+  background-color: rgb(48, 193, 130);
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+.green-btn-responder-cuestionario:hover {
+  transform: scale(1.02);
+}
+
+@media only screen and (max-width: 600px) {
+  .contenido-principal {
+    width: 90%;
+    margin: 0.5rem;
+  }
+
+  .contenedor-tiempo > * {
+    margin: 0 auto !important;
+    margin-bottom: 0.5rem !important;
+  }
 }

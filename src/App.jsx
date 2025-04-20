@@ -5,6 +5,7 @@ import Signup from "./UI/Signup/Signup.jsx";
 import Roles from "./UI/RoleSelection/Roles.jsx";
 import Codigo from "./UI/CodigoClase/codigo.jsx";
 import CrearCuestionario from "./UI/CreacionCuestionario/CrearCuestionario.jsx";
+import ResponderCuestionario from "./UI/ResponderCuestionario/ResponderCuestionario.jsx";
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
         <Route path="/roles" element={<Roles />} />
         <Route path="/codigo" element={<Codigo />} />
         <Route path="/crearcuestionario" element={<CrearCuestionario />} />
+        <Route
+          path="/respondercuestionario"
+          element={<ResponderCuestionario />}
+        />
       </Routes>
     </Router>
   );
