@@ -7,7 +7,10 @@ function ResponderCuestionario() {
     <>
       <div className="raiz">
         <div className="contenido-principal d-flex flex-column justify-content-center align-items-center">
-          <div className="contenedor-tiempo w-100 d-flex justify-content-end">
+          <div className="contenedor-tiempo w-100 d-flex justify-content-between">
+            <h6 className="m-0 gray-text bold-span d-flex justify-content-center align-items-center">
+              Geografía de México
+            </h6>
             <div className="tiempo-restante white-text d-flex justify-content-center align-items-center">
               <h3 className="m-0 tiempo-restante-interno">
                 <strong>60</strong>

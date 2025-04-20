@@ -1,11 +1,45 @@
 import React from "react";
 import "./codigo.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 function Codigo() {
+  const navigate = useNavigate();
+
+  const toLogin = () => {
+    navigate("/login");
+  };
+
+  const toSignup = () => {
+    navigate("/signup");
+  };
+
+  const dialogRef = useRef(null);
+
+  const abrirDialog = () => {
+    dialogRef.current.showModal();
+  };
+
+  const cerrarDialog = () => {
+    dialogRef.current?.close();
+  };
+
   return (
     <>
       <div className="clase-container">
+        <dialog className="dialog-codigo-clase" ref={dialogRef}>
+          <div>
+            <h3 className="verde bold-span">Código de clase</h3>
+            <p className="gray-text">
+              Los códigos de clase en ActiveClassroom consisten de una secuencia
+              de ocho caracteres alfanuméricos. Este código es proporcionado por
+              tu profesor, si aún no tienes el tuyo pídeselo a tu profesor.
+            </p>
+          </div>
+          <button className="white-btn" onClick={cerrarDialog}>
+            Cerrar
+          </button>
+        </dialog>
         <div className="contenedor">
           <h3 className="text-center verde">
             <strong>ActiveClassroom</strong>
@@ -20,13 +54,20 @@ function Codigo() {
                 <span className="gray-text text-left">Código de clase</span>
                 <input type="text" className="input-codigo" />
               </div>
-              <p className="sm-font">¿Qué es un código de clase?</p>
+              <div
+                className="codigo-clase-contenedor pointer"
+                onClick={abrirDialog}
+              >
+                <p className="sm-font">¿Qué es un código de clase?</p>
+              </div>
               <hr />
               <div className="botones">
-                <button className="white-btn scale sm-font">
+                <button className="white-btn scale sm-font" onClick={toLogin}>
                   Iniciar sesión
                 </button>
-                <button className="white-btn scale sm-font">Registrarte</button>
+                <button className="white-btn scale sm-font" onClick={toSignup}>
+                  Registrarte
+                </button>
               </div>
             </div>
           </h3>

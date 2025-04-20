@@ -26,10 +26,8 @@ class Form {
     return emailRegex.test(email);
   }
 
-  // Esto en realidad no se usa, pero me da flojera quitarlo
-  static isZipValid(zipCode) {
-    const zipRegex = new RegExp(/^[a-z0-9]+$/i);
-    return zipRegex.test(zipCode);
+  static isEmpty(input) {
+    return input.length < 1;
   }
 
   static isPasswordValid(password) {

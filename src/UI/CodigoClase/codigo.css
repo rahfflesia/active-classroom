@@ -55,3 +55,30 @@
 .input-codigo {
   font-size: 1rem;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+/* Esta clase controla el estilo de todos los dialogs de la app, ten cuidado al modificarla */
+.dialog-codigo-clase {
+  padding: 1.5rem;
+  border: none;
+  outline: none;
+  border-radius: 0.25rem;
+  border-top: 10px solid rgb(48, 193, 130);
+  max-width: 600px;
+  margin: 0 auto;
+  top: 25%;
+}
+
+.cerrar-dialog {
+  font-size: 1.6rem;
+  padding: 0.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .dialog-codigo-clase {
+    margin: 1rem;
+  }
+}

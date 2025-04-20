@@ -2,8 +2,14 @@ import "./login.css";
 import "../../validacionesForm/validaciones.css";
 import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
 import googleLogo from "../../../public/logos/google-plus-logo.png";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const toSignup = () => {
+    navigate("/signup");
+  };
   return (
     <>
       <div
@@ -56,7 +62,9 @@ function Login() {
             <strong>¿Olvidaste tu contraseña?</strong>
           </h5>
           <hr />
-          <button className="white-btn scale">Regístrate</button>
+          <button className="white-btn scale" onClick={toSignup}>
+            Regístrate
+          </button>
         </div>
       </div>
     </>

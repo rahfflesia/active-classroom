@@ -1,10 +1,12 @@
 import "../Login/login.css";
+import "../Signup/signup.css";
 import "../../validacionesForm/validaciones.css";
 import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
 import googleLogo from "../../../public/logos/google-plus-logo.png";
 import { Form } from "../../validacionesForm/form.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -18,6 +20,8 @@ function Signup() {
   const [touchedEmail, setTouchedEmail] = useState(false);
   const [touchedPassword, setTouchedPassword] = useState(false);
   const [touchedConfirmPassword, setTouchedConfirmPassword] = useState(false);
+
+  let username;
 
   const blurCorreo = () => {
     setTouchedEmail(true);
@@ -48,6 +52,39 @@ function Signup() {
     }
   };
 
+  const isSignupDisabled = () => {
+    if (!touchedEmail && !touchedPassword && !touchedConfirmPassword) {
+      return false;
+    }
+
+    return (
+      !Form.passwordsMatch(password, confirmPassword) ||
+      !Form.isPasswordValid(password) ||
+      !Form.isEmailValid(email)
+    );
+  };
+
+  const dialogRef = useRef(null);
+
+  const abrirDialog = () => {
+    dialogRef.current.showModal();
+  };
+
+  const cerrarDialog = () => {
+    dialogRef.current?.close();
+  };
+
+  const areInputsEmpty = () => {
+    if (
+      Form.isEmpty(email) ||
+      Form.isEmpty(password) ||
+      Form.isEmpty(confirmPassword) ||
+      Form.isEmpty(username)
+    ) {
+      alert("Ningún campo puede quedar vacío");
+    }
+  };
+
   return (
     <>
       <div
@@ -58,6 +95,23 @@ function Signup() {
         }}
         className="div-fondo"
       >
+        <dialog className="dialog-codigo-clase" ref={dialogRef}>
+          <h4 className="verde">Contraseñas seguras</h4>
+          <div className="gray-text">
+            Para que una contraseña sea considerada segura debe incluir lo
+            siguiente:
+            <ul>
+              <li>- Una longitud de al menos ocho caracteres</li>
+              <li>- Al menos una mayúscula</li>
+              <li>- Al menos una minúscula</li>
+              <li>- Al menos un número</li>
+              <li>- Al menos un caracter especial (#, $, @, !, *, etc.)</li>
+            </ul>
+          </div>
+          <button className="white-btn scale" onClick={cerrarDialog}>
+            Cerrar
+          </button>
+        </dialog>
         <div className="formulario">
           <h5 className="verde">
             <strong>ActiveClassroom</strong>
@@ -85,7 +139,7 @@ function Signup() {
           </button>
           <div className="contenedor-formulario">
             <span className="gray-text">Nombre de usuario</span>
-            <input type="text" />
+            <input type="text" value={username} />
           </div>
           <div className="contenedor-formulario">
             <span className="gray-text">Correo electrónico</span>
@@ -144,7 +198,19 @@ function Signup() {
               {confirmPasswordError}
             </span>
           </div>
-          <button className="green-btn scale">Registrar</button>
+          <button
+            className="green-btn scale"
+            disabled={isSignupDisabled()}
+            onClick={areInputsEmpty}
+          >
+            Registrar
+          </button>
+          <div
+            className="password-segura verde bold-span pointer"
+            onClick={abrirDialog}
+          >
+            ¿Cómo creo una contraseña segura?
+          </div>
           <hr />
           <p className="text-center gray-text">
             ¿Ya tienes una cuenta?{" "}
