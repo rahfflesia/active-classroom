@@ -6,67 +6,96 @@ function CrearCuestionario() {
   return (
     <>
       <div className="container-fluid contenedor-base d-flex flex-column p-0">
-        <div className="container-fluid shadow p-3">
-          <h3 className="verde m-0">
-            <strong>ActiveClassroom</strong>
-          </h3>
+        <div className="navbar-creacion-cuestionario container-fluid p-0 shadow">
+          <div className="container-md navbar-creacion-cuestionario-interno d-flex justify-content-around align-items-center">
+            <div className="d-flex gap-2">
+              <h4 className="verde m-0 d-flex justify-content-center align-items-center">
+                <strong>ActiveClassroom</strong>
+              </h4>
+              <input
+                type="text"
+                placeholder="Ingresa el título del cuestionario"
+                className="input-cuestionario bold-span"
+              />
+            </div>
+            <div className="botones-izq d-flex gap-2">
+              <button className="green-btn-cuestionario green-border-bottom scale">
+                Configuración
+              </button>
+              <button className="white-btn-cuestionario gray-border-bottom scale">
+                Salir
+              </button>
+              <button className="green-btn-cuestionario green-border-bottom scale">
+                Guardar
+              </button>
+            </div>
+          </div>
         </div>
         <div className="cuestionario container-fluid">
           <div className="row expand">
-            <div className="col-sm p-0 contenedor-preguntas-agregar p-3 shadow">
-              <p className="bold-span text-center shadow p-2 elemento-preguntas-agregar verde">
-                Pregunta 1
-              </p>
-              <p className="shadow bold-span text-center p-2 elemento-preguntas-agregar verde">
-                Pregunta 2
-              </p>
-              <p className="shadow bold-span text-center p-2 elemento-preguntas-agregar verde">
-                Pregunta 3
-              </p>
-              <p className="shadow bold-span text-center p-2 elemento-preguntas-agregar verde">
-                Pregunta 4
-              </p>
-              <p className="shadow bold-span text-center p-2 elemento-preguntas-agregar verde">
-                Pregunta 5
-              </p>
+            <div className="col-sm p-0 contenedor-preguntas-agregar p-3 shadow d-flex flex-column gap-3">
+              <div className="previsualizacion-pregunta">
+                <span className="gray-text bold-span">Pregunta 1</span>
+                <div className="miniatura-pregunta gray-text">
+                  Previsualizacion pregunta uno
+                </div>
+              </div>
+              <div className="previsualizacion-pregunta">
+                <span className="gray-text bold-span">Pregunta 2</span>
+                <div className="miniatura-pregunta gray-text">
+                  Previsualizacion pregunta dos
+                </div>
+              </div>
+              <div className="previsualizacion-pregunta">
+                <span className="gray-text bold-span">Pregunta 3</span>
+                <div className="miniatura-pregunta gray-text">
+                  Previsualizacion pregunta tres
+                </div>
+              </div>
+              <div className="previsualizacion-pregunta">
+                <span className="gray-text bold-span">Pregunta 4</span>
+                <div className="miniatura-pregunta gray-text">
+                  Previsualizacion pregunta cuatro
+                </div>
+              </div>
             </div>
             <div className="col-8 p-0 m-0 contenedor-preguntas container-sm d-flex align-items-center justify-content-center">
               <div className="contenedor-preguntas-interno p-4 flex flex-column gap-4">
                 <input
                   type="text"
                   placeholder="Escribe la pregunta"
-                  className="container-fluid text-center p-3 input-pregunta"
+                  className="container-fluid text-center p-3 input-pregunta green-border-bottom"
                 />
                 <div className="seccion-preguntas">
                   <div className="d-flex gap-3 flex-wrap mb-3 w-100">
-                    <div className="col-sm respuesta p-4 bold-span">
+                    <div className="col-sm respuesta respuesta-a p-4 bold-span gray-border-bottom">
                       <input
                         type="text"
                         placeholder="Respuesta 1"
-                        className="w-100 input-respuesta"
+                        className="w-100 input-respuesta input-a"
                       />
                     </div>
-                    <div className="col-sm respuesta p-4 bold-span">
+                    <div className="col-sm respuesta respuesta-b p-4 bold-span gray-border-bottom">
                       <input
                         type="text"
                         placeholder="Respuesta 2"
-                        className="w-100 input-respuesta"
+                        className="w-100 input-respuesta input-b"
                       />
                     </div>
                   </div>
                   <div className="d-flex gap-3 flex-wrap">
-                    <div className="col-sm respuesta p-4 bold-span">
+                    <div className="col-sm respuesta respuesta-c p-4 bold-span gray-border-bottom">
                       <input
                         type="text"
                         placeholder="Respuesta 3"
-                        className="w-100 input-respuesta"
+                        className="w-100 input-respuesta input-c"
                       />
                     </div>
-                    <div className="col-sm respuesta p-4 bold-span">
+                    <div className="col-sm respuesta respuesta-d p-4 bold-span gray-border-bottom">
                       <input
                         type="text"
                         placeholder="Respuesta 4"
-                        className="w-100 input-respuesta"
+                        className="w-100 input-respuesta input-d"
                       />
                     </div>
                   </div>
@@ -131,8 +160,12 @@ function CrearCuestionario() {
                 </div>
               </div>
               <div className="flex flex-column gap-2">
-                <button className="green-btn-cuestionario">Agregar</button>
-                <button className="white-btn-cuestionario">Eliminar</button>
+                <button className="green-btn-cuestionario green-border-bottom">
+                  Agregar
+                </button>
+                <button className="white-btn-cuestionario gray-border-bottom">
+                  Eliminar
+                </button>
               </div>
             </div>
           </div>

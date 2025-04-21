@@ -2,6 +2,9 @@
 
 :root {
   --primary-color: rgb(48, 193, 130);
+  --secondary-color: rgb(88, 206, 155);
+  --terciary-color: rgb(140, 211, 180);
+  --fourth-color: rgb(148, 219, 188);
 }
 
 .select-cuestionario {
@@ -21,6 +24,7 @@
   background-color: #fff;
   border: 1px solid gray;
   color: gray;
+  border-radius: 0.25rem;
 }
 
 .green-btn-cuestionario:hover,
@@ -33,9 +37,10 @@
 }
 
 .contenedor-preguntas {
-  background-image: url("../../../public/fondo/fondo.png");
+  background-image: url("../../../public/fondo/fondo-salon-cuadrado.png");
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .elemento-preguntas-agregar,
@@ -43,13 +48,24 @@
   border-radius: 0.25rem;
 }
 
-.respuesta {
+.input-respuesta {
   background-color: #fff;
 }
 
 .input-pregunta {
   font-size: 1.25rem;
   font-weight: bold;
+  background-color: var(--secondary-color);
+  color: #fff !important;
+  border: none !important;
+}
+
+.green-border-bottom {
+  border-bottom: 4px solid rgb(31, 148, 97) !important;
+}
+
+.gray-border-bottom {
+  border-bottom: 4px solid rgb(151, 151, 151) !important;
 }
 
 .input-respuesta {
@@ -80,4 +96,25 @@
     display: flex;
     flex-direction: column;
   }
+}
+
+.input-cuestionario {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  border: 1px solid lightgrey;
+  padding: 0.5rem !important;
+}
+
+.navbar-creacion-cuestionario-interno {
+  padding: 1rem;
+}
+
+.respuesta {
+  background-color: #fff;
+}
+
+.miniatura-pregunta {
+  border: 3px solid var(--primary-color);
+  padding: 1rem;
+  border-radius: 0.25rem;
 }
