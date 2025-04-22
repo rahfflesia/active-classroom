@@ -98,6 +98,22 @@
   }
 }
 
+@media only screen and (max-width: 991px) {
+  .navbar-creacion-cuestionario {
+    padding: 1rem !important;
+  }
+
+  .botones-izq {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .botones-izq {
+    font-size: 0.8rem;
+  }
+}
+
 .input-cuestionario {
   background-color: #fff;
   border-radius: 0.25rem;
