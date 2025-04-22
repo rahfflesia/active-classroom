@@ -36,11 +36,14 @@ function Codigo() {
               tu profesor, si aún no tienes el tuyo pídeselo a tu profesor.
             </p>
           </div>
-          <button className="white-btn" onClick={cerrarDialog}>
+          <button
+            className="white-btn gray-border-bottom"
+            onClick={cerrarDialog}
+          >
             Cerrar
           </button>
         </dialog>
-        <div className="contenedor">
+        <div className="contenedor gray-border-bottom">
           <h3 className="text-center verde">
             <strong>ActiveClassroom</strong>
             <p className="text-center verde sm-font">
@@ -62,10 +65,16 @@ function Codigo() {
               </div>
               <hr />
               <div className="botones">
-                <button className="white-btn scale sm-font" onClick={toLogin}>
+                <button
+                  className="white-btn scale sm-font gray-border-bottom"
+                  onClick={toLogin}
+                >
                   Iniciar sesión
                 </button>
-                <button className="white-btn scale sm-font" onClick={toSignup}>
+                <button
+                  className="white-btn scale sm-font gray-border-bottom"
+                  onClick={toSignup}
+                >
                   Registrarte
                 </button>
               </div>
