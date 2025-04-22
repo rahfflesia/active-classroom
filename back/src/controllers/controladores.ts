@@ -87,3 +87,12 @@ export const recibirresultados = async (req:Request, res:Response) =>{
     const resultados = await sala.recuperarresultados()
     res.json(resultados)
 }
+ 
+export const recibirresultadoalumno = async (req:Request, res:Response) =>{
+    const {salaid} = req.params
+    const {alumnoid} = req.params
+    const alumno = new Alumno()
+    const resultado = await alumno.obtenerresultados(salaid, alumnoid)
+    
+    res.json(resultado)
+}
