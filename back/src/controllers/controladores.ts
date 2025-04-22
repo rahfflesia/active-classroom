@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import { User } from "../clases/User"
 import { Maestro } from "../clases/Maestro";
 import { Alumno } from "../clases/Alumno";
+import { Sala } from "../clases/Sala";
 
 //metdodo para el login
 export const getUser = async (req: Request, res: Response) =>{
@@ -77,4 +78,12 @@ export const enviarresultados = async (req:Request, res:Response) =>{
     res.json({
         msg:insercion
     })
+}
+
+export const recibirresultados = async (req:Request, res:Response) =>{
+    const {salaid} = req.params
+
+    const sala = new Sala(parseInt(salaid))
+    const resultados = await sala.recuperarresultados()
+    res.json(resultados)
 }
