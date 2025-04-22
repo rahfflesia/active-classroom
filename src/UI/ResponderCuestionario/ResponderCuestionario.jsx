@@ -8,7 +8,7 @@ function ResponderCuestionario() {
       <div className="raiz">
         <div className="contenido-principal container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
           <div className="contenedor-tiempo w-100 d-flex justify-content-between">
-            <h3 className="m-0 white-text bold-span d-flex justify-content-center align-items-center">
+            <h3 className="m-0 titulo-formulario white-text bold-span d-flex justify-content-center align-items-center">
               Geografía de México
             </h3>
             <div className="tiempo-restante white-text d-flex justify-content-center align-items-center green-border-bottom">
@@ -34,21 +34,21 @@ function ResponderCuestionario() {
             <div className="responder-cuestionario container-fluid p-0">
               <div className="respuestas-formulario">
                 <div className="d-flex gap-2 mb-2 flex-wrap">
-                  <div className="col-sm verde bold-span respuesta-pregunta d-flex gap-2 gray-border-bottom shadow">
+                  <div className="col-sm verde bold-span respuesta-pregunta d-flex gap-2 gray-border-bottom shadow w-100">
                     <div className="inciso white-text bold-span">A</div>
                     Culiacán
                   </div>
-                  <div className="col-sm verde bold-span respuesta-pregunta d-flex gap-2 gray-border-bottom shadow">
+                  <div className="col-sm verde bold-span respuesta-pregunta d-flex gap-2 gray-border-bottom shadow w-100">
                     <div className="inciso white-text bold-span">B</div>
                     Monterrey
                   </div>
                 </div>
                 <div className="d-flex gap-2 flex-wrap">
-                  <div className="col-sm verde bold-span respuesta-pregunta d-flex gap-2 gray-border-bottom shadow">
+                  <div className="col-sm verde bold-span respuesta-pregunta d-flex gap-2 gray-border-bottom shadow w-100">
                     <div className="inciso white-text bold-span">C</div>
                     Guadalajara
                   </div>
-                  <div className="col-sm verde bold-span respuesta-pregunta d-flex gap-2 gray-border-bottom shadow">
+                  <div className="col-sm verde bold-span respuesta-pregunta d-flex gap-2 gray-border-bottom shadow w-100">
                     <div className="inciso white-text bold-span">D</div>
                     Ciudad de México
                   </div>

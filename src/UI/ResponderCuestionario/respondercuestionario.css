@@ -81,6 +81,31 @@
     margin: 0 auto !important;
     margin-bottom: 0.5rem !important;
   }
+
+  .contenido-principal {
+    margin: 1rem;
+  }
+
+  .titulo-pregunta {
+    font-size: 0.9rem;
+  }
+
+  .titulo-app-web {
+    font-size: 1rem;
+  }
+
+  .tiempo-restante-interno {
+    font-size: 1rem;
+  }
+
+  .respuesta-pregunta,
+  .inciso {
+    font-size: 0.8rem;
+  }
+
+  .titulo-formulario {
+    font-size: 0.9rem;
+  }
 }
 
 .pregunta-principal {
