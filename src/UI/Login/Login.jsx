@@ -27,7 +27,7 @@ function Login() {
           <p className="gray-text centrar-parrafo">
             <strong>Inicia sesión</strong>
           </p>
-          <button className="white-btn scale flex-btn">
+          <button className="white-btn scale flex-btn gray-border-bottom">
             <img
               src={facebookLogo}
               alt="facebook-logo"
@@ -36,7 +36,7 @@ function Login() {
             />
             INICIA SESIÓN CON FACEBOOK
           </button>
-          <button className="white-btn scale flex-btn">
+          <button className="white-btn scale flex-btn gray-border-bottom">
             <img
               src={googleLogo}
               alt="google-plus-logo"
@@ -57,12 +57,17 @@ function Login() {
             <input type="checkbox" />
             <span className="gray-text">Recuérdame</span>
           </div>
-          <button className="green-btn scale">Iniciar sesión</button>
+          <button className="green-btn scale green-border-bottom">
+            Iniciar sesión
+          </button>
           <h5 className="verde">
             <strong>¿Olvidaste tu contraseña?</strong>
           </h5>
           <hr />
-          <button className="white-btn scale" onClick={toSignup}>
+          <button
+            className="white-btn scale gray-border-bottom"
+            onClick={toSignup}
+          >
             Regístrate
           </button>
         </div>

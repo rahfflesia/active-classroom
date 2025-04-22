@@ -108,7 +108,10 @@ function Signup() {
               <li>- Al menos un caracter especial (#, $, @, !, *, etc.)</li>
             </ul>
           </div>
-          <button className="white-btn scale" onClick={cerrarDialog}>
+          <button
+            className="white-btn scale gray-border-bottom"
+            onClick={cerrarDialog}
+          >
             Cerrar
           </button>
         </dialog>
@@ -119,7 +122,7 @@ function Signup() {
           <p className="gray-text centrar-parrafo">
             <strong>Regístrate</strong>
           </p>
-          <button className="white-btn scale flex-btn">
+          <button className="white-btn scale flex-btn gray-border-bottom">
             <img
               src={facebookLogo}
               alt="facebook-logo"
@@ -128,7 +131,7 @@ function Signup() {
             />
             REGÍSTRATE CON FACEBOOK
           </button>
-          <button className="white-btn scale flex-btn">
+          <button className="white-btn scale flex-btn gray-border-bottom">
             <img
               src={googleLogo}
               alt="google-plus-logo"
@@ -199,7 +202,7 @@ function Signup() {
             </span>
           </div>
           <button
-            className="green-btn scale"
+            className="green-btn scale green-border-bottom"
             disabled={isSignupDisabled()}
             onClick={areInputsEmpty}
           >
