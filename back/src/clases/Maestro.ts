@@ -3,6 +3,7 @@ import * as path from 'path'
 import { User } from "./User";
 import Formmodel from '../models/formmodel';
 import Salamodel from '../models/salamodel';
+import Participacionmodel from "../models/participacionmodel";
 
 export class Maestro extends User{
     public id: number;
@@ -56,6 +57,21 @@ export class Maestro extends User{
         
     }
 
+    async obtenerlistasalas(){
+        try {
+            const participacion = await Salamodel.findOne({
+                where:{
+                    idcreador:this.id
+                }
+            })
+    
+            return participacion
+            
+        } catch (error) {
+            console.error(error)
+            return "No se pudieron obtener los datos"
+        }
+    }
     /*obtenerresultados(){
         
     }*/

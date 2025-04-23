@@ -103,3 +103,10 @@ export const listaparticipaciones = async (req:Request, res:Response) =>{
     const lista = await alumno.obtenerlistaparticipaciones(iduser)
     res.json(lista)
 }
+
+export const listasalas = async (req:Request, res:Response) =>{
+    const {iduser} = req.params
+    const maestro = new Maestro(parseInt(iduser))
+    const lista = await maestro.obtenerlistasalas()
+    res.json(lista)
+}

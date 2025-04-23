@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { getUser, signup, getUsers, createsala, getformulario, enviarresultados, recibirresultados, recibirresultadoalumno, listaparticipaciones } from '../controllers/controladores'
+import { getUser, signup, getUsers, createsala, getformulario, enviarresultados, recibirresultados, recibirresultadoalumno, listaparticipaciones, listasalas } from '../controllers/controladores'
 
 const router = Router()
 
@@ -12,4 +12,5 @@ router.post('/enviarresultado', enviarresultados)
 router.get('/obtenerresultado/:salaid', recibirresultados)
 router.get('/obtenerresultadoalumno/:salaid/:alumnoid', recibirresultadoalumno)
 router.get('/obtenerlistaresultados/:iduser', listaparticipaciones)
+router.get('/obtenerlistasalas/:iduser', listasalas)
 export default router
