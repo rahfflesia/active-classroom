@@ -6,6 +6,7 @@ import Roles from "./UI/RoleSelection/Roles.jsx";
 import Codigo from "./UI/CodigoClase/codigo.jsx";
 import CrearCuestionario from "./UI/CreacionCuestionario/CrearCuestionario.jsx";
 import ResponderCuestionario from "./UI/ResponderCuestionario/ResponderCuestionario.jsx";
+import Leaderboard from "./UI/Leaderboard/Leaderboard.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           path="/respondercuestionario"
           element={<ResponderCuestionario />}
         />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </Router>
   );

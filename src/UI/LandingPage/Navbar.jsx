@@ -17,6 +17,10 @@ function Navbar() {
     navigate("/respondercuestionario");
   };
 
+  const toLeaderboard = () => {
+    navigate("leaderboard");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg shadow p-3">
@@ -56,7 +60,7 @@ function Navbar() {
                   Inicia sesión
                 </a>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" onClick={toLeaderboard}>
                 <a href="#" className="nav-link gray-text">
                   Acerca de
                 </a>
