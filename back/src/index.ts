@@ -20,6 +20,6 @@ import Server from "./models/server";
 import dotenv from 'dotenv'
 
 //Configura variables de entorno
-dotenv.config()
+dotenv.config() 
 
 const server = new Server() 

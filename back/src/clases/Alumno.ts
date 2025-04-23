@@ -62,7 +62,21 @@ export class Alumno extends User{
         
     }
 
-/*    obtenerresultados(){
+    async obtenerresultados(idsala:string, iduser:string){
+        try {
+            const participacion = await Participacionmodel.findOne({
+                where:{
+                    idsala:idsala,
+                    iduser:iduser
+                }
+            })
+    
+            return participacion
+            
+        } catch (error) {
+            console.error(error)
+            return "No se pudieron obtener los datos"
+        }
         
-    }*/
+    }
 }
