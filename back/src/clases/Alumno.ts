@@ -62,6 +62,23 @@ export class Alumno extends User{
         
     }
 
+    async obtenerlistaparticipaciones(iduser:string){
+        try {
+            const participacion = await Participacionmodel.findAll({
+                where:{
+                    iduser:iduser
+                }
+            })
+
+            console.log(participacion)
+            return(participacion)
+
+        } catch (error) {
+            console.log(error)
+            return("No se encontraron participaciones para este usuario")
+        }
+    }
+
     async obtenerresultados(idsala:string, iduser:string){
         try {
             const participacion = await Participacionmodel.findOne({
