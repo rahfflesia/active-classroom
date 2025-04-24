@@ -21,13 +21,13 @@ function Login() {
         className="div-fondo"
       >
         <div className="formulario">
-          <h5 className="verde">
+          <h5 className="verde small-font">
             <strong>ActiveClassroom</strong>
           </h5>
-          <p className="gray-text centrar-parrafo">
+          <p className="gray-text centrar-parrafo small-font">
             <strong>Inicia sesión</strong>
           </p>
-          <button className="white-btn scale flex-btn gray-border-bottom">
+          <button className="white-btn scale flex-btn gray-border-bottom small-font">
             <img
               src={facebookLogo}
               alt="facebook-logo"
@@ -36,7 +36,7 @@ function Login() {
             />
             INICIA SESIÓN CON FACEBOOK
           </button>
-          <button className="white-btn scale flex-btn gray-border-bottom">
+          <button className="white-btn scale flex-btn gray-border-bottom small-font">
             <img
               src={googleLogo}
               alt="google-plus-logo"
@@ -47,25 +47,25 @@ function Login() {
           </button>
           <div className="contenedor-formulario">
             <span className="gray-text">Correo electrónico</span>
-            <input type="email" />
+            <input type="email" className="small-font" />
           </div>
           <div className="contenedor-formulario">
             <span className="gray-text">Contraseña</span>
-            <input type="password" />
+            <input type="password" className="small-font" />
           </div>
           <div className="checkbox">
             <input type="checkbox" />
             <span className="gray-text">Recuérdame</span>
           </div>
-          <button className="green-btn scale green-border-bottom">
+          <button className="green-btn scale green-border-bottom small-font">
             Iniciar sesión
           </button>
-          <h5 className="verde">
+          <h5 className="verde small-font">
             <strong>¿Olvidaste tu contraseña?</strong>
           </h5>
           <hr />
           <button
-            className="white-btn scale gray-border-bottom"
+            className="white-btn scale gray-border-bottom small-font"
             onClick={toSignup}
           >
             Regístrate

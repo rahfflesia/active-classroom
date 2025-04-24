@@ -22,7 +22,7 @@ function Leaderboard() {
                   Estudiante
                 </span>
                 <span className="w-25 bold-span d-flex justify-content-center align-items-center">
-                  Puntos totales
+                  Puntos
                 </span>
                 <span className="w-25 bold-span d-flex justify-content-center">
                   Aciertos

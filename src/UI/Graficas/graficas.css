@@ -1,0 +1,32 @@
+:root {
+  --primary-font-color: #fff;
+}
+
+.raiz-graficas,
+.fondo-negro-graficas,
+.contenedor-estadisticas {
+  min-height: 100vh;
+}
+
+.raiz-graficas {
+  background-image: url("../../../public/fondo/pizarron.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fondo-negro-graficas {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.contenedor-grafica-estadistica {
+  background-color: var(--primary-font-color);
+  border-radius: 0.5rem;
+}
+
+.izq {
+  margin-right: 1rem;
+}
+
+.contenedor-estadisticas-interno {
+  max-width: 1000px;
+}

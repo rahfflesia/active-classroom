@@ -84,6 +84,7 @@
 
   .contenido-principal {
     margin: 1rem;
+    padding: 0 !important;
   }
 
   .titulo-pregunta {

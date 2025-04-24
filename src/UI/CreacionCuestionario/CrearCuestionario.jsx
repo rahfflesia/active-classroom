@@ -44,17 +44,25 @@ function CrearCuestionario() {
 
       <div className="cuestionario container-fluid">
         <div className="row expand">
-          <div className="col-sm p-0 contenedor-preguntas-agregar p-3 shadow d-flex flex-column gap-3">
-            {[1, 2, 3, 4].map((num) => (
-              <div className="previsualizacion-pregunta" key={num}>
-                <span className="gray-text bold-span">Pregunta {num}</span>
-                <div className="miniatura-pregunta gray-text">
-                  Previsualizacion pregunta {num}
+          <div className="col-sm contenedor-preguntas-agregar p-3 d-flex flex-column gap-3">
+            <div className="contenedor-preguntas-agregar-interno d-flex flex-column gap-3">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((num) => (
+                <div className="previsualizacion-pregunta" key={num}>
+                  <div className="titulo-iconos mb-1 d-flex justify-content-between align-items-center">
+                    <span className="gray-text bold-span d-flex gap-2">
+                      Pregunta {num}
+                    </span>
+                  </div>
+                  <div className="miniatura-pregunta gray-text pointer">
+                    Pregunta {num}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <button className="green-btn-cuestionario green-border-bottom btn-agregar-pregunta">
+              Agregar nueva pregunta
+            </button>
           </div>
-
           <div className="col-8 p-0 m-0 contenedor-preguntas container-sm d-flex align-items-center justify-content-center">
             <div className="contenedor-preguntas-interno p-4 flex flex-column gap-4">
               <input
@@ -102,15 +110,21 @@ function CrearCuestionario() {
           <div className="col-sm d-flex flex-column gap-3 shadow p-3 justify-content-between">
             <div className="d-flex flex-column gap-3">
               <div className="flex flex-column gap-2">
-                <span className="bold-span">Tipo de pregunta</span>
-                <select className="select-cuestionario" name="tipo-pregunta">
+                <span className="bold-span gray-text">Tipo de pregunta</span>
+                <select
+                  className="select-cuestionario gray-text"
+                  name="tipo-pregunta"
+                >
                   <option value="quiz">Quiz</option>
                   <option value="verdadero-falso">Verdadero o falso</option>
                 </select>
               </div>
               <div className="flex flex-column gap-2">
-                <span className="bold-span">Límite de tiempo</span>
-                <select className="select-cuestionario" name="limite-tiempo">
+                <span className="bold-span gray-text">Límite de tiempo</span>
+                <select
+                  className="select-cuestionario gray-text"
+                  name="limite-tiempo"
+                >
                   <option value="10-segundos">10 segundos</option>
                   <option value="20-segundos">20 segundos</option>
                   <option value="30-segundos">30 segundos</option>
@@ -124,8 +138,13 @@ function CrearCuestionario() {
                 </select>
               </div>
               <div className="flex flex-column gap-2">
-                <span className="bold-span">Valor de la pregunta</span>
-                <select className="select-cuestionario" name="valor-pregunta">
+                <span className="bold-span gray-text">
+                  Valor de la pregunta
+                </span>
+                <select
+                  className="select-cuestionario gray-text"
+                  name="valor-pregunta"
+                >
                   <option value="un-punto">1 punto</option>
                   <option value="dos-puntos">2 puntos</option>
                   <option value="cinco-puntos">5 puntos</option>
@@ -133,9 +152,11 @@ function CrearCuestionario() {
                 </select>
               </div>
               <div className="flex flex-column gap-2">
-                <span className="bold-span">Retroalimentación inmediata</span>
+                <span className="bold-span gray-text">
+                  Retroalimentación inmediata
+                </span>
                 <select
-                  className="select-cuestionario"
+                  className="select-cuestionario gray-text"
                   name="retroalimentacion"
                 >
                   <option value="si">Sí</option>
