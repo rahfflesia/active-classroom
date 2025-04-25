@@ -91,7 +91,7 @@ hr {
   padding: 2rem;
   border-radius: 0.5rem;
   gap: 0.5rem;
-  min-width: 330px;
+  min-width: 300px;
   max-width: 60%;
 }
 
@@ -127,4 +127,10 @@ hr {
   gap: 0.5rem;
   justify-items: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 400px) {
+  .formulario {
+    width: 30%;
+  }
 }

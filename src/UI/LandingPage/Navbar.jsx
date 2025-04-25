@@ -1,4 +1,3 @@
-import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +17,11 @@ function Navbar() {
   };
 
   const toLeaderboard = () => {
-    navigate("leaderboard");
+    navigate("/leaderboard");
+  };
+
+  const toGraficas = () => {
+    navigate("/graficas");
   };
 
   const toRoles = () => {
@@ -49,7 +52,7 @@ function Navbar() {
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul className="navbar-nav ms-auto gap-4">
-              <li className="nav-item">
+              <li className="nav-item" onClick={toGraficas}>
                 <a href="#" className="nav-link gray-text">
                   Estudiantes
                 </a>

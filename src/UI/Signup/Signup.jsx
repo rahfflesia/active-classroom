@@ -41,6 +41,7 @@ function Signup() {
   }
 
   //let username;
+ 
 
   const blurCorreo = () => {
     setTouchedEmail(true);
@@ -119,7 +120,7 @@ function Signup() {
         }}
         className="div-fondo"
       >
-        <dialog className="dialog-codigo-clase" ref={dialogRef}>
+        <dialog className="dialog-codigo-clase small-font" ref={dialogRef}>
           <h4 className="verde">Contraseñas seguras</h4>
           <div className="gray-text">
             Para que una contraseña sea considerada segura debe incluir lo
@@ -140,13 +141,13 @@ function Signup() {
           </button>
         </dialog>
         <div className="formulario">
-          <h5 className="verde">
+          <h5 className="verde small-font">
             <strong>ActiveClassroom</strong>
           </h5>
-          <p className="gray-text centrar-parrafo">
+          <p className="gray-text centrar-parrafo small-font">
             <strong>Regístrate</strong>
           </p>
-          <button className="white-btn scale flex-btn gray-border-bottom">
+          <button className="white-btn scale flex-btn gray-border-bottom btn-registro small-font">
             <img
               src={facebookLogo}
               alt="facebook-logo"
@@ -155,7 +156,7 @@ function Signup() {
             />
             REGÍSTRATE CON FACEBOOK
           </button>
-          <button className="white-btn scale flex-btn gray-border-bottom">
+          <button className="white-btn scale flex-btn gray-border-bottom small-font">
             <img
               src={googleLogo}
               alt="google-plus-logo"
@@ -166,10 +167,11 @@ function Signup() {
           </button>
           <div className="contenedor-formulario">
             <span className="gray-text">Nombre de usuario</span>
-            <input 
-              type="text" 
-              value={username} 
-              onChange={(e) => setUsername(e.target.value)}  
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="small-font"
             />
           </div>
           <div className="contenedor-formulario">
@@ -179,7 +181,9 @@ function Signup() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onBlur={blurCorreo}
-              className={touchedEmail ? (emailError ? "invalid" : "valid") : ""}
+              className={`small-font ${
+                touchedEmail ? (emailError ? "invalid" : "valid") : ""
+              }`}
             />
             <span
               className={`email-span span ${emailError ? "error-message" : ""}`}
@@ -194,9 +198,9 @@ function Signup() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onBlur={blurPassword}
-              className={
+              className={`small-font ${
                 touchedPassword ? (passwordError ? "invalid" : "valid") : ""
-              }
+              }`}
             />
             <span
               className={`password-span span ${
@@ -213,13 +217,13 @@ function Signup() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               onBlur={blurConfirmPassword}
-              className={
+              className={`small-font ${
                 touchedConfirmPassword
                   ? confirmPasswordError
                     ? "invalid"
                     : "valid"
                   : ""
-              }
+              }`}
             />
             <span
               className={`password-span span ${
@@ -230,20 +234,20 @@ function Signup() {
             </span>
           </div>
           <button
-            className="green-btn scale green-border-bottom"
+            className="green-btn scale green-border-bottom small-font"
             disabled={isSignupDisabled()}
             onClick={areInputsEmpty}
           >
             Registrar
           </button>
           <div
-            className="password-segura verde bold-span pointer"
+            className="password-segura verde bold-span pointer small-font"
             onClick={abrirDialog}
           >
             ¿Cómo creo una contraseña segura?
           </div>
           <hr />
-          <p className="text-center gray-text">
+          <p className="text-center gray-text small-font">
             ¿Ya tienes una cuenta?{" "}
             <Link to="/login" className="verde">
               Inicia sesión
