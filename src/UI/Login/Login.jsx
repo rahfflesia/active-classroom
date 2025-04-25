@@ -3,14 +3,58 @@ import "../../validacionesForm/validaciones.css";
 import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
 import googleLogo from "../../../public/logos/google-plus-logo.png";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 function Login() {
   const navigate = useNavigate();
   
   const[Login] = useState({
       username: "",
-      password: "",
-    })
+      password: ""
+  })
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+  const loguear =  async () =>{
+    try {
+      Login.username = username;
+      Login.password = password;
+      const datosUser = await axios.post(apiUrl + '/api/login', Login)
+      console.log(datosUser.statusText);
+      //console.log(datosUser);
+      if(datosUser.data.length > 0){
+        alert("ta bien")
+        guardarDatos(datosUser.data[0]);
+      }else{
+        alert("Nombre de usuario o contraseña incorrectos")
+      }
+      
+    } catch (error) {
+      console.error("Ha ocurrido un error en la conexion", error)
+    }
+    
+  }
+
+  const guardarDatos = (userData) => {
+    console.log(userData)
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('iduser', userData.id);
+    localStorage.setItem('username', userData.username);
+    localStorage.setItem('correo', userData.correo);
+    localStorage.setItem('password', userData.password);
+    localStorage.setItem('tipousuario', userData.tipousuario);
+
+    if(userData.tipousuario == 1){
+      alert("Es un alumno mandalo a su correspondiete pagina de alumno")
+      //navigate("/alumno")
+    }else{
+      alert("Es un maestro mandalo a su correspondiete pagina de maestro")
+      //navigate("/maestro")
+    }
+  }
 
   const toSignup = () => {
     navigate("/signup");
@@ -51,18 +95,28 @@ function Login() {
             INICIA SESIÓN CON GOOGLE
           </button>
           <div className="contenedor-formulario">
-            <span className="gray-text">Correo electrónico</span>
-            <input type="email" className="small-font" />
+            <span className="gray-text">Nombre de usuario</span>
+            <input 
+              type="text" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="small-font" 
+              />
           </div>
           <div className="contenedor-formulario">
             <span className="gray-text">Contraseña</span>
-            <input type="password" className="small-font" />
+            <input 
+              type="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="small-font" 
+            />
           </div>
           <div className="checkbox">
             <input type="checkbox" />
             <span className="gray-text">Recuérdame</span>
           </div>
-          <button className="green-btn scale green-border-bottom small-font">
+          <button className="green-btn scale green-border-bottom small-font" onClick={loguear}>
             Iniciar sesión
           </button>
           <h5 className="verde small-font">

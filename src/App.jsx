@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./UI/Login/login.jsx";
+import Login from "./UI/Login/Login.jsx";
 import LandingPage from "../src/UI/LandingPage/LandingPage.jsx";
 import Signup from "./UI/Signup/Signup.jsx";
 import Roles from "./UI/RoleSelection/Roles.jsx";
