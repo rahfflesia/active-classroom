@@ -2,8 +2,17 @@ import React from "react";
 import "./roles.css";
 import imagenEstudiante from "./estudiante.png";
 import imagenProfesor from "./profesor.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Roles = () => {
+  const navigate = useNavigate();
+  function Asignrol(rol){
+    
+    localStorage.setItem("rol", rol);
+  
+    navigate("/signup");
+  }
+
   return (
     <div className="roles-container">
       <main className="main-content">
@@ -13,7 +22,7 @@ const Roles = () => {
           </h3>
           <p className="text-center verde">Por favor, selecciona tu rol</p>
           <div className="roles">
-            <div className="role-card">
+            <div className="role-card" onClick={() => Asignrol(1)}>
               <img
                 src={imagenEstudiante}
                 alt="Estudiante"
@@ -25,7 +34,7 @@ const Roles = () => {
               </p>
             </div>
 
-            <div className="role-card">
+            <div className="role-card"  onClick={() => Asignrol(2)}>
               <img src={imagenProfesor} alt="Profesor" className="role-icon" />
               <h2 className="role-title">Un profesor</h2>
               <p className="role-description">
@@ -39,4 +48,4 @@ const Roles = () => {
   );
 };
 
-export default Roles;
+export default Roles; 

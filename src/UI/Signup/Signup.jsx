@@ -5,10 +5,14 @@ import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
 import googleLogo from "../../../public/logos/google-plus-logo.png";
 import { Form } from "../../validacionesForm/form.js";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import axios from 'axios'
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Signup() {
+  const navigate = useNavigate()
+  const [username, setUsername] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,7 +25,22 @@ function Signup() {
   const [touchedPassword, setTouchedPassword] = useState(false);
   const [touchedConfirmPassword, setTouchedConfirmPassword] = useState(false);
 
-  let username;
+  const[Register] = useState({
+    username: "",
+    correo: "",
+    password: "",
+    tipousuario: localStorage.getItem("rol"),
+  })
+
+  const adduser = () =>{
+    axios.post(apiUrl + '/api/signup/', Register).then(() => { 
+      alert(`Usuario ${Register.username} ha sido registrado, por favor inicie sesion con su usuario`)
+      navigate("/login")
+    })
+   console.log(Register)
+  }
+
+  //let username;
 
   const blurCorreo = () => {
     setTouchedEmail(true);
@@ -82,6 +101,11 @@ function Signup() {
       Form.isEmpty(username)
     ) {
       alert("Ningún campo puede quedar vacío");
+    }else{
+      Register.username = username;
+      Register.password = password;
+      Register.correo = email;
+      adduser()
     }
   };
 
@@ -142,7 +166,11 @@ function Signup() {
           </button>
           <div className="contenedor-formulario">
             <span className="gray-text">Nombre de usuario</span>
-            <input type="text" value={username} />
+            <input 
+              type="text" 
+              value={username} 
+              onChange={(e) => setUsername(e.target.value)}  
+            />
           </div>
           <div className="contenedor-formulario">
             <span className="gray-text">Correo electrónico</span>

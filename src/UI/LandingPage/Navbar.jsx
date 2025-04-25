@@ -21,6 +21,10 @@ function Navbar() {
     navigate("leaderboard");
   };
 
+  const toRoles = () => {
+    navigate("/roles");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg shadow p-3">
@@ -71,7 +75,7 @@ function Navbar() {
               <button
                 type="button"
                 className="btn primary-color-btn"
-                onClick={toSignup}
+                onClick={toRoles}
               >
                 Regístrate
               </button>
