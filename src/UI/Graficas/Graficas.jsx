@@ -11,11 +11,7 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { Pie } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
-import { Scatter } from "react-chartjs-2";
-import { Line } from "react-chartjs-2";
-
+import { Pie, Bar, Scatter, Line } from "react-chartjs-2";
 ChartJS.register(
   CategoryScale,
   LinearScale,
