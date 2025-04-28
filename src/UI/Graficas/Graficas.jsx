@@ -199,18 +199,18 @@ export default function Graficas() {
     <>
       <div className="raiz-graficas container-fluid p-0">
         <div className="fondo-negro-graficas">
-          <div className="contenedor-estadisticas d-flex justify-content-center align-items-center flex-column">
-            <div className="main-content m-3">
+          <div className="contenedor-estadisticas d-flex justify-content-center align-items-center flex-column p-3">
+            <div className="main-content">
               <h3 className="bold-span verde">ActiveClassroom</h3>
               <h3 className="bold-span white-text text-center">
                 Estadísticas finales
               </h3>
-              <div className="contenedor-estadisticas-interno container p-0">
-                <div className="row mb-2">
+              <div className="contenedor-estadisticas-interno container p-0 container-fluid">
+                <div className="row mb-2 gap-2">
                   <div className="col contenedor-grafica-estadistica p-3 izq gray-border-bottom">
                     <h4 className="text-center verde bold-span">Preguntas</h4>
                     <div className="grafica-preguntas">
-                      <div style={{ maxWidth: 300, margin: "0 auto" }}>
+                      <div style={{ maxWidth: "300px", margin: "0 auto" }}>
                         <Pie data={datosPie} />
                       </div>
                     </div>
@@ -232,7 +232,7 @@ export default function Graficas() {
                     </div>
                   </div>
                 </div>
-                <div className="row mb-2">
+                <div className="row mb-2 gap-2">
                   <div className="col contenedor-grafica-estadistica p-3 izq gray-border-bottom d-flex justify-content-center align-items-center flex-column w-100">
                     <h4 className="text-center verde bold-span">
                       Preguntas con mayor índice de error
