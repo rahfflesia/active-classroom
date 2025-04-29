@@ -26,7 +26,7 @@ function Login() {
       console.log(datosUser.statusText);
       //console.log(datosUser);
       if(datosUser.data.length > 0){
-        alert("ta bien")
+        
         guardarDatos(datosUser.data[0]);
       }else{
         alert("Nombre de usuario o contraseña incorrectos")
@@ -48,10 +48,10 @@ function Login() {
     localStorage.setItem('tipousuario', userData.tipousuario);
 
     if(userData.tipousuario == 1){
-      alert("Alumno registrado")
-      navigate("/respondercuestionario")
+      alert("Alumno iniciado")
+      navigate("/codigo")
     }else{
-      alert("Maestro registrado")
+      alert("Maestro Iniciado")
       navigate("/crearcuestionario")
     }
   }
