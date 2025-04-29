@@ -2,7 +2,7 @@ import "../Login/login.css";
 import "../Signup/signup.css";
 import "../../validacionesForm/validaciones.css";
 import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
-import googleLogo from "../../../public/logos/google-plus-logo.png";
+import googleLogo from "../../../public/logos/google-logo.png";
 import { Form } from "../../validacionesForm/form.js";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";

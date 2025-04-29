@@ -1,7 +1,7 @@
 import "./login.css";
 import "../../validacionesForm/validaciones.css";
 import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
-import googleLogo from "../../../public/logos/google-plus-logo.png";
+import googleLogo from "../../../public/logos/google-logo.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
@@ -48,11 +48,11 @@ function Login() {
     localStorage.setItem('tipousuario', userData.tipousuario);
 
     if(userData.tipousuario == 1){
-      alert("Es un alumno mandalo a su correspondiete pagina de alumno")
-      //navigate("/alumno")
+      alert("Alumno registrado")
+      navigate("/respondercuestionario")
     }else{
-      alert("Es un maestro mandalo a su correspondiete pagina de maestro")
-      //navigate("/maestro")
+      alert("Maestro registrado")
+      navigate("/crearcuestionario")
     }
   }
 
