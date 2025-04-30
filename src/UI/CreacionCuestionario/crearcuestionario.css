@@ -164,6 +164,7 @@
   scrollbar-color: var(--primary-color) #fff;
 }
 
-.contenedor-preguntas-agregar {
+.contenedor-preguntas-agregar,
+.limitar {
   max-width: 100%;
 }

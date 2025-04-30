@@ -1,7 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./crearcuestionario.css";
+import { useState } from "react";
+import QuizForm from "./QuizForm";
+import VerdaderoFalsoForm from "./VerdaderoFalsoForm";
 
 function CrearCuestionario() {
+  const [opcion, setOpcion] = useState("quiz");
+
   return (
     <div className="container-fluid contenedor-base d-flex flex-column p-0">
       <nav className="navbar navbar-expand-lg navbar-creacion-cuestionario p-3 shadow">
@@ -12,7 +17,7 @@ function CrearCuestionario() {
             </h4>
           </div>
           <button
-            className="navbar-toggler mb-2"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarTogglerDemo02"
@@ -42,8 +47,8 @@ function CrearCuestionario() {
         </div>
       </nav>
 
-      <div className="cuestionario container-fluid">
-        <div className="row expand">
+      <div className="cuestionario container-fluid p-0 d-flex justify-content-center">
+        <div className="row expand limitar">
           <div className="col-sm contenedor-preguntas-agregar p-3 d-flex flex-column gap-3">
             <div className="contenedor-preguntas-agregar-interno d-flex flex-column gap-3">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((num) => (
@@ -71,38 +76,8 @@ function CrearCuestionario() {
                 className="container-fluid text-center p-3 input-pregunta green-border-bottom"
               />
               <div className="seccion-preguntas">
-                <div className="d-flex gap-3 flex-wrap mb-3 w-100">
-                  <div className="col-sm respuesta respuesta-a p-4 bold-span gray-border-bottom w-100">
-                    <input
-                      type="text"
-                      placeholder="Respuesta 1"
-                      className="w-100 input-respuesta input-a"
-                    />
-                  </div>
-                  <div className="col-sm respuesta respuesta-b p-4 bold-span gray-border-bottom w-100">
-                    <input
-                      type="text"
-                      placeholder="Respuesta 2"
-                      className="w-100 input-respuesta input-b"
-                    />
-                  </div>
-                </div>
-                <div className="d-flex gap-3 flex-wrap">
-                  <div className="col-sm respuesta respuesta-c p-4 bold-span gray-border-bottom w-100">
-                    <input
-                      type="text"
-                      placeholder="Respuesta 3"
-                      className="w-100 input-respuesta input-c"
-                    />
-                  </div>
-                  <div className="col-sm respuesta respuesta-d p-4 bold-span gray-border-bottom w-100">
-                    <input
-                      type="text"
-                      placeholder="Respuesta 4"
-                      className="input-respuesta input-d w-100"
-                    />
-                  </div>
-                </div>
+                {opcion === "quiz" && <QuizForm />}
+                {opcion === "verdadero-falso" && <VerdaderoFalsoForm />}
               </div>
             </div>
           </div>
@@ -114,6 +89,7 @@ function CrearCuestionario() {
                 <select
                   className="select-cuestionario gray-text"
                   name="tipo-pregunta"
+                  onChange={(e) => setOpcion(e.target.value)}
                 >
                   <option value="quiz">Quiz</option>
                   <option value="verdadero-falso">Verdadero o falso</option>

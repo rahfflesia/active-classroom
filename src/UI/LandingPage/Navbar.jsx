@@ -32,6 +32,10 @@ function Navbar() {
     navigate("/roles");
   };
 
+  const toCodigoClase = () => {
+    navigate("/codigo");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg shadow p-3">
@@ -71,7 +75,7 @@ function Navbar() {
                   Inicia sesión
                 </a>
               </li>
-              <li className="nav-item" onClick={toLeaderboard}>
+              <li className="nav-item" onClick={toCrearCuestionario}>
                 <a href="#" className="nav-link gray-text">
                   Acerca de
                 </a>
@@ -82,7 +86,7 @@ function Navbar() {
               <button
                 type="button"
                 className="btn primary-color-btn"
-                onClick={toRoles}
+                onClick={toLeaderboard}
               >
                 Regístrate
               </button>
