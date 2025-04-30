@@ -17,7 +17,7 @@ function CrearCuestionario() {
             </h4>
           </div>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler mb-2"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarTogglerDemo02"
@@ -112,6 +112,12 @@ function CrearCuestionario() {
                   <option value="4-minutos">4 minutos</option>
                   <option value="5-minutos">5 minutos</option>
                 </select>
+                <div className="d-flex gap-2">
+                  <input type="checkbox" id="mismos-tiempo-preguntas" />
+                  <span className="gray-text">
+                    Aplicar el mismo tiempo para todas las preguntas
+                  </span>
+                </div>
               </div>
               <div className="flex flex-column gap-2">
                 <span className="bold-span gray-text">
@@ -126,6 +132,12 @@ function CrearCuestionario() {
                   <option value="cinco-puntos">5 puntos</option>
                   <option value="diez-puntos">10 puntos</option>
                 </select>
+                <div className="d-flex gap-2">
+                  <input type="checkbox" id="mismos-puntos-preguntas" />
+                  <span className="gray-text">
+                    Mismos puntos para todas las preguntas
+                  </span>
+                </div>
               </div>
               <div className="flex flex-column gap-2">
                 <span className="bold-span gray-text">
