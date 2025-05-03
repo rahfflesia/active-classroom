@@ -12,7 +12,7 @@ export class Formulario{
         //console.log(rutasresultados.length)
         let i = 0
         for(const element of rutasresultados){
-            if (!resupuestas[i]) {
+            if (!resupuestas[i]) { 
                 resupuestas[i] = [];
               }
             const rawresultado = fs.readFileSync(element, 'utf-8')

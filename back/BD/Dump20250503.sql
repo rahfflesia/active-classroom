@@ -53,7 +53,6 @@ CREATE TABLE `formulario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `rutaform` varchar(255) DEFAULT NULL,
   `rutaformresult` varchar(255) DEFAULT NULL,
-  `cantparticipantes` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -64,7 +63,7 @@ CREATE TABLE `formulario` (
 
 LOCK TABLES `formulario` WRITE;
 /*!40000 ALTER TABLE `formulario` DISABLE KEYS */;
-INSERT INTO `formulario` VALUES (9,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_532.json','',0),(10,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_813.json','',0),(11,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2312_294.json','',0);
+INSERT INTO `formulario` VALUES (9,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_532.json',''),(10,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_813.json',''),(11,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2312_294.json','');
 /*!40000 ALTER TABLE `formulario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,6 +81,7 @@ CREATE TABLE `sala` (
   `fechacreacion` varchar(50) DEFAULT NULL,
   `fechacierre` varchar(20) DEFAULT NULL,
   `rankingruta` varchar(45) DEFAULT NULL,
+  `cantparticipantes` int DEFAULT NULL,
   `activo` char(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -93,7 +93,7 @@ CREATE TABLE `sala` (
 
 LOCK TABLES `sala` WRITE;
 /*!40000 ALTER TABLE `sala` DISABLE KEYS */;
-INSERT INTO `sala` VALUES (1111,2312,11,'2025-04-16','','','A'),(123433,1234,9,'2025-04-15','','','A');
+INSERT INTO `sala` VALUES (1111,2312,11,'2025-04-16','','',1,'A'),(123433,1234,9,'2025-04-15','','',0,'A');
 /*!40000 ALTER TABLE `sala` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +111,7 @@ CREATE TABLE `users` (
   `password` varchar(45) DEFAULT NULL,
   `tipousuario` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +120,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Ruben','ruben@ruben','1234','1'),(2,'Manuel','manuel@manuel','1234','2'),(3,'Juan','Juan@manuel','1234','1');
+INSERT INTO `users` VALUES (1,'Ruben','ruben@ruben','1234','1'),(2,'Manuel','manuel@manuel','1234','2'),(3,'Juan','Juan@manuel','1234','1'),(4,'Jose','jose@gmail.com','Jose_rafa2312','1'),(5,'Javier','javier@gmail.com','Javier123!','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,14 +140,6 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `Calificacion`,
  1 AS `Ruta del resultado`*/;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping events for database 'activeclassroom'
---
-
---
--- Dumping routines for database 'activeclassroom'
---
 
 --
 -- Final view structure for view `vista_participantes`
@@ -176,4 +168,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-21 20:11:58
+-- Dump completed on 2025-05-03 12:42:22

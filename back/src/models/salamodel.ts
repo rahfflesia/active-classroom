@@ -21,6 +21,9 @@ const Salamodel = db.define('sala',{
     rankingruta:{
         type:DataTypes.STRING
     },
+    cantparticipantes:{
+        type:DataTypes.STRING
+    },
     activo:{
         type:DataTypes.CHAR
     }

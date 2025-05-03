@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import Formmodel from "../models/formmodel";
 import Participacionmodel from "../models/participacionmodel";
 import Salamodel from "../models/salamodel";
@@ -24,6 +25,11 @@ export class Alumno extends User{
             where:{
                 id:idfomrilario
             }
+        })
+
+        await Salamodel.increment('cantparticipantes', {
+            by: 1,
+            where:{id:salaid}
         })
         
         const rutaformulario = formularioruta?.dataValues.rutaform

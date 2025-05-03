@@ -13,9 +13,6 @@ const Formmodel = db.define('formulario',{
    
     rutaformresult:{
         type:DataTypes.STRING
-    },
-    cantparticipantes:{
-        type:DataTypes.STRING
     }
 },{
     freezeTableName: true,
