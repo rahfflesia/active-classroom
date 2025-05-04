@@ -12,6 +12,7 @@ import {
   LineElement,
 } from "chart.js";
 import { Pie, Bar, Scatter, Line } from "react-chartjs-2";
+import { useNavigate } from "react-router-dom";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -22,6 +23,13 @@ ChartJS.register(
   PointElement,
   LineElement
 );
+import iconoPerfil from "../../../public/iconos/user.png";
+import iconoEliminar from "../../../public/iconos/delete-icon.png";
+import iconoAgregar from "../../../public/iconos/add-icon.png";
+import iconoExportar from "../../../public/iconos/export-icon.png";
+import iconoAyuda from "../../../public/iconos/help-icon.png";
+import { useRef, useState } from "react";
+import fotoPerfilDummy from "../../../public/iconos/ye.jpg";
 
 const datosPie = {
   labels: ["Correctas", "Incorrectas", "Sin responder"],
@@ -195,86 +203,373 @@ const datosGraficaLinea = {
 };
 
 export default function Graficas() {
+  const dialogRef = useRef(null);
+
+  const abrirDialogExportar = () => {
+    dialogRef.current.showModal();
+  };
+
+  const cerrarDialogExportar = () => {
+    dialogRef.current?.close();
+  };
+
+  const dialogEliminar = useRef(null);
+
+  const abrirDialogEliminar = () => {
+    dialogEliminar.current.showModal();
+  };
+
+  const cerrarDialogEliminar = () => {
+    dialogEliminar.current?.close();
+  };
+
+  const dialogAyuda = useRef(null);
+
+  const abrirDialogAyuda = () => {
+    dialogAyuda.current.showModal();
+  };
+
+  const cerrarDialogAyuda = () => {
+    dialogAyuda.current?.close();
+  };
+
+  const fecha = new Date();
+  const opciones = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const fechaLocal = fecha.toLocaleDateString("es-MX", opciones);
+
+  const navigate = useNavigate();
+
+  const toCrearCuestionario = () => {
+    navigate("/crearcuestionario");
+  };
+
+  const [visible, setVisible] = useState(false);
+  const toggleDropdown = () => {
+    setVisible(!visible);
+  };
+
   return (
     <>
-      <div className="raiz-graficas container-fluid p-0">
-        <div className="fondo-negro-graficas">
-          <div className="contenedor-estadisticas d-flex justify-content-center align-items-center flex-column p-3">
-            <div className="main-content">
-              <h3 className="bold-span verde">ActiveClassroom</h3>
-              <h3 className="bold-span white-text text-center">
-                Estadísticas finales
-              </h3>
-              <div className="contenedor-estadisticas-interno container p-0 container-fluid">
-                <div className="row mb-2 gap-2">
-                  <div className="col contenedor-grafica-estadistica p-3 izq gray-border-bottom">
-                    <h4 className="text-center verde bold-span">Preguntas</h4>
-                    <div className="grafica-preguntas">
-                      <div style={{ maxWidth: "300px", margin: "0 auto" }}>
+      <div className="raiz-dashboard-graficas">
+        <dialog
+          className="dialog-exportar dialog-codigo-clase circular p-4"
+          ref={dialogRef}
+        >
+          <p className="verde bold-span text-left">Menú de exportación</p>
+          <div className="d-flex flex-column gap-3">
+            <div className="d-flex flex-column gap-1">
+              <span className="bold-span gray-text">
+                Selecciona el cuestionario a exportar
+              </span>
+              <select name="" id="" className="gray-text select-cuestionario">
+                <option value="cuestionario-uno">Cuestionario 1</option>
+                <option value="cuestionario-dos">Cuestionario 2</option>
+                <option value="cuestionario-tres">Cuestionario 3</option>
+                <option value="cuestionario-cuatro">Cuestionario 4</option>
+              </select>
+            </div>
+            <div className="d-flex flex-column gap-1">
+              <span className="bold-span gray-text">
+                Selecciona el formato de exportación
+              </span>
+              <select name="" id="" className="gray-text select-cuestionario">
+                <option value="pdf">PDF</option>
+                <option value="csv">CSV</option>
+                <option value="XLSX">XLSX</option>
+              </select>
+            </div>
+            <div className="botones-exportar d-flex gap-2">
+              <button className="green-btn-cuestionario green-border-bottom">
+                Exportar
+              </button>
+              <button
+                className="white-btn-cuestionario gray-border-bottom"
+                onClick={cerrarDialogExportar}
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </dialog>
+        <dialog
+          className="dialog-exportar dialog-codigo-clase circular p-4"
+          ref={dialogEliminar}
+        >
+          <p className="verde bold-span text-left">Eliminar cuestionario</p>
+          <div className="d-flex flex-column gap-3">
+            <div className="d-flex flex-column gap-1">
+              <span className="bold-span gray-text">
+                Selecciona el cuestionario a eliminar
+              </span>
+              <select name="" id="" className="gray-text select-cuestionario">
+                <option value="cuestionario-uno">Cuestionario 1</option>
+                <option value="cuestionario-dos">Cuestionario 2</option>
+                <option value="cuestionario-tres">Cuestionario 3</option>
+                <option value="cuestionario-cuatro">Cuestionario 4</option>
+              </select>
+            </div>
+            <div className="botones-exportar d-flex gap-2">
+              <button className="green-btn-cuestionario green-border-bottom">
+                Eliminar
+              </button>
+              <button
+                className="white-btn-cuestionario gray-border-bottom"
+                onClick={cerrarDialogEliminar}
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </dialog>
+        <dialog
+          className="dialog-exportar dialog-codigo-clase circular p-4"
+          ref={dialogAyuda}
+        >
+          <p className="verde bold-span text-left m-0">Sección de ayuda</p>
+          <span className="bold-span gray-text mb-3">
+            Funcionamiento de los botones
+          </span>
+          <div className="d-flex flex-column gap-2">
+            <div className="contenedor-seccion-ayuda">
+              <span className="verde bold-span">Perfil: </span>
+              <span className="gray-text bold-span">
+                el botón de perfil muestra información breve sobre tu cuenta de
+                usuario, también proporciona la opción de cerrar sesión.
+              </span>
+            </div>
+            <div className="contenedor-seccion-ayuda">
+              <span className="verde bold-span">Agregar: </span>
+              <span className="gray-text bold-span">
+                el botón de agregar te permite crear un nuevo cuestionario, te
+                redirige a la sección correspondiente para la creación de este.
+              </span>
+            </div>
+            <div className="contenedor-seccion-ayuda">
+              <span className="verde bold-span">Eliminar: </span>
+              <span className="gray-text bold-span">
+                el botón de eliminar mostrará un pequeño menú donde deberás
+                seleccionar el cuestionario a eliminar.
+              </span>
+            </div>
+            <div className="contenedor-seccion-ayuda">
+              <span className="verde bold-span">Exportar: </span>
+              <span className="gray-text bold-span">
+                el botón de exportar mostrará un pequeño menú donde deberás
+                seleccionar el cuestionario del cual quieres exportar los datos
+                así como el formato de exportación.
+              </span>
+            </div>
+          </div>
+          <div className="botones-exportar mt-2">
+            <button
+              className="white-btn-cuestionario gray-border-bottom"
+              onClick={cerrarDialogAyuda}
+            >
+              Cerrar
+            </button>
+          </div>
+        </dialog>
+        <div className="container-fluid p-0">
+          <div className="row raiz-cuestionarios-estadisticas m-0">
+            <div className="col-1 p-2 barra-lateral d-flex flex-column justify-content-center align-items-center shadow">
+              <div className="contenedor-iconos d-flex flex-column align-items-center gap-5">
+                <div className="d-flex flex-column justify-content-center align-items-center icono-barra-lateral foto-perfil">
+                  <img
+                    src={iconoPerfil}
+                    alt="icono-perfil"
+                    width={"40px"}
+                    height={"40px"}
+                    className="scale pointer"
+                    onClick={toggleDropdown}
+                  />
+                  <p className="white-text bold-span titulo-icono text-center">
+                    Perfil
+                  </p>
+                  {visible && (
+                    <div className="info-perfil circular p-3 d-flex flex-column gap-2">
+                      <div className="info-usuario d-flex gap-2">
+                        <div className="foto">
+                          <img
+                            src={fotoPerfilDummy}
+                            alt="foto-perfil"
+                            className="imagen-perfil w-100"
+                          />
+                        </div>
+                        <span className="gray-text bold-span d-flex justify-content-center align-items-center">
+                          xPeenPapi
+                        </span>
+                      </div>
+                      <button className="btn-cerrar-sesion white-text bold-span circular scale">
+                        Cerrar sesión
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="d-flex flex-column justify-content-center align-items-center">
+                  <img
+                    src={iconoAgregar}
+                    alt="icono-agregar"
+                    width={"40px"}
+                    height={"40px"}
+                    className="scale pointer"
+                    onClick={toCrearCuestionario}
+                  />
+                  <p className="white-text bold-span titulo-icono text-center">
+                    Agregar
+                  </p>
+                </div>
+                <div className="d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    src={iconoEliminar}
+                    alt="icono-eliminar"
+                    width={"40px"}
+                    height={"40px"}
+                    className="scale pointer"
+                    onClick={abrirDialogEliminar}
+                  />
+                  <p className="white-text bold-span titulo-icono text-center">
+                    Eliminar
+                  </p>
+                </div>
+                <div className="d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    src={iconoExportar}
+                    alt="icono-exportar"
+                    width={"40px"}
+                    height={"40px"}
+                    className="scale pointer"
+                    onClick={abrirDialogExportar}
+                  />
+                  <p className="white-text bold-span titulo-icono text-center">
+                    Exportar
+                  </p>
+                </div>
+                <div className="d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    src={iconoAyuda}
+                    alt="icono-ayuda"
+                    width={"40px"}
+                    height={"40px"}
+                    className="scale pointer"
+                    onClick={abrirDialogAyuda}
+                  />
+                  <p className="white-text bold-span titulo-icono text-center">
+                    Ayuda
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-2 seccion-cuestionarios p-4">
+              <p className="white-text bold-span mb-3">Cuestionarios</p>
+              <div className="d-flex flex-column gap-3 seccion-cuestionario-interno">
+                <div className="contenedor-cuestionarios">
+                  <div className="elemento-cuestionario circular pointer p-3">
+                    <p className="white-text bold-span m-0">Cuestionario 1</p>
+                    <span className="white-text">Creado el 01/05/2025</span>
+                  </div>
+                </div>
+                <div className="contenedor-cuestionarios">
+                  <div className="elemento-cuestionario circular pointer p-3">
+                    <p className="white-text bold-span m-0">Cuestionario 2</p>
+                    <span className="white-text">Creado el 02/05/2025</span>
+                  </div>
+                </div>
+                <div className="contenedor-cuestionarios">
+                  <div className="elemento-cuestionario circular pointer p-3">
+                    <p className="white-text bold-span m-0">Cuestionario 3</p>
+                    <span className="white-text">Creado el 03/05/2025</span>
+                  </div>
+                </div>
+                <div className="contenedor-cuestionarios">
+                  <div className="elemento-cuestionario circular pointer p-3">
+                    <p className="white-text bold-span m-0">Cuestionario 4</p>
+                    <span className="white-text">Creado el 04/05/2025</span>
+                  </div>
+                </div>
+                <div className="contenedor-cuestionarios">
+                  <div className="elemento-cuestionario circular pointer p-3">
+                    <p className="white-text bold-span m-0">Cuestionario 5</p>
+                    <span className="white-text">Creado el 04/05/2025</span>
+                  </div>
+                </div>
+                <div className="contenedor-cuestionarios">
+                  <div className="elemento-cuestionario circular pointer p-3">
+                    <p className="white-text bold-span m-0">Cuestionario 6</p>
+                    <span className="white-text">Creado el 04/05/2025</span>
+                  </div>
+                </div>
+                <div className="contenedor-cuestionarios">
+                  <div className="elemento-cuestionario circular pointer p-3">
+                    <p className="white-text bold-span m-0">Cuestionario 7</p>
+                    <span className="white-text">Creado el 04/05/2025</span>
+                  </div>
+                </div>
+                <div className="contenedor-cuestionarios">
+                  <div className="elemento-cuestionario circular pointer p-3">
+                    <p className="white-text bold-span m-0">Cuestionario 8</p>
+                    <span className="white-text">Creado el 04/05/2025</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-9 contenedor-seccion-estadisticas-2 p-0">
+              <div className="seccion-estadisticas p-4">
+                <div className="seccion-estadisticas-interno">
+                  <div>
+                    <h3 className="verde bold-span">ActiveClassroom</h3>
+                    <p className="titulo-cuestionario text-center gray-text bold-span">
+                      Nombre del cuestionario
+                    </p>
+                  </div>
+                  <div className="contenedor-fecha d-flex justify-content-between">
+                    <p className="bold-span">Estadísticas del formulario</p>
+                    <p className="gray-text bold-span">{fechaLocal}</p>
+                  </div>
+                  <div className="contenedor-graficas row m-0 mb-4 gap-4">
+                    <div className="col-sm sombra-graficas circular p-3">
+                      <p className="verde bold-span text-left p-0">
+                        Tiempo promedio por pregunta
+                      </p>
+                      <div className="contenedor-grafica">
+                        <Line data={datosGraficaLinea}></Line>
+                      </div>
+                    </div>
+                    <div className="col-sm sombra-graficas circular p-3">
+                      <p className="verde bold-span text-left">Preguntas</p>
+                      <div className="contenedor-grafica-pie">
                         <Pie data={datosPie} />
                       </div>
                     </div>
                   </div>
-                  <div className="col contenedor-grafica-estadistica p-3 gray-border-bottom d-flex justify-content-center align-items-center flex-column">
-                    <h4 className="text-center verde bold-span">
-                      Alumnos con 50% o menos aciertos
-                    </h4>
-                    <div className="grafica-barra-errores w-100 d-flex justify-content-center align-items-center">
-                      <div
-                        className="w-100"
-                        style={{
-                          margin: "0 auto",
-                          overflowX: "auto",
-                        }}
-                      >
-                        <Bar data={datosBarra} />
+                  <div className="contenedor-graficas row m-0 gap-4">
+                    <div className="col-sm sombra-graficas circular p-3">
+                      <p className="verde bold-span text-left">
+                        Preguntas con mayor índice de error
+                      </p>
+                      <div className="contenedor-grafica">
+                        <Bar data={datosErrorPregunta}></Bar>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="row mb-2 gap-2">
-                  <div className="col contenedor-grafica-estadistica p-3 izq gray-border-bottom d-flex justify-content-center align-items-center flex-column w-100">
-                    <h4 className="text-center verde bold-span">
-                      Preguntas con mayor índice de error
-                    </h4>
-                    <div
-                      className="w-100"
-                      style={{
-                        margin: "0 auto",
-                        overflowX: "auto",
-                      }}
-                    >
-                      <Bar data={datosErrorPregunta} />
+                    <div className="col-sm sombra-graficas circular p-3">
+                      <p className="verde bold-span text-left">
+                        Relación entre tiempo y puntuación
+                      </p>
+                      <div className="contenedor-grafica">
+                        <Scatter data={datosScatter}></Scatter>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col contenedor-grafica-estadistica p-3 gray-border-bottom">
-                    <h4 className="text-center verde bold-span">
-                      Relación entre tiempo y puntuación
-                    </h4>
-                    <div
-                      className="w-100"
-                      style={{
-                        margin: "0 auto",
-                        overflowX: "auto",
-                      }}
-                    >
-                      <Scatter data={datosScatter} />
-                    </div>
-                  </div>
-                </div>
-                <div className="row mb-2">
-                  <div className="col contenedor-grafica-estadistica p-3 gray-border-bottom">
-                    <h4 className="text-center verde bold-span">
-                      Tiempo promedio por pregunta
-                    </h4>
-                    <div
-                      className="w-100"
-                      style={{
-                        margin: "0 auto",
-                        overflowX: "auto",
-                      }}
-                    >
-                      <Line data={datosGraficaLinea} />
+                    <div className="col-sm sombra-graficas circular p-3">
+                      <p className="verde bold-span text-left">
+                        Alumnos con 50% o menos aciertos
+                      </p>
+                      <div className="contenedor-grafica">
+                        <Bar data={datosBarra} />
+                      </div>
                     </div>
                   </div>
                 </div>
