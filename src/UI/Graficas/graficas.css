@@ -1,28 +1,98 @@
 :root {
   --primary-font-color: #fff;
+  --primary-color: rgb(48, 193, 130);
+  --primary-color-transparent: rgb(118, 211, 171);
+  --side-bar-bg: rgb(27, 179, 113);
 }
 
-.raiz-graficas,
-.fondo-negro-graficas,
-.contenedor-estadisticas {
-  min-height: 100vh;
+.raiz-dashboard-graficas,
+.raiz-cuestionarios-estadisticas {
+  max-height: 100vh;
 }
 
-.raiz-graficas {
-  background-image: url("../../../public/fondo/pizarron.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+.circular {
+  border-radius: 0.25rem;
 }
 
-.fondo-negro-graficas {
-  background-color: rgba(0, 0, 0, 0.6);
+.seccion-cuestionarios {
+  max-height: 100vh;
+  background-color: var(--primary-color);
 }
 
-.contenedor-grafica-estadistica {
+.seccion-cuestionario-interno {
+  max-height: 620px;
+  overflow-y: auto;
+  scrollbar-color: var(--primary-color) var(--primary-font-color);
+}
+
+.elemento-cuestionario {
+  background-color: var(--primary-color-transparent);
+}
+
+.sombra-graficas {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.contenedor-grafica-pie {
+  max-width: 250px;
+}
+
+.contenedor-grafica,
+.contenedor-grafica-pie {
+  margin: 0 auto;
+}
+
+.contenedor-grafica {
+  max-width: 100%;
+}
+
+.barra-lateral {
+  max-width: 90px;
+  background-color: var(--side-bar-bg);
+  max-height: 100vh;
+}
+
+.titulo-icono {
+  font-size: 0.75rem;
+}
+
+.dialog-exportar {
+  border: none;
+}
+
+.contenedor-seccion-estadisticas-2 {
+  max-height: 100vh;
+  overflow-y: auto;
+  scrollbar-color: var(--primary-color) var(--primary-font-color);
+  flex: 1;
+}
+
+/* Contenedor flotante perfil*/
+
+.foto-perfil {
+  position: relative;
+}
+
+.info-perfil {
+  position: absolute;
+  left: 0;
+  transform: translateX(30%);
   background-color: var(--primary-font-color);
-  border-radius: 0.5rem;
+  min-width: 200px;
 }
 
-.contenedor-estadisticas-interno {
-  max-width: 1000px;
+.foto {
+  background-color: black;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+}
+
+.btn-cerrar-sesion {
+  background-color: var(--primary-color);
+  font-size: 0.75rem;
+}
+
+.imagen-perfil {
+  border-radius: 100%;
 }
