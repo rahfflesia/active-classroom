@@ -129,10 +129,7 @@ function Leaderboard() {
             </div>
             <div className="d-flex gap-2 justify-content-center">
               <button className="green-btn-cuestionario green-border-bottom">
-                Exportar datos a XLSX
-              </button>
-              <button className="green-btn-cuestionario green-border-bottom">
-                Exportar datos a CSV
+                Ir a sección de estadísticas
               </button>
             </div>
           </div>
