@@ -28,8 +28,9 @@ export class Sala{
             const resultados = resultadosraw.map(result => result.get({plain: true})) //Aqui se guardan en un json la informacion de las participaciones obtenidas de la base de datos
             const rutas = resultados.map(r=>r["Ruta del resultado"]) //Aqui solo extraemos las rutas con las respuestas de cada usuario en el orden que aparecen
             const formObject = new Formulario() //objeto para acceder a los metodos de los formularios
-            const respuestas = formObject.obtenerrespuestas( rutas) //Se obtiene una matriz con las respuestas de todos los usuarios
-            const resultadoscompletos = formObject.crearresultados(resultados, respuestas)
+            const respuestas = formObject.obtenerrespuestas(rutas) //Se obtiene una matriz con las respuestas de todos los usuarios
+            const tiempos = formObject.obtenertiempos(rutas)
+            const resultadoscompletos = formObject.crearresultados(resultados, respuestas, tiempos)
 
             const rawformoriginal = fs.readFileSync(formulario?.dataValues.rutaform, 'utf-8')
             const jsonformoriginal = JSON.parse(rawformoriginal)
@@ -46,5 +47,19 @@ export class Sala{
         
 
         
+    }
+
+    async obtenerlistaparticipantes(idsala:number){
+        try{
+            const lista = await Resultadoparticipacionmodel.findAll({
+                where:{
+                    'ID de sala':idsala
+                }
+            })
+            return lista
+        } catch (error) {
+            console.error(error)
+            return "Ha ocurrido un error al recuperar los participantes"
+        }
     }
 }

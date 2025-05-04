@@ -55,7 +55,9 @@ export class Maestro extends User{
             return ("Error al crear el formulario")
         }
         
-    }
+    } 
+
+    
 
     async obtenerlistasalas(){
         try {

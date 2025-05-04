@@ -8,7 +8,7 @@ import * as path from 'path'
 
 export class Alumno extends User{
     
-    async entrarasala(salaid:string){
+    async entrarasala(salaid:string, iduser:number){
         //busca la sala con el id que le das
         const formid = await Salamodel.findOne({
             attributes:['idformulario'],
@@ -31,7 +31,11 @@ export class Alumno extends User{
             by: 1,
             where:{id:salaid}
         })
-        
+
+        const participacion = await Participacionmodel.create({
+            iduser:iduser,
+            idsala:salaid,
+        })
         const rutaformulario = formularioruta?.dataValues.rutaform
         console.log(rutaformulario)
         
@@ -54,13 +58,19 @@ export class Alumno extends User{
             }
             const jsonString = JSON.stringify(resultados, null, 2)
             fs.writeFileSync(filePath, jsonString, 'utf-8')
-            const participacion = await Participacionmodel.create({
-            iduser:iduser,
-            idsala:idsala,
-            calificacion:calificacion,
-            rutaresultados:filePath.toString()
-            })
-            return "añadida participacion del usuario: " + participacion.dataValues.id
+            const participacion = await Participacionmodel.update(
+                {
+                    calificacion:calificacion,
+                    rutaresultados:filePath.toString()
+                },
+                {
+                    where:{
+                        iduser:iduser,
+                        idsala:idsala
+                    }
+                }
+            )
+            return "añadida participacion del usuario:"
         }catch(error){
             console.error("No se pudo guardar el formulario debido al siguiente error: ", error)
             return ("Error al crear el formulario")
