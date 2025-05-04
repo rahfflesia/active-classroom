@@ -8,6 +8,7 @@ import CrearCuestionario from "./UI/CreacionCuestionario/CrearCuestionario.jsx";
 import ResponderCuestionario from "./UI/ResponderCuestionario/ResponderCuestionario.jsx";
 import Leaderboard from "./UI/Leaderboard/Leaderboard.jsx";
 import Graficas from "./UI/Graficas/Graficas.jsx";
+import ComponenteCarga from "./UI/ComponenteCarga/ComponenteCarga.jsx";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/graficas" element={<Graficas />} />
+        <Route path="/carga" element={<ComponenteCarga />} />
       </Routes>
     </Router>
   );

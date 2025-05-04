@@ -255,10 +255,11 @@ export default function Graficas() {
 
   return (
     <>
-      <div className="raiz-dashboard-graficas">
+      <div className="raiz-dashboard-grafica">
         <dialog
-          className="dialog-exportar dialog-codigo-clase circular p-4"
+          className="dialog-exportar centrar-dialog circular p-4"
           ref={dialogRef}
+          style={{ margin: "0 auto", top: "22%" }}
         >
           <p className="verde bold-span text-left">Menú de exportación</p>
           <div className="d-flex flex-column gap-3">
@@ -280,7 +281,7 @@ export default function Graficas() {
               <select name="" id="" className="gray-text select-cuestionario">
                 <option value="pdf">PDF</option>
                 <option value="csv">CSV</option>
-                <option value="XLSX">XLSX</option>
+                <option value="xlsx">XLSX</option>
               </select>
             </div>
             <div className="botones-exportar d-flex gap-2">
@@ -297,8 +298,9 @@ export default function Graficas() {
           </div>
         </dialog>
         <dialog
-          className="dialog-exportar dialog-codigo-clase circular p-4"
+          className="dialog-exportar circular p-4"
           ref={dialogEliminar}
+          style={{ margin: "0 auto", top: "30%" }}
         >
           <p className="verde bold-span text-left">Eliminar cuestionario</p>
           <div className="d-flex flex-column gap-3">
@@ -327,8 +329,9 @@ export default function Graficas() {
           </div>
         </dialog>
         <dialog
-          className="dialog-exportar dialog-codigo-clase circular p-4"
+          className="dialog-exportar centrar-dialog circular p-4"
           ref={dialogAyuda}
+          style={{ margin: "0 auto", top: "11%" }}
         >
           <p className="verde bold-span text-left m-0">Sección de ayuda</p>
           <span className="bold-span gray-text mb-3">
@@ -374,11 +377,11 @@ export default function Graficas() {
             </button>
           </div>
         </dialog>
-        <div className="container-fluid p-0">
+        <div className="container-fluid p-0 cont">
           <div className="row raiz-cuestionarios-estadisticas m-0">
-            <div className="col-1 p-2 barra-lateral d-flex flex-column justify-content-center align-items-center shadow">
+            <div className="col-lg-1 p-2 barra-lateral d-flex flex-column justify-content-center align-items-center shadow">
               <div className="contenedor-iconos d-flex flex-column align-items-center gap-5">
-                <div className="d-flex flex-column justify-content-center align-items-center icono-barra-lateral foto-perfil">
+                <div className="d-flex flex-column justify-content-center align-items-center icono-barra-lateral foto-perfil contenedor-icono-interno">
                   <img
                     src={iconoPerfil}
                     alt="icono-perfil"
@@ -410,7 +413,7 @@ export default function Graficas() {
                     </div>
                   )}
                 </div>
-                <div className="d-flex flex-column justify-content-center align-items-center">
+                <div className="d-flex flex-column justify-content-center align-items-center contenedor-icono-interno">
                   <img
                     src={iconoAgregar}
                     alt="icono-agregar"
@@ -423,7 +426,7 @@ export default function Graficas() {
                     Agregar
                   </p>
                 </div>
-                <div className="d-flex justify-content-center align-items-center flex-column">
+                <div className="d-flex justify-content-center align-items-center flex-column contenedor-icono-interno">
                   <img
                     src={iconoEliminar}
                     alt="icono-eliminar"
@@ -436,7 +439,7 @@ export default function Graficas() {
                     Eliminar
                   </p>
                 </div>
-                <div className="d-flex justify-content-center align-items-center flex-column">
+                <div className="d-flex justify-content-center align-items-center flex-column contenedor-icono-interno">
                   <img
                     src={iconoExportar}
                     alt="icono-exportar"
@@ -449,7 +452,7 @@ export default function Graficas() {
                     Exportar
                   </p>
                 </div>
-                <div className="d-flex justify-content-center align-items-center flex-column">
+                <div className="d-flex justify-content-center align-items-center flex-column contenedor-icono-interno">
                   <img
                     src={iconoAyuda}
                     alt="icono-ayuda"
@@ -464,7 +467,7 @@ export default function Graficas() {
                 </div>
               </div>
             </div>
-            <div className="col-2 seccion-cuestionarios p-4">
+            <div className="col-lg-2 seccion-cuestionarios clase-prueba p-4">
               <p className="white-text bold-span mb-3">Cuestionarios</p>
               <div className="d-flex flex-column gap-3 seccion-cuestionario-interno">
                 <div className="contenedor-cuestionarios">
@@ -517,10 +520,10 @@ export default function Graficas() {
                 </div>
               </div>
             </div>
-            <div className="col-9 contenedor-seccion-estadisticas-2 p-0">
+            <div className="col-lg-9 contenedor-seccion-estadisticas-2 p-0">
               <div className="seccion-estadisticas p-4">
                 <div className="seccion-estadisticas-interno">
-                  <div>
+                  <div className="titulos-cuestionario">
                     <h3 className="verde bold-span">ActiveClassroom</h3>
                     <p className="titulo-cuestionario text-center gray-text bold-span">
                       Nombre del cuestionario
@@ -531,7 +534,7 @@ export default function Graficas() {
                     <p className="gray-text bold-span">{fechaLocal}</p>
                   </div>
                   <div className="contenedor-graficas row m-0 mb-4 gap-4">
-                    <div className="col-sm sombra-graficas circular p-3">
+                    <div className="col-sm sombra-graficas circular carta-grafica p-3">
                       <p className="verde bold-span text-left p-0">
                         Tiempo promedio por pregunta
                       </p>
@@ -539,7 +542,7 @@ export default function Graficas() {
                         <Line data={datosGraficaLinea}></Line>
                       </div>
                     </div>
-                    <div className="col-sm sombra-graficas circular p-3">
+                    <div className="col-sm sombra-graficas circular carta-grafica p-3">
                       <p className="verde bold-span text-left">Preguntas</p>
                       <div className="contenedor-grafica-pie">
                         <Pie data={datosPie} />
@@ -547,7 +550,7 @@ export default function Graficas() {
                     </div>
                   </div>
                   <div className="contenedor-graficas row m-0 gap-4">
-                    <div className="col-sm sombra-graficas circular p-3">
+                    <div className="col-sm sombra-graficas circular carta-grafica p-3">
                       <p className="verde bold-span text-left">
                         Preguntas con mayor índice de error
                       </p>
@@ -555,7 +558,7 @@ export default function Graficas() {
                         <Bar data={datosErrorPregunta}></Bar>
                       </div>
                     </div>
-                    <div className="col-sm sombra-graficas circular p-3">
+                    <div className="col-sm sombra-graficas carta-grafica circular p-3">
                       <p className="verde bold-span text-left">
                         Relación entre tiempo y puntuación
                       </p>
@@ -563,7 +566,7 @@ export default function Graficas() {
                         <Scatter data={datosScatter}></Scatter>
                       </div>
                     </div>
-                    <div className="col-sm sombra-graficas circular p-3">
+                    <div className="col-sm sombra-graficas carta-grafica circular p-3">
                       <p className="verde bold-span text-left">
                         Alumnos con 50% o menos aciertos
                       </p>
