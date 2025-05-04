@@ -29,7 +29,8 @@ export class Sala{
             const rutas = resultados.map(r=>r["Ruta del resultado"]) //Aqui solo extraemos las rutas con las respuestas de cada usuario en el orden que aparecen
             const formObject = new Formulario() //objeto para acceder a los metodos de los formularios
             const respuestas = formObject.obtenerrespuestas(rutas) //Se obtiene una matriz con las respuestas de todos los usuarios
-            const resultadoscompletos = formObject.crearresultados(resultados, respuestas)
+            const tiempos = formObject.obtenertiempos(rutas)
+            const resultadoscompletos = formObject.crearresultados(resultados, respuestas, tiempos)
 
             const rawformoriginal = fs.readFileSync(formulario?.dataValues.rutaform, 'utf-8')
             const jsonformoriginal = JSON.parse(rawformoriginal)
