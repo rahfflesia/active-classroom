@@ -57,6 +57,8 @@ export class Maestro extends User{
         
     } 
 
+    
+
     async obtenerlistasalas(){
         try {
             const participacion = await Salamodel.findOne({

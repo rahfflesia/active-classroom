@@ -48,4 +48,18 @@ export class Sala{
 
         
     }
+
+    async obtenerlistaparticipantes(idsala:number){
+        try{
+            const lista = await Resultadoparticipacionmodel.findAll({
+                where:{
+                    'ID de sala':idsala
+                }
+            })
+            return lista
+        } catch (error) {
+            console.error(error)
+            return "Ha ocurrido un error al recuperar los participantes"
+        }
+    }
 }

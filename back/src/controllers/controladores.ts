@@ -111,3 +111,11 @@ export const listasalas = async (req:Request, res:Response) =>{
     const lista = await maestro.obtenerlistasalas()
     res.json(lista)
 }
+export const usuariosparticipantes = async (req:Request, res:Response) =>{
+    const {idsala} = req.params
+    const sala = new Sala(parseInt(idsala))
+
+    const listausuarios = await sala.obtenerlistaparticipantes(parseInt(idsala))
+
+    res.json(listausuarios)
+}
