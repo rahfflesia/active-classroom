@@ -56,11 +56,12 @@ export const createsala = async (req:Request, res:Response) =>{
 
 export const getformulario = async (req:Request, res:Response) =>{
     const {salaid} = req.params
+    const {iduser} = req.params
     const alumno = new Alumno()
     console.log(salaid)
     
     try{
-        const rutaformulario = await alumno.entrarasala(salaid)
+        const rutaformulario = await alumno.entrarasala(salaid, parseInt(iduser))
         //console.log("Ruta del formulario", rutaformulario)
         res.json(rutaformulario)
         
