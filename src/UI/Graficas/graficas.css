@@ -74,7 +74,9 @@
 }
 
 .info-perfil {
-  position: absolute;
+  position: fixed;
+  left: 0;
+  transform: translateX(30%);
   background-color: var(--primary-font-color);
   min-width: 200px;
 }
@@ -154,6 +156,11 @@
 
   .titulos-cuestionario h3 {
     font-size: 1.3rem;
+  }
+
+  .info-perfil {
+    top: 5%;
+    transform: translateX(20%);
   }
 }
 
