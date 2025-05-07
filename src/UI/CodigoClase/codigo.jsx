@@ -64,7 +64,9 @@ function Codigo() {
                 <p className="sm-font">¿Qué es un código de clase?</p>
               </div>
               <hr />
-              <div className="botones">
+              {/*
+                
+                <div className="botones">
                 <button
                   className="white-btn scale sm-font gray-border-bottom"
                   onClick={toLogin}
@@ -78,6 +80,8 @@ function Codigo() {
                   Registrarte
                 </button>
               </div>
+              */}
+              
             </div>
           </h3>
         </div>

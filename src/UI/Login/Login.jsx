@@ -52,7 +52,7 @@ function Login() {
       navigate("/codigo")
     }else{
       alert("Maestro Iniciado")
-      navigate("/crearcuestionario")
+      navigate("/graficas")
     }
   }
 

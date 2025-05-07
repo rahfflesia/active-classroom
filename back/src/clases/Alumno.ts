@@ -32,7 +32,7 @@ export class Alumno extends User{
             where:{id:salaid}
         })
 
-        const participacion = await Participacionmodel.create({
+        await Participacionmodel.create({
             iduser:iduser,
             idsala:salaid,
         })
@@ -58,7 +58,7 @@ export class Alumno extends User{
             }
             const jsonString = JSON.stringify(resultados, null, 2)
             fs.writeFileSync(filePath, jsonString, 'utf-8')
-            const participacion = await Participacionmodel.update(
+            await Participacionmodel.update(
                 {
                     calificacion:calificacion,
                     rutaresultados:filePath.toString()
@@ -103,8 +103,13 @@ export class Alumno extends User{
                     iduser:iduser
                 }
             })
-    
-            return participacion
+            
+            const rutajson = participacion?.dataValues.rutaresultados
+            const rawform = fs.readFileSync(rutajson, 'utf-8')
+            const jsonform = JSON.parse(rawform)
+
+            console.log (jsonform)
+            return jsonform
             
         } catch (error) {
             console.error(error)

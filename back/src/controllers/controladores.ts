@@ -119,3 +119,5 @@ export const usuariosparticipantes = async (req:Request, res:Response) =>{
 
     res.json(listausuarios)
 }
+
+//Haz una vista que incluya la informacion de las salas y sus creadores y titulos y asi
