@@ -51,6 +51,7 @@ DROP TABLE IF EXISTS `formulario`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `formulario` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(60) DEFAULT NULL,
   `rutaform` varchar(255) DEFAULT NULL,
   `rutaformresult` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -63,7 +64,7 @@ CREATE TABLE `formulario` (
 
 LOCK TABLES `formulario` WRITE;
 /*!40000 ALTER TABLE `formulario` DISABLE KEYS */;
-INSERT INTO `formulario` VALUES (9,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_532.json',''),(10,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_813.json',''),(11,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2312_294.json','');
+INSERT INTO `formulario` VALUES (9,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_532.json',''),(10,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_813.json',''),(11,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2312_294.json','');
 /*!40000 ALTER TABLE `formulario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +94,7 @@ CREATE TABLE `sala` (
 
 LOCK TABLES `sala` WRITE;
 /*!40000 ALTER TABLE `sala` DISABLE KEYS */;
-INSERT INTO `sala` VALUES (1111,2312,11,'2025-04-16','','',1,'A'),(123433,1234,9,'2025-04-15','','',0,'A');
+INSERT INTO `sala` VALUES (1111,2,11,'2025-04-16','','',1,'A'),(123433,3,9,'2025-04-15','','',0,'A');
 /*!40000 ALTER TABLE `sala` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +112,7 @@ CREATE TABLE `users` (
   `password` varchar(45) DEFAULT NULL,
   `tipousuario` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +121,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Ruben','ruben@ruben','1234','1'),(2,'Manuel','manuel@manuel','1234','2'),(3,'Juan','Juan@manuel','1234','1'),(4,'Jose','jose@gmail.com','Jose_rafa2312','1'),(5,'Javier','javier@gmail.com','Javier123!','1');
+INSERT INTO `users` VALUES (1,'Ruben','ruben@ruben','1234','1'),(2,'Manuel','manuel@manuel','1234','2'),(3,'Juan','Juan@manuel','1234','1'),(4,'Jose','jose@gmail.com','Jose_rafa2312','1'),(5,'Javier','javier@gmail.com','Javier123!','1'),(6,'Filiberto','fili@gmail.com','Fili_1234','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,6 +143,23 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `vista_salas`
+--
+
+DROP TABLE IF EXISTS `vista_salas`;
+/*!50001 DROP VIEW IF EXISTS `vista_salas`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `vista_salas` AS SELECT 
+ 1 AS `Id de Sala`,
+ 1 AS `Id de creador`,
+ 1 AS `Nombre de creador`,
+ 1 AS `Id de formulario`,
+ 1 AS `Titulo de formulario`,
+ 1 AS `Ruta de formulario`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Final view structure for view `vista_participantes`
 --
 
@@ -158,6 +176,24 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vista_salas`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vista_salas`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vista_salas` AS select `s`.`id` AS `Id de Sala`,`s`.`idcreador` AS `Id de creador`,`u`.`username` AS `Nombre de creador`,`f`.`id` AS `Id de formulario`,`f`.`titulo` AS `Titulo de formulario`,`f`.`rutaform` AS `Ruta de formulario` from ((`sala` `s` join `users` `u` on((`s`.`idcreador` = `u`.`id`))) join `formulario` `f` on((`s`.`idformulario` = `f`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -168,4 +204,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-03 12:42:22
+-- Dump completed on 2025-05-08 11:55:11

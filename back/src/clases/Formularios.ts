@@ -23,7 +23,7 @@ export class Formulario{
             i++
         }
         return resupuestas
-    }
+    } 
 
     obtenertiempos(rutasresultados:any){
         console.log("Esto recibe la funcion obtenerrespuestas", rutasresultados)

@@ -7,6 +7,9 @@ const Formmodel = db.define('formulario',{
         primaryKey:true,
         autoIncrement: true
     },
+    titulo:{
+        type:DataTypes.STRING
+    },
     rutaform:{
         type:DataTypes.STRING
     },

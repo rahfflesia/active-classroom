@@ -14,7 +14,7 @@ export class User {
         this.correo = ''
         this.tipousuario = ''
     }
-
+ 
     async login(username:string, password: string){
         try{
             const user = await Usermodel.findAll({

@@ -3,7 +3,7 @@ import * as path from 'path'
 import { User } from "./User";
 import Formmodel from '../models/formmodel';
 import Salamodel from '../models/salamodel';
-import Participacionmodel from "../models/participacionmodel";
+import Salavistamodel from '../models/salavistamodel';
 
 export class Maestro extends User{
     public id: number;
@@ -44,6 +44,7 @@ export class Maestro extends User{
             const jsonString = JSON.stringify(body, null, 2)
             fs.writeFileSync(filePath, jsonString, 'utf-8')
             const formulario = await Formmodel.create({
+                titulo: body.dataValues.tituloform,
                 rutaform: filePath.toString(),
                 rutaformresult: "",
                 cantparticipantes: 0
@@ -58,12 +59,12 @@ export class Maestro extends User{
     } 
 
     
-
+ 
     async obtenerlistasalas(){
         try {
-            const participacion = await Salamodel.findOne({
+            const participacion = await Salavistamodel.findOne({
                 where:{
-                    idcreador:this.id
+                    'Id de creador':this.id
                 }
             })
     

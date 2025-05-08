@@ -1,4 +1,3 @@
-import { where } from "sequelize";
 import Formmodel from "../models/formmodel";
 import Participacionmodel from "../models/participacionmodel";
 import Salamodel from "../models/salamodel";

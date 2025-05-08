@@ -48,7 +48,7 @@ export class Sala{
 
         
     }
-
+ 
     async obtenerlistaparticipantes(idsala:number){
         try{
             const lista = await Resultadoparticipacionmodel.findAll({

@@ -20,6 +20,8 @@ export const getUser = async (req: Request, res: Response) =>{
       }
 }
 
+
+//Metodo para realizar el registro
 export const signup = (req: Request, res: Response) =>{
     const {body} = req;
     const user = new User();
@@ -30,6 +32,7 @@ export const signup = (req: Request, res: Response) =>{
     }) 
 }
 
+//Nomas lista todos los usuarios de la base de datos, no se usa fue nomas para calar que jalara la api
 export const getUsers = async (req: Request, res: Response) =>{
     const user = new User()
     const listausuarios = await user.listuser()
@@ -37,6 +40,7 @@ export const getUsers = async (req: Request, res: Response) =>{
     
 }
 
+//con esta se crea la sala
 export const createsala = async (req:Request, res:Response) =>{
     const {body} = req
     const {userId} = req.body
@@ -54,6 +58,7 @@ export const createsala = async (req:Request, res:Response) =>{
     //
 }
 
+//con esta el alumno recibe el formulario
 export const getformulario = async (req:Request, res:Response) =>{
     const {salaid} = req.params
     const {iduser} = req.params
@@ -71,6 +76,7 @@ export const getformulario = async (req:Request, res:Response) =>{
     }
 }
 
+//Aqui el alumno envia el resultado
 export const enviarresultados = async (req:Request, res:Response) =>{
     const {body} = req
     const{salaid, participanteid, calificacion} = req.body
@@ -81,6 +87,7 @@ export const enviarresultados = async (req:Request, res:Response) =>{
     })
 }
 
+//aqui el maestro recibe el resultado de toda la actividad
 export const recibirresultados = async (req:Request, res:Response) =>{
     const {salaid} = req.params
 
@@ -88,7 +95,8 @@ export const recibirresultados = async (req:Request, res:Response) =>{
     const resultados = await sala.recuperarresultados()
     res.json(resultados)
 }
- 
+
+//el alumno recibe los resultados
 export const recibirresultadoalumno = async (req:Request, res:Response) =>{
     const {salaid} = req.params
     const {alumnoid} = req.params
@@ -98,6 +106,7 @@ export const recibirresultadoalumno = async (req:Request, res:Response) =>{
     res.json(resultado)
 }
 
+//lista de salas en las que participo un alumno
 export const listaparticipaciones = async (req:Request, res:Response) =>{
     const {iduser} = req.params
     const alumno = new Alumno()
@@ -105,12 +114,15 @@ export const listaparticipaciones = async (req:Request, res:Response) =>{
     res.json(lista)
 }
 
+//lista de salas creadas por maestro
 export const listasalas = async (req:Request, res:Response) =>{
     const {iduser} = req.params
     const maestro = new Maestro(parseInt(iduser))
     const lista = await maestro.obtenerlistasalas()
     res.json(lista)
 }
+
+//esta para actualizar los participantes que hay en cada sala
 export const usuariosparticipantes = async (req:Request, res:Response) =>{
     const {idsala} = req.params
     const sala = new Sala(parseInt(idsala))
