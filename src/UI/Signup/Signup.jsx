@@ -8,6 +8,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import axios from 'axios'
+import { GoogleLogin } from '@react-oauth/google';
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function Signup() {
@@ -110,6 +112,29 @@ function Signup() {
     }
   };
 
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    console.log("Google credential:", credentialResponse);
+    const token = credentialResponse.credential;
+    try {
+      const { data } = await axios.post(`${apiUrl}/api/login/google`, { token });
+      if (data.user) {
+        guardarDatos(data.user);
+        navigate("/codigo")
+      } else {
+        alert("Error al iniciar sesión con Google");
+      }
+    } catch (err) {
+      console.error("Error en backend Google login", err);
+    }
+    navigate("/codigo")
+  };
+  
+  const handleGoogleError = () => {
+    console.error("Login con Google fallido");
+    alert("No se pudo iniciar sesión con Google");
+  };
+
   return (
     <>
       <div
@@ -156,15 +181,12 @@ function Signup() {
             />
             REGÍSTRATE CON FACEBOOK
           </button>
-          <button className="white-btn scale flex-btn gray-border-bottom small-font">
-            <img
-              src={googleLogo}
-              alt="google-plus-logo"
-              width={"24px"}
-              height={"24px"}
-            />
-            REGÍSTRATE CON GOOGLE
-          </button>
+            <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            useOneTap
+          />
+
           <div className="contenedor-formulario">
             <span className="gray-text">Nombre de usuario</span>
             <input
