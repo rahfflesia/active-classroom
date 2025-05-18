@@ -4,15 +4,22 @@ import "../../validacionesForm/validaciones.css";
 import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
 import googleLogo from "../../../public/logos/google-logo.png";
 import { Form } from "../../validacionesForm/form.js";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import axios from 'axios'
 import { GoogleLogin } from '@react-oauth/google';
+import microsoftLogo from "../../../public/logos/microsoft-logo.png"; // Añadir esta línea
+import { useMsal, useIsAuthenticated, useAccount } from "@azure/msal-react"; // Añadir estos hooks
+import { loginRequest } from "../../AuthConfig";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function Signup() {
+  const { instance } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
+  const account = useAccount();
+
   const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("");
@@ -117,6 +124,7 @@ function Signup() {
     console.log("Google credential:", credentialResponse);
     const token = credentialResponse.credential;
     try {
+      // Ejemplo: enviar el token JWT a tu backend para validarlo/crear sesión
       const { data } = await axios.post(`${apiUrl}/api/login/google`, { token });
       if (data.user) {
         guardarDatos(data.user);
@@ -134,6 +142,53 @@ function Signup() {
     console.error("Login con Google fallido");
     alert("No se pudo iniciar sesión con Google");
   };
+
+    useEffect(() => {
+    if (account) {
+      handleMicrosoftLogin();
+    }
+  }, [account]);
+
+    const handleMicrosoftLogin = useCallback(async () => {
+    try {
+      const tokenResponse = await instance.acquireTokenSilent({
+        ...loginRequest,
+        account: account
+      });
+
+      const { data } = await axios.post(`${apiUrl}/api/login/microsoft`, {
+        token: tokenResponse.accessToken
+      });
+
+      if (data.user) {
+        guardarDatos(data.user);
+        navigate("/codigo");
+      }
+    } catch (error) {
+      console.error("Error en login Microsoft:", error);
+      alert("Error al iniciar sesión con Microsoft");
+    }
+  }, [instance, account, navigate]);
+
+    const MicrosoftLoginButton = () => (
+    <div
+      onClick={() => instance.loginRedirect(loginRequest)}
+      className="white-btn scale flex-btn gray-border-bottom small-font"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+      }}
+    >
+      <img
+        src={microsoftLogo}
+        alt="microsoft-logo"
+        width={"24px"}
+        height={"24px"}
+      />
+      <span style={{ marginLeft: "8px" }}>Acceder con Microsoft</span>
+    </div>
+  );
 
   return (
     <>
@@ -172,16 +227,9 @@ function Signup() {
           <p className="gray-text centrar-parrafo small-font">
             <strong>Regístrate</strong>
           </p>
-          <button className="white-btn scale flex-btn gray-border-bottom btn-registro small-font">
-            <img
-              src={facebookLogo}
-              alt="facebook-logo"
-              width={"24px"}
-              height={"24px"}
-            />
-            REGÍSTRATE CON FACEBOOK
-          </button>
-            <GoogleLogin
+          <MicrosoftLoginButton/>
+
+          <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={handleGoogleError}
             useOneTap

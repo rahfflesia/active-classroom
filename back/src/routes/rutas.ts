@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { getUser, signup, getUsers, createsala, getformulario, enviarresultados, recibirresultados, recibirresultadoalumno, listaparticipaciones, listasalas, usuariosparticipantes, enviarGoogle } from '../controllers/controladores'
+import { getUser, signup, getUsers, createsala, getformulario, enviarresultados, recibirresultados, recibirresultadoalumno, listaparticipaciones, listasalas, usuariosparticipantes, enviarGoogle, enviarMicrosoft } from '../controllers/controladores'
 
 const router = Router()
 
@@ -15,5 +15,7 @@ router.get('/obtenerlistaresultados/:iduser', listaparticipaciones)//lista de sa
 router.get('/obtenerlistasalas/:iduser', listasalas)//lista de salas creadas por maestro
 router.get('/obtenerlistaparticipantes/:idsala', usuariosparticipantes)//esta para actualizar los participantes que hay en cada sala
 router.post('/login/google/:token', enviarGoogle)
+router.post('/login/microsoft/:token', enviarMicrosoft)
+
 
 export default router

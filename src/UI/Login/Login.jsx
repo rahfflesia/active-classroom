@@ -3,14 +3,23 @@ import "../../validacionesForm/validaciones.css";
 import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
 import googleLogo from "../../../public/logos/google-logo.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
+import microsoftLogo from "../../../public/logos/microsoft-logo.png"; // Añadir esta línea
+import { useMsal, useIsAuthenticated, useAccount } from "@azure/msal-react"; // Añadir estos hooks
+import { loginRequest } from "../../AuthConfig";
+
+
 
 const apiUrl = import.meta.env.VITE_API_URL;
 function Login() {
+  const { instance } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
+  const account = useAccount();
+
+
   const navigate = useNavigate();
-  
   const[Login] = useState({
       username: "",
       password: ""
@@ -18,6 +27,13 @@ function Login() {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+
+    useEffect(() => {
+    if (account) {
+      handleMicrosoftLogin();
+    }
+  }, [account]);
+
 
   const loguear =  async () =>{
     try {
@@ -53,7 +69,7 @@ function Login() {
       navigate("/codigo")
     }else{
       alert("Maestro Iniciado")
-      navigate("/graficas")
+      navigate("/crearcuestionario")
     }
   }
 
@@ -61,6 +77,7 @@ function Login() {
     navigate("/signup");
   };
 
+  
 
   const handleGoogleSuccess = async (credentialResponse) => {
     console.log("Google credential:", credentialResponse);
@@ -85,6 +102,48 @@ function Login() {
     alert("No se pudo iniciar sesión con Google");
   };
 
+  const handleMicrosoftLogin = useCallback(async () => {
+    try {
+      const tokenResponse = await instance.acquireTokenSilent({
+        ...loginRequest,
+        account: account
+      });
+
+      const { data } = await axios.post(`${apiUrl}/api/login/microsoft`, {
+        token: tokenResponse.accessToken
+      });
+
+      if (data.user) {
+        guardarDatos(data.user);
+        navigate("/codigo");
+      }
+    } catch (error) {
+      console.error("Error en login Microsoft:", error);
+      alert("Error al iniciar sesión con Microsoft");
+    }
+  }, [instance, account, navigate]);
+
+    const MicrosoftLoginButton = () => (
+    <div
+      onClick={() => instance.loginRedirect(loginRequest)}
+      className="white-btn scale flex-btn gray-border-bottom small-font"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+      }}
+    >
+      <img
+        src={microsoftLogo}
+        alt="microsoft-logo"
+        width={"24px"}
+        height={"24px"}
+      />
+      <span style={{ marginLeft: "8px" }}>Acceder con Microsoft</span>
+    </div>
+  );
+
+  
   return (
     <>
       <div
@@ -102,21 +161,16 @@ function Login() {
           <p className="gray-text centrar-parrafo small-font">
             <strong>Inicia sesión</strong>
           </p>
-          <button className="white-btn scale flex-btn gray-border-bottom small-font">
-            <img
-              src={facebookLogo}
-              alt="facebook-logo"
-              width={"24px"}
-              height={"24px"}
-            />
-            INICIA SESIÓN CON FACEBOOK
-          </button>
-          
+          <MicrosoftLoginButton />
+
+
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={handleGoogleError}
             useOneTap
           />
+        
+ 
 
           <div className="contenedor-formulario">
             <span className="gray-text">Nombre de usuario</span>
@@ -127,6 +181,7 @@ function Login() {
               className="small-font" 
               />
           </div>
+
           <div className="contenedor-formulario">
             <span className="gray-text">Contraseña</span>
             <input 

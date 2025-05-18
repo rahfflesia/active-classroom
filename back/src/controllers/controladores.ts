@@ -138,4 +138,9 @@ export const enviarGoogle = async (req:Request, res:Response) => {
     res.json('google')
 }
 
+export const enviarMicrosoft = async (req:Request, res:Response) =>{
+    const{token} = req.params
+    console.log (token)
+    res.json('microsoft')
+}
 //Haz una vista que incluya la informacion de las salas y sus creadores y titulos y asi
