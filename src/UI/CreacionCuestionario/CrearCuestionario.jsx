@@ -6,6 +6,12 @@ import VerdaderoFalsoForm from "./VerdaderoFalsoForm";
 
 function CrearCuestionario() {
   const [opcion, setOpcion] = useState("quiz");
+  const [preguntas, setPreguntas] = useState(
+    Array.from({ length: 10 }, (_, index) => index + 1) // Estado inicial
+  );
+    const handleAgregarPregunta = () => {
+    setPreguntas([...preguntas, preguntas.length + 1]); // Agrega nueva pregunta
+  };
 
   return (
     <div className="container-fluid contenedor-base d-flex flex-column p-0">
@@ -51,7 +57,7 @@ function CrearCuestionario() {
         <div className="row expand limitar">
           <div className="col-sm contenedor-preguntas-agregar p-3 d-flex flex-column gap-3">
             <div className="contenedor-preguntas-agregar-interno d-flex flex-column gap-3">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((num) => (
+              {preguntas.map((num) => (
                 <div className="previsualizacion-pregunta" key={num}>
                   <div className="titulo-iconos mb-1 d-flex justify-content-between align-items-center">
                     <span className="gray-text bold-span d-flex gap-2">
@@ -64,9 +70,12 @@ function CrearCuestionario() {
                 </div>
               ))}
             </div>
-            <button className="green-btn-cuestionario green-border-bottom btn-agregar-pregunta">
-              Agregar nueva pregunta
-            </button>
+             <button 
+        className="green-btn-cuestionario green-border-bottom btn-agregar-pregunta"
+        onClick={handleAgregarPregunta}
+      >
+        Agregar nueva pregunta
+      </button>
           </div>
           <div className="col-8 p-0 m-0 contenedor-preguntas container-sm d-flex align-items-center justify-content-center">
             <div className="contenedor-preguntas-interno p-4 flex flex-column gap-4">
