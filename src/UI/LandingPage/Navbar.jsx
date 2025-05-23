@@ -86,7 +86,7 @@ function Navbar() {
               <button
                 type="button"
                 className="btn primary-color-btn"
-                onClick={toLeaderboard}
+                onClick={toRoles}
               >
                 Regístrate
               </button>
