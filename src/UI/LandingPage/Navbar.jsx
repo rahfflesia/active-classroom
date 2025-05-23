@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar({onAcercaClick}) {
   const navigate = useNavigate();
 
   const toSignup = () => {
@@ -16,12 +16,8 @@ function Navbar() {
     navigate("/crearcuestionario");
   };
 
-  const toResponderCuestionario = () => {
-    navigate("/respondercuestionario");
-  };
-
-  const toLeaderboard = () => {
-    navigate("/leaderboard");
+  const toAcercade = () => {
+    
   };
 
   const toGraficas = () => {
@@ -60,22 +56,12 @@ function Navbar() {
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul className="navbar-nav ms-auto gap-4">
-              <li className="nav-item" onClick={toGraficas}>
-                <a href="#" className="nav-link gray-text">
-                  Estudiantes
-                </a>
-              </li>
-              <li className="nav-item" onClick={toResponderCuestionario}>
-                <a href="#" className="nav-link gray-text">
-                  Profesores
-                </a>
-              </li>
               <li className="nav-item" onClick={toLogin}>
                 <a href="#" className="nav-link gray-text">
                   Inicia sesión
                 </a>
               </li>
-              <li className="nav-item" onClick={toCrearCuestionario}>
+              <li className="nav-item" onClick={onAcercaClick}>
                 <a href="#" className="nav-link gray-text">
                   Acerca de
                 </a>

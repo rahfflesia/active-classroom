@@ -7,13 +7,21 @@ import Info from "./Info";
 import Steps from "./Steps";
 import Banner from "./Banner";
 import Footer from "./Footer";
+import { useRef } from "react";
 
 function LandingPage() {
+
+  const infoRef = useRef(null);
+
+  const scrollToInfo = () => {
+    infoRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
-      <Navbar />
-      <Video />
-      <Info />
+      <Navbar onAcercaClick={scrollToInfo}/>
+      <Video onAcercaClick={scrollToInfo}/>
+      <Info sectionRef={infoRef}/>
       <Steps />
       <Banner />
       <Footer />

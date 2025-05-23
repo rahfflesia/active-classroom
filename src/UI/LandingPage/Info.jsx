@@ -2,10 +2,12 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./info.css";
 
-function Info() {
+function Info({sectionRef }) {
+
+  
   return (
     <>
-      <div className="container-fluid d-flex flex-column p-5">
+      <div className="container-fluid d-flex flex-column p-5" ref={sectionRef}>
         <div className="container-md d-flex flex-column gap-3">
           <h2 className="text-center">
             <strong>Ventajas de usar ActiveClassroom</strong>

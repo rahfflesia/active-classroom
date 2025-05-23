@@ -4,7 +4,7 @@ import "./video.css";
 import video from "../../../public/video-lp/El ruido - Clase.mp4";
 import { useNavigate } from "react-router-dom";
 
-function Video() {
+function Video({onAcercaClick}) {
   const navigate = useNavigate();
 
   const toRoles = () => {
@@ -50,7 +50,7 @@ function Video() {
               <button
                 type="button"
                 className="btn transparent-white-btn p-2 fs-6 fs-md-5 fs-lg-4"
-                onClick={toCode}
+                onClick={onAcercaClick}
               >
                 Más información
               </button>
