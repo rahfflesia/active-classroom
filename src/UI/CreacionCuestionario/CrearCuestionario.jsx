@@ -1,5 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./crearcuestionario.css";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import QuizForm from "./QuizForm";
 import VerdaderoFalsoForm from "./VerdaderoFalsoForm";
@@ -12,6 +14,24 @@ function CrearCuestionario() {
     const handleAgregarPregunta = () => {
     setPreguntas([...preguntas, preguntas.length + 1]); // Agrega nueva pregunta
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const rol = localStorage.getItem("tipousuario");
+    if (isLoggedIn === "true") {
+      if (rol === "1") {
+        console.log("Rol de usuario no permitido en esta página");
+        navigate("/graficas");
+      } else if (rol === "2") {
+        navigate("/crearcuestionario");
+      }
+    }
+  }, [navigate]);
+
+  const redirectToGraficas = () => {
+    navigate("/graficas");
+  }
 
   return (
     <div className="container-fluid contenedor-base d-flex flex-column p-0">
@@ -41,7 +61,7 @@ function CrearCuestionario() {
                   placeholder="Ingresa el título del cuestionario"
                   className="input-cuestionario bold-span"
                 />
-                <button className="white-btn-cuestionario gray-border-bottom scale boton-nav">
+                <button className="white-btn-cuestionario gray-border-bottom scale boton-nav" onClick={redirectToGraficas}>
                   Salir
                 </button>
                 <button className="green-btn-cuestionario green-border-bottom scale boton-nav">

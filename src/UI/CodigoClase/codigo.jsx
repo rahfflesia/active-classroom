@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./codigo.css";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
@@ -6,8 +6,22 @@ import { useRef } from "react";
 function Codigo() {
   const navigate = useNavigate();
 
-  const toLogin = () => {
-    navigate("/login");
+  useEffect(() => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const rol = localStorage.getItem("tipousuario");
+  if (isLoggedIn === "true") {
+    if (rol === "1") {
+      navigate("/codigo");
+    } else if (rol === "2") {
+      console.log("Rol de usuario no permitido en esta página");
+      navigate("/graficas");
+    }
+  }
+}, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
   };
 
   const toSignup = () => {
@@ -27,6 +41,13 @@ function Codigo() {
   return (
     <>
       <div className="clase-container">
+        <button
+        className="white-btn scale gray-border-bottom"
+        style={{ position: "absolute", top: 20, right: 20, zIndex: 10 }}
+        onClick={handleLogout}
+      >
+        Cerrar sesión
+      </button>
         <dialog className="dialog-codigo-clase" ref={dialogRef}>
           <div>
             <h3 className="verde bold-span">Código de clase</h3>

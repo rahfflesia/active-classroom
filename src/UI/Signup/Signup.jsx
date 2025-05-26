@@ -1,8 +1,6 @@
 import "../Login/login.css";
 import "../Signup/signup.css";
 import "../../validacionesForm/validaciones.css";
-import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
-import googleLogo from "../../../public/logos/google-logo.png";
 import { Form } from "../../validacionesForm/form.js";
 import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -41,6 +39,18 @@ function Signup() {
     tipousuario: localStorage.getItem("rol"),
   })
 
+  useEffect(() => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const rol = localStorage.getItem("tipousuario");
+  if (isLoggedIn === "true") {
+    if (rol === "1") {
+      navigate("/codigo");
+    } else if (rol === "2") {
+      navigate("/graficas");
+    }
+  }
+}, [navigate]);
+
   const adduser = () =>{
     axios.post(apiUrl + '/api/signup/', Register).then(() => { 
       alert(`Usuario ${Register.username} ha sido registrado, por favor inicie sesion con su usuario`)
@@ -48,10 +58,7 @@ function Signup() {
     })
    console.log(Register)
   }
-
-  //let username;
  
-
   const blurCorreo = () => {
     setTouchedEmail(true);
     if (Form.isEmailValid(email)) {
@@ -128,14 +135,14 @@ function Signup() {
       const { data } = await axios.post(`${apiUrl}/api/login/google`, { token });
       if (data.user) {
         guardarDatos(data.user);
-        navigate("/codigo")
+        navigate("/codigo");
       } else {
         alert("Error al iniciar sesión con Google");
       }
     } catch (err) {
       console.error("Error en backend Google login", err);
     }
-    navigate("/codigo")
+    navigate("/codigo");
   };
   
   const handleGoogleError = () => {

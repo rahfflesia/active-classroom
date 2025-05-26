@@ -3,9 +3,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./banner.css";
 import "../LandingPage/video.css";
 import ComponenteCarga from "../ComponenteCarga/ComponenteCarga";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Banner() {
+  const navigate = useNavigate();
+  useEffect(() => {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const rol = localStorage.getItem("tipousuario");
+      if (isLoggedIn === "true") {
+        if (rol === "1") {
+          navigate("/codigo");
+        } else if (rol === "2") {
+          navigate("/graficas");
+        }
+      }
+    }, [navigate]);
   const componenteCarga = useRef(null);
   const mostrarComponenteCarga = () => {
     componenteCarga.current.showModal();

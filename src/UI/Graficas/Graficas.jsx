@@ -28,8 +28,8 @@ import iconoEliminar from "../../../public/iconos/delete-icon.png";
 import iconoAgregar from "../../../public/iconos/add-icon.png";
 import iconoExportar from "../../../public/iconos/export-icon.png";
 import iconoAyuda from "../../../public/iconos/help-icon.png";
-import { useRef, useState } from "react";
-import fotoPerfilDummy from "../../../public/iconos/ye.jpg";
+import { useRef, useState, useEffect, use } from "react";
+import fotoPerfilDummy from "../../../public/iconos/user.png";
 
 const datosPie = {
   labels: ["Correctas", "Incorrectas", "Sin responder"],
@@ -244,6 +244,19 @@ export default function Graficas() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const rol = localStorage.getItem("tipousuario");
+    if (isLoggedIn === "true") {
+      if (rol === "1") {
+        console.log("Rol de usuario no permitido en esta página");
+        navigate("/codigo");
+      } else if (rol === "2") {
+        navigate("/graficas");
+      }
+    }
+  }, [navigate]);
+
   const toCrearCuestionario = () => {
     navigate("/crearcuestionario");
   };
@@ -252,6 +265,13 @@ export default function Graficas() {
   const toggleDropdown = () => {
     setVisible(!visible);
   };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
+  const username = localStorage.getItem("username");
 
   return (
     <>
@@ -404,10 +424,13 @@ export default function Graficas() {
                           />
                         </div>
                         <span className="gray-text bold-span d-flex justify-content-center align-items-center">
-                          xPeenPapi
+                          {username}
                         </span>
                       </div>
-                      <button className="btn-cerrar-sesion white-text bold-span circular scale">
+                      <button
+                        className="btn-cerrar-sesion white-text bold-span circular scale"
+                        onClick={handleLogout}
+                      >
                         Cerrar sesión
                       </button>
                     </div>

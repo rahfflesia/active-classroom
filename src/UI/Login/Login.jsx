@@ -1,7 +1,5 @@
 import "./login.css";
 import "../../validacionesForm/validaciones.css";
-import facebookLogo from "../../../public/logos/Facebook_Logo_(2019).png";
-import googleLogo from "../../../public/logos/google-logo.png";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import axios from 'axios';
@@ -10,14 +8,11 @@ import microsoftLogo from "../../../public/logos/microsoft-logo.png"; // Añadir
 import { useMsal, useIsAuthenticated, useAccount } from "@azure/msal-react"; // Añadir estos hooks
 import { loginRequest } from "../../AuthConfig";
 
-
-
 const apiUrl = import.meta.env.VITE_API_URL;
 function Login() {
   const { instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
   const account = useAccount();
-
 
   const navigate = useNavigate();
   const[Login] = useState({
@@ -29,10 +24,19 @@ function Login() {
     const [password, setPassword] = useState("")
 
     useEffect(() => {
-    if (account) {
-      handleMicrosoftLogin();
-    }
-  }, [account]);
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const rol = localStorage.getItem("tipousuario");
+      if (isLoggedIn === "true") {
+        if (rol === "1") {
+          navigate("/codigo");
+        } else if (rol === "2") {
+          navigate("/graficas");
+        }
+      }
+      if (account) {
+        handleMicrosoftLogin();
+      }
+  }, [account, navigate]);
 
 
   const loguear =  async () =>{
@@ -73,8 +77,8 @@ function Login() {
     }
   }
 
-  const toSignup = () => {
-    navigate("/signup");
+  const toRoles = () => {
+    navigate("/roles");
   };
 
   
@@ -204,7 +208,7 @@ function Login() {
           <hr />
           <button
             className="white-btn scale gray-border-bottom small-font"
-            onClick={toSignup}
+            onClick={toRoles}
           >
             Regístrate
           </button>
