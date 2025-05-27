@@ -38,6 +38,8 @@ function CrearCuestionario() {
       <nav className="navbar navbar-expand-lg navbar-creacion-cuestionario p-3 shadow">
         <div className="container-md">
           <div className="d-flex gap-2 align-items-center">
+                        <img id="logo" src="../../../public/fondo/LogoAC.png" alt=""/>
+
             <h4 className="verde m-0">
               <strong>ActiveClassroom</strong>
             </h4>

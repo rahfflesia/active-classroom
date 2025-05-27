@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+import logo from "../../../public/fondo/LogoAC.png"
 
 function Navbar({onAcercaClick}) {
   const navigate = useNavigate();
@@ -36,6 +37,9 @@ function Navbar({onAcercaClick}) {
     <>
       <nav className="navbar navbar-expand-lg shadow p-3">
         <div className="container-md">
+  
+          <img id="logo" src="../../../public/fondo/LogoAC.png" alt=""/>
+
           <div>
             <a className="navbar-brand verde" href="">
               <strong>ActiveClassroom</strong>
