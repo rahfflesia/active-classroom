@@ -7,12 +7,51 @@ import QuizForm from "./QuizForm";
 import VerdaderoFalsoForm from "./VerdaderoFalsoForm";
 
 function CrearCuestionario() {
+  const [preguntas, setPreguntas] = useState([
+    {
+      numero: 1,
+      tipo: "quiz",
+      question: "",
+      options: ["", "", "", ""],
+      correctAnswerIndex: 0,
+      tiempo: 30,
+    },
+  ]);
+  const [preguntaSeleccionada, setPreguntaSeleccionada] = useState(0); // índice de la pregunta seleccionada
+  const [titulo, setTitulo] = useState("");
   const [opcion, setOpcion] = useState("quiz");
-  const [preguntas, setPreguntas] = useState(
-    Array.from({ length: 10 }, (_, index) => index + 1) // Estado inicial
-  );
-    const handleAgregarPregunta = () => {
-    setPreguntas([...preguntas, preguntas.length + 1]); // Agrega nueva pregunta
+
+  const handleTipoPreguntaChange = (tipo) => {
+    setPreguntas((prev) =>
+      prev.map((p, idx) =>
+        idx === preguntaSeleccionada
+          ? {
+              ...p,
+              tipo,
+              // Si cambia a quiz, agrega options; si cambia a vf, elimina options
+              options: tipo === "quiz" ? ["", "", "", ""] : undefined,
+            }
+          : p
+      )
+    );
+    setOpcion(tipo);
+  };
+
+  // Agrega una nueva pregunta
+  const handleAgregarPregunta = () => {
+    setPreguntas((prev) => [
+      ...prev,
+      {
+        numero: prev.length + 1,
+        tipo: "quiz",
+        question: "",
+        options: ["", "", "", ""],
+        correctAnswerIndex: 0,
+        tiempo: 30,
+      },
+    ]);
+    setPreguntaSeleccionada(preguntas.length); // Selecciona la nueva pregunta
+    setOpcion("quiz");
   };
 
   const navigate = useNavigate();
@@ -29,16 +68,102 @@ function CrearCuestionario() {
     }
   }, [navigate]);
 
+
+  // Cambia el texto de la pregunta
+  const handlePreguntaChange = (idx, value) => {
+    setPreguntas((prev) =>
+      prev.map((p, i) => (i === idx ? { ...p, question: value } : p))
+    );
+  };
+
+  // Cambia una opción de respuesta
+  const handleOpcionChange = (pregIdx, optIdx, value) => {
+    setPreguntas((prev) =>
+      prev.map((p, i) =>
+        i === pregIdx
+          ? {
+              ...p,
+              options: p.options.map((opt, j) =>
+                j === optIdx ? value : opt
+              ),
+            }
+          : p
+      )
+    );
+  };
+
+  const generarSalaId = () => {
+    return Math.floor(10000 + Math.random() * 90000).toString();
+  };
+
+  // Maneja el cambio de texto en el título
+  const handleTituloChange = (e) => setTitulo(e.target.value);
+
+  // Maneja el cambio de respuesta correcta
+  const handleCorrectaChange = (pregIdx, value) => {
+    setPreguntas((prev) =>
+      prev.map((p, i) =>
+        i === pregIdx ? { ...p, correctAnswerIndex: value } : p
+      )
+    );
+  };
+
+  // Maneja el cambio de tiempo
+  const handleTiempoChange = (pregIdx, value) => {
+    const nuevasPreguntas = [...preguntas];
+    nuevasPreguntas[pregIdx].tiempo = parseInt(value, 10);
+    setPreguntas(nuevasPreguntas);
+  };
+
+  // Selecciona una pregunta para editar
+  const handleSeleccionarPregunta = (idx) => {
+    setPreguntaSeleccionada(idx);
+    setOpcion(preguntas[idx].tipo);
+  };
+
+  // Elimina una pregunta
+  const handleEliminarPregunta = (idx) => {
+    setPreguntas(preguntas.filter((_, i) => i !== idx));
+  };
+
+  // Envía el cuestionario al backend
+  const handleGuardar = async () => {
+    const salaid = generarSalaId();
+    const userId = localStorage.getItem("iduser");
+    const username = localStorage.getItem("username");
+
+    const payload = {
+      salaid,
+      userId,
+      username,
+      tituloform: titulo,
+      questions: preguntas,
+    };
+
+    try {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/crearsala`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      alert("Sala creada exitosamente");
+      navigate("/graficas");
+    } catch (error) {
+      alert("Error al crear la sala");
+      console.error("Error al crear la sala:", error);
+    }
+  };
+
   const redirectToGraficas = () => {
     navigate("/graficas");
-  }
+  };
 
   return (
     <div className="container-fluid contenedor-base d-flex flex-column p-0">
       <nav className="navbar navbar-expand-lg navbar-creacion-cuestionario p-3 shadow">
         <div className="container-md">
           <div className="d-flex gap-2 align-items-center">
-                        <img id="logo" src="../../../public/fondo/LogoAC.png" alt=""/>
+            <img id="logo" src="../../../public/fondo/LogoAC.png" alt="" />
 
             <h4 className="verde m-0">
               <strong>ActiveClassroom</strong>
@@ -62,11 +187,19 @@ function CrearCuestionario() {
                   type="text"
                   placeholder="Ingresa el título del cuestionario"
                   className="input-cuestionario bold-span"
+                  value={titulo}
+                  onChange={handleTituloChange}
                 />
-                <button className="white-btn-cuestionario gray-border-bottom scale boton-nav" onClick={redirectToGraficas}>
+                <button
+                  className="white-btn-cuestionario gray-border-bottom scale boton-nav"
+                  onClick={redirectToGraficas}
+                >
                   Salir
                 </button>
-                <button className="green-btn-cuestionario green-border-bottom scale boton-nav">
+                <button
+                  className="green-btn-cuestionario green-border-bottom scale boton-nav"
+                  onClick={handleGuardar}
+                >
                   Guardar
                 </button>
               </div>
@@ -79,25 +212,30 @@ function CrearCuestionario() {
         <div className="row expand limitar">
           <div className="col-sm contenedor-preguntas-agregar p-3 d-flex flex-column gap-3">
             <div className="contenedor-preguntas-agregar-interno d-flex flex-column gap-3">
-              {preguntas.map((num) => (
-                <div className="previsualizacion-pregunta" key={num}>
+              {preguntas.map((preg, idx) => (
+                <div
+                  className={`previsualizacion-pregunta ${preguntaSeleccionada === idx ? "selected" : ""}`}
+                  key={preg.numero}
+                  onClick={() => handleSeleccionarPregunta(idx)}
+                  style={{ cursor: "pointer", background: preguntaSeleccionada === idx ? "#e0ffe0" : "white" }}
+                >
                   <div className="titulo-iconos mb-1 d-flex justify-content-between align-items-center">
                     <span className="gray-text bold-span d-flex gap-2">
-                      Pregunta {num}
+                      Pregunta {preg.numero}
                     </span>
                   </div>
                   <div className="miniatura-pregunta gray-text pointer">
-                    Pregunta {num}
+                    {preg.question || "Sin pregunta"}
                   </div>
                 </div>
               ))}
             </div>
-             <button 
-        className="green-btn-cuestionario green-border-bottom btn-agregar-pregunta"
-        onClick={handleAgregarPregunta}
-      >
-        Agregar nueva pregunta
-      </button>
+            <button
+              className="green-btn-cuestionario green-border-bottom btn-agregar-pregunta"
+              onClick={handleAgregarPregunta}
+            >
+              Agregar nueva pregunta
+            </button>
           </div>
           <div className="col-8 p-0 m-0 contenedor-preguntas container-sm d-flex align-items-center justify-content-center">
             <div className="contenedor-preguntas-interno p-4 flex flex-column gap-4">
@@ -105,10 +243,35 @@ function CrearCuestionario() {
                 type="text"
                 placeholder="Escribe la pregunta"
                 className="container-fluid text-center p-3 input-pregunta green-border-bottom"
+                value={preguntas[preguntaSeleccionada].question}
+                onChange={(e) => handlePreguntaChange(preguntaSeleccionada, e.target.value)}
               />
               <div className="seccion-preguntas">
-                {opcion === "quiz" && <QuizForm />}
-                {opcion === "verdadero-falso" && <VerdaderoFalsoForm />}
+                {preguntas[preguntaSeleccionada].tipo === "quiz" && (
+                  <QuizForm
+                    pregunta={preguntas[preguntaSeleccionada]}
+                    onOpcionChange={(optIdx, value) =>
+                      handleOpcionChange(preguntaSeleccionada, optIdx, value)
+                    }
+                    onCorrectaChange={(value) =>
+                      handleCorrectaChange(preguntaSeleccionada, value)
+                    }
+                    onPreguntaChange={(value) =>
+                      handlePreguntaChange(preguntaSeleccionada, value)
+                    }
+                  />
+                )}
+                {preguntas[preguntaSeleccionada].tipo === "verdadero-falso" && (
+                  <VerdaderoFalsoForm
+                    pregunta={preguntas[preguntaSeleccionada]}
+                    onCorrectaChange={(value) =>
+                      handleCorrectaChange(preguntaSeleccionada, value)
+                    }
+                    onPreguntaChange={(value) =>
+                      handlePreguntaChange(preguntaSeleccionada, value)
+                    }
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -118,10 +281,11 @@ function CrearCuestionario() {
               <div className="flex flex-column gap-2">
                 <span className="bold-span gray-text">Tipo de pregunta</span>
                 <select
-                  className="select-cuestionario gray-text"
-                  name="tipo-pregunta"
-                  onChange={(e) => setOpcion(e.target.value)}
-                >
+                className="select-cuestionario gray-text"
+                name="tipo-pregunta"
+                value={preguntas[preguntaSeleccionada].tipo}
+                onChange={(e) => handleTipoPreguntaChange(e.target.value)}
+              >
                   <option value="quiz">Quiz</option>
                   <option value="verdadero-falso">Verdadero o falso</option>
                 </select>
