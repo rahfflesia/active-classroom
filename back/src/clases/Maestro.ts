@@ -36,7 +36,6 @@ export class Maestro extends User{
         const fileName = `formulario_${this.id}_${Math.floor(Math.random() * 1000 + 1)}.json`
         const filePath = path.join(formsDir, fileName)
         
-        
         try{
             if(!fs.existsSync(formsDir)){
                 fs.mkdirSync(formsDir, {recursive:true})
@@ -44,7 +43,7 @@ export class Maestro extends User{
             const jsonString = JSON.stringify(body, null, 2)
             fs.writeFileSync(filePath, jsonString, 'utf-8')
             const formulario = await Formmodel.create({
-                titulo: body.dataValues.tituloform,
+                titulo: body.tituloform,
                 rutaform: filePath.toString(),
                 rutaformresult: "",
                 cantparticipantes: 0
@@ -75,7 +74,4 @@ export class Maestro extends User{
             return "No se pudieron obtener los datos"
         }
     }
-    /*obtenerresultados(){
-        
-    }*/
 }

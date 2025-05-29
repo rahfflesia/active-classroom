@@ -7,6 +7,10 @@ import QuizForm from "./QuizForm";
 import VerdaderoFalsoForm from "./VerdaderoFalsoForm";
 
 function CrearCuestionario() {
+  const [mismoTiempo, setMismoTiempo] = useState(false);
+  const [mismosPuntos, setMismosPuntos] = useState(false);
+  const [valorPregunta, setValorPregunta] = useState("un-punto");
+
   const [preguntas, setPreguntas] = useState([
     {
       numero: 1,
@@ -66,8 +70,14 @@ function CrearCuestionario() {
         navigate("/crearcuestionario");
       }
     }
-  }, [navigate]);
 
+    setPreguntas((prev) =>
+      prev.map((p) => ({
+        ...p,
+        valor: p.valor || valorPregunta,
+      }))
+    );
+  }, [navigate]);
 
   // Cambia el texto de la pregunta
   const handlePreguntaChange = (idx, value) => {
@@ -83,9 +93,7 @@ function CrearCuestionario() {
         i === pregIdx
           ? {
               ...p,
-              options: p.options.map((opt, j) =>
-                j === optIdx ? value : opt
-              ),
+              options: p.options.map((opt, j) => (j === optIdx ? value : opt)),
             }
           : p
       )
@@ -110,9 +118,39 @@ function CrearCuestionario() {
 
   // Maneja el cambio de tiempo
   const handleTiempoChange = (pregIdx, value) => {
-    const nuevasPreguntas = [...preguntas];
-    nuevasPreguntas[pregIdx].tiempo = parseInt(value, 10);
-    setPreguntas(nuevasPreguntas);
+    if (mismoTiempo) {
+      setPreguntas((prev) =>
+        prev.map((p) => ({ ...p, tiempo: parseInt(value, 10) }))
+      );
+    } else {
+      setPreguntas((prev) =>
+        prev.map((p, i) =>
+          i === pregIdx ? { ...p, tiempo: parseInt(value, 10) } : p
+        )
+      );
+    }
+  };
+
+  // Checkbox: mismo tiempo para todas las preguntas
+  const handleMismoTiempoChange = (e) => {
+    const checked = e.target.checked;
+    setMismoTiempo(checked);
+    if (checked) {
+      // Aplica el tiempo de la pregunta seleccionada a todas
+      const tiempo = preguntas[preguntaSeleccionada].tiempo;
+      setPreguntas((prev) => prev.map((p) => ({ ...p, tiempo })));
+    }
+  };
+
+  // Checkbox: mismos puntos para todas las preguntas
+  const handleMismosPuntosChange = (e) => {
+    const checked = e.target.checked;
+    setMismosPuntos(checked);
+    if (checked) {
+      // Aplica el valor de la pregunta seleccionada a todas
+      const valor = preguntas[preguntaSeleccionada].valor || valorPregunta;
+      setPreguntas((prev) => prev.map((p) => ({ ...p, valor })));
+    }
   };
 
   // Selecciona una pregunta para editar
@@ -121,9 +159,31 @@ function CrearCuestionario() {
     setOpcion(preguntas[idx].tipo);
   };
 
+  const handleValorPreguntaChange = (value) => {
+    setValorPregunta(value);
+    if (mismosPuntos) {
+      setPreguntas((prev) => prev.map((p) => ({ ...p, valor: value })));
+    } else {
+      setPreguntas((prev) =>
+        prev.map((p, i) =>
+          i === preguntaSeleccionada ? { ...p, valor: value } : p
+        )
+      );
+    }
+  };
+
   // Elimina una pregunta
   const handleEliminarPregunta = (idx) => {
-    setPreguntas(preguntas.filter((_, i) => i !== idx));
+    if (preguntas.length === 1) return; // No permitir eliminar la última pregunta
+    // Elimina la pregunta y recalcula los números
+    const nuevasPreguntas = preguntas
+      .filter((_, i) => i !== idx)
+      .map((p, i) => ({
+        ...p,
+        numero: i + 1, // Reasigna el número de pregunta
+      }));
+    setPreguntas(nuevasPreguntas);
+    setPreguntaSeleccionada(idx > 0 ? idx - 1 : 0);
   };
 
   // Envía el cuestionario al backend
@@ -131,6 +191,11 @@ function CrearCuestionario() {
     const salaid = generarSalaId();
     const userId = localStorage.getItem("iduser");
     const username = localStorage.getItem("username");
+
+    if (!titulo.trim()) {
+      alert("Ingrese el nombre del cuestionario");
+      return;
+    }
 
     const payload = {
       salaid,
@@ -214,10 +279,16 @@ function CrearCuestionario() {
             <div className="contenedor-preguntas-agregar-interno d-flex flex-column gap-3">
               {preguntas.map((preg, idx) => (
                 <div
-                  className={`previsualizacion-pregunta ${preguntaSeleccionada === idx ? "selected" : ""}`}
+                  className={`previsualizacion-pregunta ${
+                    preguntaSeleccionada === idx ? "selected" : ""
+                  }`}
                   key={preg.numero}
                   onClick={() => handleSeleccionarPregunta(idx)}
-                  style={{ cursor: "pointer", background: preguntaSeleccionada === idx ? "#e0ffe0" : "white" }}
+                  style={{
+                    cursor: "pointer",
+                    background:
+                      preguntaSeleccionada === idx ? "#e0ffe0" : "white",
+                  }}
                 >
                   <div className="titulo-iconos mb-1 d-flex justify-content-between align-items-center">
                     <span className="gray-text bold-span d-flex gap-2">
@@ -244,7 +315,9 @@ function CrearCuestionario() {
                 placeholder="Escribe la pregunta"
                 className="container-fluid text-center p-3 input-pregunta green-border-bottom"
                 value={preguntas[preguntaSeleccionada].question}
-                onChange={(e) => handlePreguntaChange(preguntaSeleccionada, e.target.value)}
+                onChange={(e) =>
+                  handlePreguntaChange(preguntaSeleccionada, e.target.value)
+                }
               />
               <div className="seccion-preguntas">
                 {preguntas[preguntaSeleccionada].tipo === "quiz" && (
@@ -281,11 +354,11 @@ function CrearCuestionario() {
               <div className="flex flex-column gap-2">
                 <span className="bold-span gray-text">Tipo de pregunta</span>
                 <select
-                className="select-cuestionario gray-text"
-                name="tipo-pregunta"
-                value={preguntas[preguntaSeleccionada].tipo}
-                onChange={(e) => handleTipoPreguntaChange(e.target.value)}
-              >
+                  className="select-cuestionario gray-text"
+                  name="tipo-pregunta"
+                  value={preguntas[preguntaSeleccionada].tipo}
+                  onChange={(e) => handleTipoPreguntaChange(e.target.value)}
+                >
                   <option value="quiz">Quiz</option>
                   <option value="verdadero-falso">Verdadero o falso</option>
                 </select>
@@ -295,20 +368,30 @@ function CrearCuestionario() {
                 <select
                   className="select-cuestionario gray-text"
                   name="limite-tiempo"
+                  value={preguntas[preguntaSeleccionada].tiempo}
+                  onChange={(e) =>
+                    handleTiempoChange(preguntaSeleccionada, e.target.value)
+                  }
+                  disabled={mismoTiempo}
                 >
-                  <option value="10-segundos">10 segundos</option>
-                  <option value="20-segundos">20 segundos</option>
-                  <option value="30-segundos">30 segundos</option>
-                  <option value="40-segundos">40 segundos</option>
-                  <option value="50-segundos">50 segundos</option>
-                  <option value="1-minuto">1 minuto</option>
-                  <option value="2-minutos">2 minutos</option>
-                  <option value="3-minutos">3 minutos</option>
-                  <option value="4-minutos">4 minutos</option>
-                  <option value="5-minutos">5 minutos</option>
+                  <option value={10}>10 segundos</option>
+                  <option value={20}>20 segundos</option>
+                  <option value={30}>30 segundos</option>
+                  <option value={40}>40 segundos</option>
+                  <option value={50}>50 segundos</option>
+                  <option value={60}>1 minuto</option>
+                  <option value={120}>2 minutos</option>
+                  <option value={180}>3 minutos</option>
+                  <option value={240}>4 minutos</option>
+                  <option value={300}>5 minutos</option>
                 </select>
                 <div className="d-flex gap-2">
-                  <input type="checkbox" id="mismos-tiempo-preguntas" />
+                  <input
+                    type="checkbox"
+                    id="mismos-tiempo-preguntas"
+                    checked={mismoTiempo}
+                    onChange={handleMismoTiempoChange}
+                  />
                   <span className="gray-text">
                     Aplicar el mismo tiempo para todas las preguntas
                   </span>
@@ -321,6 +404,9 @@ function CrearCuestionario() {
                 <select
                   className="select-cuestionario gray-text"
                   name="valor-pregunta"
+                  value={preguntas[preguntaSeleccionada].valor || valorPregunta}
+                  onChange={(e) => handleValorPreguntaChange(e.target.value)}
+                  disabled={mismosPuntos}
                 >
                   <option value="un-punto">1 punto</option>
                   <option value="dos-puntos">2 puntos</option>
@@ -328,7 +414,12 @@ function CrearCuestionario() {
                   <option value="diez-puntos">10 puntos</option>
                 </select>
                 <div className="d-flex gap-2">
-                  <input type="checkbox" id="mismos-puntos-preguntas" />
+                  <input
+                    type="checkbox"
+                    id="mismos-puntos-preguntas"
+                    checked={mismosPuntos}
+                    onChange={handleMismosPuntosChange}
+                  />
                   <span className="gray-text">
                     Mismos puntos para todas las preguntas
                   </span>
@@ -348,10 +439,10 @@ function CrearCuestionario() {
               </div>
             </div>
             <div className="flex flex-column gap-2">
-              <button className="green-btn-cuestionario green-border-bottom">
-                Agregar
-              </button>
-              <button className="white-btn-cuestionario gray-border-bottom">
+              <button
+                className="white-btn-cuestionario gray-border-bottom"
+                onClick={() => handleEliminarPregunta(preguntaSeleccionada)}
+              >
                 Eliminar
               </button>
             </div>
