@@ -61,7 +61,7 @@ export class Maestro extends User{
  
     async obtenerlistasalas(){
         try {
-            const participacion = await Salavistamodel.findOne({
+            const participacion = await Salavistamodel.findAll({
                 where:{
                     'Id de creador':this.id
                 }

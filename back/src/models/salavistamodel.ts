@@ -20,6 +20,9 @@ const Salavistamodel = db.define('vista_salas',{
     },
     'Ruta de formulario':{
         type:DataTypes.STRING
+    },
+    'Fecha de creacion':{
+        type:DataTypes.STRING
     }
     
 },{
