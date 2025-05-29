@@ -1,4 +1,6 @@
 import * as fs from 'fs'
+import { promises as fspromiss } from 'fs';
+import Formmodel from '../models/formmodel';
 
 
 export class Formulario{
@@ -62,5 +64,31 @@ export class Formulario{
         //console.log(respuestas)
         console.log(resultados) 
         return(resultados)
+    }
+
+    async eliminarformulario(idformulario:number){
+        try {
+            const rutaform = await Formmodel.findOne({ //Se buscan los datos del formulario 
+                where:{
+                    id:idformulario
+                }
+            })
+            await Formmodel.destroy({
+                where:{
+                    id:idformulario
+                }
+            })
+            try { //Ademas de eliminar el formulario de la base de datos tambien se eliminara el archivo vinculado a este
+                await fspromiss.access(rutaform?.dataValues.rutaform) //Checa que el formulario exista
+                await fspromiss.unlink(rutaform?.dataValues.rutaform) //Elimina el formulario
+                console.log("Archivo eliminado")
+            } catch (error) {
+                console.error("No se pudo eliminar el archivo: ", error)
+            }
+
+        } catch (error) {
+            console.error("No se pudo eliminar el formulario", error)
+        }
+        
     }
 }

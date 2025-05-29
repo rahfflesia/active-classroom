@@ -1,5 +1,6 @@
 import Formmodel from '../models/formmodel'
 import Resultadoparticipacionmodel from '../models/resultadosmodel'
+import Salamodel from '../models/salamodel'
 import { Formulario } from './Formularios'
 import * as fs from 'fs'
 
@@ -60,6 +61,29 @@ export class Sala{
         } catch (error) {
             console.error(error)
             return "Ha ocurrido un error al recuperar los participantes"
+        }
+    }
+
+    async eliminarsala(){
+        try {
+            const sala = await Salamodel.findOne({ //Se busca este registro para obtener los datos de la sala
+                where:{
+                   id:this.idSala 
+                }
+            })
+            await Salamodel.destroy({
+                where:{
+                    id:this.idSala
+                }
+            })
+            const formularioid = await sala?.dataValues.idformulario //Se obtiene el id del formulario
+            console.log(formularioid)
+            const formulrio = new Formulario()
+            formulrio.eliminarformulario(formularioid) //Se llama a un metodo que eliminara el formulario de la BD
+            return("Sala eliminada correctamente")
+        } catch (error) {
+            console.error("Error al eliminar la sala:", error)
+            return("Error al eliminar la sala")
         }
     }
 }

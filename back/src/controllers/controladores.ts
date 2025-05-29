@@ -143,4 +143,11 @@ export const enviarMicrosoft = async (req:Request, res:Response) =>{
     console.log (token)
     res.json('microsoft')
 }
+
+export const eliminarsala = async(req:Request, res:Response) => {
+    const {salaid} = req.params
+    const sala = new Sala(parseInt(salaid))
+    const respuesta = await sala.eliminarsala()
+    res.json(respuesta)
+}
 //Haz una vista que incluya la informacion de las salas y sus creadores y titulos y asi
