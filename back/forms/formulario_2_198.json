@@ -1,0 +1,22 @@
+{
+  "salaid": "18041",
+  "userId": "2",
+  "username": "Manuel",
+  "tituloform": "Prueba",
+  "questions": [
+    {
+      "numero": 1,
+      "tipo": "quiz",
+      "question": "asfaffaf",
+      "options": [
+        "afasfas",
+        "asfasfs",
+        "asfasf",
+        "asfasf"
+      ],
+      "correctAnswerIndex": 0,
+      "tiempo": 30,
+      "valor": "un-punto"
+    }
+  ]
+}

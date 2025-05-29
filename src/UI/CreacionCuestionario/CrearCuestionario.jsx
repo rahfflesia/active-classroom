@@ -198,12 +198,15 @@ function CrearCuestionario() {
     }
 
     const payload = {
-      salaid,
-      userId,
-      username,
-      tituloform: titulo,
-      questions: preguntas,
-    };
+    salaid,
+    userId,
+    username,
+    tituloform: titulo,
+    questions: preguntas.map(p => ({
+      ...p,
+      valor: p.valor || valorPregunta, // Asegura que todas las preguntas tengan un valor
+    })),
+  };
 
     try {
       await fetch(`${import.meta.env.VITE_API_URL}/api/crearsala`, {

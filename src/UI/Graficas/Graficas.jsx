@@ -243,6 +243,16 @@ export default function Graficas() {
   const fechaLocal = fecha.toLocaleDateString("es-MX", opciones);
 
   const navigate = useNavigate();
+  const [cuestionarios, setCuestionarios] = useState([]);
+  const [cuestionarioSeleccionadoId, setCuestionarioSeleccionadoId] =
+    useState(null);
+  const [cuestionarioEliminarId, setCuestionarioEliminarId] = useState("");
+  const [cuestionarioExportarId, setCuestionarioExportarId] = useState("");
+  const userId = localStorage.getItem("iduser");
+
+  const cuestionarioSeleccionado = cuestionarios.find(
+    (c) => c["Id de Sala"] === cuestionarioSeleccionadoId
+  );
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -255,7 +265,57 @@ export default function Graficas() {
         navigate("/graficas");
       }
     }
-  }, [navigate]);
+
+    if (userId) {
+      fetch(`${import.meta.env.VITE_API_URL}/api/obtenerlistasalas/${userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setCuestionarios(data);
+          console.log("Cuestionarios obtenidos:", data);
+        })
+        .catch((err) => {
+          console.error("Error al obtener cuestionarios", err);
+        });
+    }
+  }, [navigate, userId]);
+
+  // Esto es para los selects de los cuestionarios ya sea eliminar o exportar
+  const renderOpcionesCuestionarios = () =>
+    cuestionarios.map((c) => (
+      <option key={c["Id de Sala"]} value={c["Id de Sala"]}>
+        {c["Titulo de formulario"]}
+      </option>
+    ));
+
+  // Renderizar cuestionarios en la lista lateral
+  const renderCuestionarios = () =>
+    cuestionarios.map((c) => {
+      // Fecha
+      let fechaTexto = "Sin fecha";
+      if (c["Fecha de creacion"]) {
+        // Mostrar la fecha tal cual viene de la BD, en formato DD/MM/YYYY
+        const [año, mes, dia] = c["Fecha de creacion"].split("-");
+        fechaTexto = `Creado el ${dia}/${mes}/${año}`;
+      }
+      // Título
+      const titulo = c["Titulo de formulario"] || "Sin título";
+
+      return (
+        <div
+          key={c["Id de Sala"]}
+          className={`contenedor-cuestionarios ${
+            cuestionarioSeleccionadoId === c["Id de Sala"] ? "seleccionado" : ""
+          }`}
+          onClick={() => setCuestionarioSeleccionadoId(c["Id de Sala"])}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="elemento-cuestionario circular pointer p-3">
+            <p className="white-text bold-span m-0">{titulo}</p>
+            <span className="white-text">{fechaTexto}</span>
+          </div>
+        </div>
+      );
+    });
 
   const toCrearCuestionario = () => {
     navigate("/crearcuestionario");
@@ -287,11 +347,15 @@ export default function Graficas() {
               <span className="bold-span gray-text">
                 Selecciona el cuestionario a exportar
               </span>
-              <select name="" id="" className="gray-text select-cuestionario">
-                <option value="cuestionario-uno">Cuestionario 1</option>
-                <option value="cuestionario-dos">Cuestionario 2</option>
-                <option value="cuestionario-tres">Cuestionario 3</option>
-                <option value="cuestionario-cuatro">Cuestionario 4</option>
+              <select
+                className="gray-text select-cuestionario"
+                value={cuestionarioExportarId}
+                onChange={(e) =>
+                  setCuestionarioExportarId(Number(e.target.value))
+                }
+              >
+                <option value="">Selecciona uno</option>
+                {renderOpcionesCuestionarios()}
               </select>
             </div>
             <div className="d-flex flex-column gap-1">
@@ -328,11 +392,15 @@ export default function Graficas() {
               <span className="bold-span gray-text">
                 Selecciona el cuestionario a eliminar
               </span>
-              <select name="" id="" className="gray-text select-cuestionario">
-                <option value="cuestionario-uno">Cuestionario 1</option>
-                <option value="cuestionario-dos">Cuestionario 2</option>
-                <option value="cuestionario-tres">Cuestionario 3</option>
-                <option value="cuestionario-cuatro">Cuestionario 4</option>
+              <select
+                className="gray-text select-cuestionario"
+                value={cuestionarioEliminarId}
+                onChange={(e) =>
+                  setCuestionarioEliminarId(Number(e.target.value))
+                }
+              >
+                <option value="">Selecciona uno</option>
+                {renderOpcionesCuestionarios()}
               </select>
             </div>
             <div className="botones-exportar d-flex gap-2">
@@ -490,57 +558,10 @@ export default function Graficas() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-2 seccion-cuestionarios clase-prueba p-4">
+            <div className="col-lg-2 seccion-cuestionarios clase-prueba p-4 full-height">
               <p className="white-text bold-span mb-3">Cuestionarios</p>
               <div className="d-flex flex-column gap-3 seccion-cuestionario-interno">
-                <div className="contenedor-cuestionarios">
-                  <div className="elemento-cuestionario circular pointer p-3">
-                    <p className="white-text bold-span m-0">Cuestionario 1</p>
-                    <span className="white-text">Creado el 01/05/2025</span>
-                  </div>
-                </div>
-                <div className="contenedor-cuestionarios">
-                  <div className="elemento-cuestionario circular pointer p-3">
-                    <p className="white-text bold-span m-0">Cuestionario 2</p>
-                    <span className="white-text">Creado el 02/05/2025</span>
-                  </div>
-                </div>
-                <div className="contenedor-cuestionarios">
-                  <div className="elemento-cuestionario circular pointer p-3">
-                    <p className="white-text bold-span m-0">Cuestionario 3</p>
-                    <span className="white-text">Creado el 03/05/2025</span>
-                  </div>
-                </div>
-                <div className="contenedor-cuestionarios">
-                  <div className="elemento-cuestionario circular pointer p-3">
-                    <p className="white-text bold-span m-0">Cuestionario 4</p>
-                    <span className="white-text">Creado el 04/05/2025</span>
-                  </div>
-                </div>
-                <div className="contenedor-cuestionarios">
-                  <div className="elemento-cuestionario circular pointer p-3">
-                    <p className="white-text bold-span m-0">Cuestionario 5</p>
-                    <span className="white-text">Creado el 04/05/2025</span>
-                  </div>
-                </div>
-                <div className="contenedor-cuestionarios">
-                  <div className="elemento-cuestionario circular pointer p-3">
-                    <p className="white-text bold-span m-0">Cuestionario 6</p>
-                    <span className="white-text">Creado el 04/05/2025</span>
-                  </div>
-                </div>
-                <div className="contenedor-cuestionarios">
-                  <div className="elemento-cuestionario circular pointer p-3">
-                    <p className="white-text bold-span m-0">Cuestionario 7</p>
-                    <span className="white-text">Creado el 04/05/2025</span>
-                  </div>
-                </div>
-                <div className="contenedor-cuestionarios">
-                  <div className="elemento-cuestionario circular pointer p-3">
-                    <p className="white-text bold-span m-0">Cuestionario 8</p>
-                    <span className="white-text">Creado el 04/05/2025</span>
-                  </div>
-                </div>
+                {renderCuestionarios()}
               </div>
             </div>
             <div className="col-lg-9 contenedor-seccion-estadisticas-2 p-0">
@@ -549,55 +570,62 @@ export default function Graficas() {
                   <div className="titulos-cuestionario">
                     <h3 className="verde bold-span">ActiveClassroom</h3>
                     <p className="titulo-cuestionario text-center gray-text bold-span">
-                      Nombre del cuestionario
+                      {cuestionarioSeleccionado
+                        ? cuestionarioSeleccionado["Titulo de formulario"] ||
+                          "Sin título"
+                        : "Selecciona un cuestionario"}
                     </p>
                   </div>
-                  <div className="contenedor-fecha d-flex justify-content-between">
-                    <p className="bold-span">Estadísticas del formulario</p>
-                    <p className="gray-text bold-span">{fechaLocal}</p>
-                  </div>
-                  <div className="contenedor-graficas row m-0 mb-4 gap-4">
-                    <div className="col-sm sombra-graficas circular carta-grafica p-3">
-                      <p className="verde bold-span text-left p-0">
-                        Tiempo promedio por pregunta
-                      </p>
-                      <div className="contenedor-grafica">
-                        <Line data={datosGraficaLinea}></Line>
+                  {cuestionarioSeleccionado && (
+                    <>
+                      <div className="contenedor-fecha d-flex justify-content-between">
+                        <p className="bold-span">Estadísticas del formulario</p>
+                        <p className="gray-text bold-span">{fechaLocal}</p>
                       </div>
-                    </div>
-                    <div className="col-sm sombra-graficas circular carta-grafica p-3">
-                      <p className="verde bold-span text-left">Preguntas</p>
-                      <div className="contenedor-grafica-pie">
-                        <Pie data={datosPie} />
+                      <div className="contenedor-graficas row m-0 mb-4 gap-4">
+                        <div className="col-sm sombra-graficas circular carta-grafica p-3">
+                          <p className="verde bold-span text-left p-0">
+                            Tiempo promedio por pregunta
+                          </p>
+                          <div className="contenedor-grafica">
+                            <Line data={datosGraficaLinea}></Line>
+                          </div>
+                        </div>
+                        <div className="col-sm sombra-graficas circular carta-grafica p-3">
+                          <p className="verde bold-span text-left">Preguntas</p>
+                          <div className="contenedor-grafica-pie">
+                            <Pie data={datosPie} />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="contenedor-graficas row m-0 gap-4">
-                    <div className="col-sm sombra-graficas circular carta-grafica p-3">
-                      <p className="verde bold-span text-left">
-                        Preguntas con mayor índice de error
-                      </p>
-                      <div className="contenedor-grafica">
-                        <Bar data={datosErrorPregunta}></Bar>
+                      <div className="contenedor-graficas row m-0 gap-4">
+                        <div className="col-sm sombra-graficas circular carta-grafica p-3">
+                          <p className="verde bold-span text-left">
+                            Preguntas con mayor índice de error
+                          </p>
+                          <div className="contenedor-grafica">
+                            <Bar data={datosErrorPregunta}></Bar>
+                          </div>
+                        </div>
+                        <div className="col-sm sombra-graficas carta-grafica circular p-3">
+                          <p className="verde bold-span text-left">
+                            Relación entre tiempo y puntuación
+                          </p>
+                          <div className="contenedor-grafica">
+                            <Scatter data={datosScatter}></Scatter>
+                          </div>
+                        </div>
+                        <div className="col-sm sombra-graficas carta-grafica circular p-3">
+                          <p className="verde bold-span text-left">
+                            Alumnos con 50% o menos aciertos
+                          </p>
+                          <div className="contenedor-grafica">
+                            <Bar data={datosBarra} />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-sm sombra-graficas carta-grafica circular p-3">
-                      <p className="verde bold-span text-left">
-                        Relación entre tiempo y puntuación
-                      </p>
-                      <div className="contenedor-grafica">
-                        <Scatter data={datosScatter}></Scatter>
-                      </div>
-                    </div>
-                    <div className="col-sm sombra-graficas carta-grafica circular p-3">
-                      <p className="verde bold-span text-left">
-                        Alumnos con 50% o menos aciertos
-                      </p>
-                      <div className="contenedor-grafica">
-                        <Bar data={datosBarra} />
-                      </div>
-                    </div>
-                  </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

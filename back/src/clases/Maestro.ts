@@ -18,7 +18,7 @@ export class Maestro extends User{
                 id:salaid,
                 idcreador:idcreador,
                 idformulario:formid,
-                fechacreacion:`${new Date().getFullYear()}-${('0'+(new Date().getMonth()+1)).slice(-2)}-${new Date().getDate()}`,
+                fechacreacion: new Date().toISOString().slice(0, 10), // "YYYY-MM-DD"
                 fechacierre:"",
                 rankingruta:"",
                 activo:'A'
