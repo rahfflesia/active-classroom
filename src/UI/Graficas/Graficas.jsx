@@ -333,6 +333,32 @@ export default function Graficas() {
 
   const username = localStorage.getItem("username");
 
+  const handleEliminarCuestionario = async () => {
+  if (!cuestionarioEliminarId) return;
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/eliminarsala/${cuestionarioEliminarId}`,
+      { method: "DELETE" }
+    );
+    const data = await response.json();
+    alert(data); // Puedes mostrar el mensaje de éxito o error
+
+    // Actualiza la lista de cuestionarios después de eliminar
+    setCuestionarios((prev) =>
+      prev.filter((c) => c["Id de Sala"] !== cuestionarioEliminarId)
+    );
+    setCuestionarioEliminarId("");
+    cerrarDialogEliminar();
+    // Si el cuestionario eliminado estaba seleccionado, deselecciónalo
+    if (cuestionarioSeleccionadoId === cuestionarioEliminarId) {
+      setCuestionarioSeleccionadoId(null);
+    }
+  } catch (error) {
+    alert("Error al eliminar el cuestionario");
+    console.error(error);
+  }
+};
+
   return (
     <>
       <div className="raiz-dashboard-grafica">
@@ -404,7 +430,10 @@ export default function Graficas() {
               </select>
             </div>
             <div className="botones-exportar d-flex gap-2">
-              <button className="green-btn-cuestionario green-border-bottom">
+              <button
+                className="green-btn-cuestionario green-border-bottom"
+                onClick={handleEliminarCuestionario}
+              >
                 Eliminar
               </button>
               <button
