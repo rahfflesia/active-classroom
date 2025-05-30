@@ -23,7 +23,10 @@ const Salavistamodel = db.define('vista_salas',{
     },
     'Fecha de creacion':{
         type:DataTypes.STRING
-    }
+    },
+    'clave':{
+        type:DataTypes.STRING  
+    },
     
 },{
     freezeTableName: true,

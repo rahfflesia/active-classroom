@@ -26,6 +26,10 @@ const Salamodel = db.define('sala',{
     },
     activo:{
         type:DataTypes.CHAR
+    },
+    clave: {
+        type: DataTypes.STRING,
+        unique: true
     }
     
 },{

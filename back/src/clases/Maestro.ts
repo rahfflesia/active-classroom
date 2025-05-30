@@ -5,6 +5,14 @@ import Formmodel from '../models/formmodel';
 import Salamodel from '../models/salamodel';
 import Salavistamodel from '../models/salavistamodel';
 
+function generarClave(longitud = 8) {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let clave = '';
+    for (let i = 0; i < longitud; i++) {
+        clave += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return clave;
+}
 export class Maestro extends User{
     public id: number;
 
@@ -14,14 +22,16 @@ export class Maestro extends User{
     }
     async crearsala(salaid:number, idcreador:number, formid:number){
         try{
+            const clave = generarClave();
             await Salamodel.create({
                 id:salaid,
                 idcreador:idcreador,
                 idformulario:formid,
-                fechacreacion: new Date().toISOString().slice(0, 10), // "YYYY-MM-DD"
+                fechacreacion: new Date().toISOString().slice(0, 10),
                 fechacierre:"",
                 rankingruta:"",
-                activo:'A'
+                activo:'A',
+                clave: clave,
             })
             
             return "Usuario Registrado"

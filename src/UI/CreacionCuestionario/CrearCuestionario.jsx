@@ -19,11 +19,13 @@ function CrearCuestionario() {
       options: ["", "", "", ""],
       correctAnswerIndex: 0,
       tiempo: 30,
+      retroalimentacion: "si",
     },
   ]);
   const [preguntaSeleccionada, setPreguntaSeleccionada] = useState(0); // índice de la pregunta seleccionada
   const [titulo, setTitulo] = useState("");
   const [opcion, setOpcion] = useState("quiz");
+  const [mismaRetro, setMismaRetro] = useState(false);
 
   const handleTipoPreguntaChange = (tipo) => {
     setPreguntas((prev) =>
@@ -52,10 +54,47 @@ function CrearCuestionario() {
         options: ["", "", "", ""],
         correctAnswerIndex: 0,
         tiempo: 30,
+        retroalimentacion:
+          preguntas[preguntaSeleccionada]?.retroalimentacion || "si",
       },
     ]);
-    setPreguntaSeleccionada(preguntas.length); // Selecciona la nueva pregunta
+    setPreguntaSeleccionada(preguntas.length);
     setOpcion("quiz");
+  };
+
+  const handleRetroalimentacionChange = (pregIdx, value) => {
+    if (mismaRetro) return;
+    setPreguntas((prev) =>
+      prev.map((p, i) =>
+        i === pregIdx ? { ...p, retroalimentacion: value } : p
+      )
+    );
+  };
+
+  const handleMismaRetroChange = (e) => {
+    const checked = e.target.checked;
+    setMismaRetro(checked);
+    if (checked) {
+      // Aplica el valor de la pregunta seleccionada a todas
+      const retro = preguntas[preguntaSeleccionada].retroalimentacion || "si";
+      setPreguntas((prev) =>
+        prev.map((p) => ({ ...p, retroalimentacion: retro }))
+      );
+    }
+  };
+
+  const handleRetroalimentacionGlobalChange = (value) => {
+    if (mismaRetro) {
+      setPreguntas((prev) =>
+        prev.map((p) => ({ ...p, retroalimentacion: value }))
+      );
+    } else {
+      setPreguntas((prev) =>
+        prev.map((p, i) =>
+          i === preguntaSeleccionada ? { ...p, retroalimentacion: value } : p
+        )
+      );
+    }
   };
 
   const navigate = useNavigate();
@@ -198,15 +237,15 @@ function CrearCuestionario() {
     }
 
     const payload = {
-    salaid,
-    userId,
-    username,
-    tituloform: titulo,
-    questions: preguntas.map(p => ({
-      ...p,
-      valor: p.valor || valorPregunta, // Asegura que todas las preguntas tengan un valor
-    })),
-  };
+      salaid,
+      userId,
+      username,
+      tituloform: titulo,
+      questions: preguntas.map((p) => ({
+        ...p,
+        valor: p.valor || valorPregunta, // Asegura que todas las preguntas tengan un valor
+      })),
+    };
 
     try {
       await fetch(`${import.meta.env.VITE_API_URL}/api/crearsala`, {
@@ -435,10 +474,33 @@ function CrearCuestionario() {
                 <select
                   className="select-cuestionario gray-text"
                   name="retroalimentacion"
+                  value={
+                    preguntas[preguntaSeleccionada].retroalimentacion || "si"
+                  }
+                  onChange={(e) =>
+                    mismaRetro
+                      ? handleRetroalimentacionGlobalChange(e.target.value)
+                      : handleRetroalimentacionChange(
+                          preguntaSeleccionada,
+                          e.target.value
+                        )
+                  }
+                  disabled={mismaRetro}
                 >
                   <option value="si">Sí</option>
                   <option value="no">No</option>
                 </select>
+                <div className="d-flex gap-2">
+                  <input
+                    type="checkbox"
+                    id="misma-retro-preguntas"
+                    checked={mismaRetro}
+                    onChange={handleMismaRetroChange}
+                  />
+                  <span className="gray-text">
+                    Retroalimentación inmediata para todas las preguntas
+                  </span>
+                </div>
               </div>
             </div>
             <div className="flex flex-column gap-2">

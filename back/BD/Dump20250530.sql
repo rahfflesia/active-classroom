@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `activeclassroom` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `activeclassroom`;
+-- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
 -- Host: localhost    Database: activeclassroom
 -- ------------------------------------------------------
--- Server version	9.0.1
+-- Server version	8.0.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -55,7 +57,7 @@ CREATE TABLE `formulario` (
   `rutaform` varchar(255) DEFAULT NULL,
   `rutaformresult` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +66,7 @@ CREATE TABLE `formulario` (
 
 LOCK TABLES `formulario` WRITE;
 /*!40000 ALTER TABLE `formulario` DISABLE KEYS */;
-INSERT INTO `formulario` VALUES (9,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_532.json',''),(10,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_813.json',''),(11,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2312_294.json',''),(12,NULL,'C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2_120.json',''),(13,'prueba','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2_217.json',''),(14,'prueba','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2_787.json','');
+INSERT INTO `formulario` VALUES (9,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_532.json',''),(10,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_123433_813.json',''),(11,'Ejemplo','C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\formulario_2312_294.json',''),(12,'A VER SI YA','C:\\Users\\JAVI_\\OneDrive\\Documentos\\GitHub\\active-classroom\\back\\forms\\formulario_2_980.json',''),(18,'PruebaCuestionario','C:\\Users\\JAVI_\\OneDrive\\Documentos\\GitHub\\active-classroom\\back\\forms\\formulario_2_219.json',''),(24,'Profes CETis','C:\\Users\\JAVI_\\OneDrive\\Documentos\\GitHub\\active-classroom\\back\\forms\\formulario_2_816.json',''),(25,'sdgds','C:\\Users\\JAVI_\\OneDrive\\Documentos\\GitHub\\active-classroom\\back\\forms\\formulario_2_954.json','');
 /*!40000 ALTER TABLE `formulario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +86,9 @@ CREATE TABLE `sala` (
   `rankingruta` varchar(45) DEFAULT NULL,
   `cantparticipantes` int DEFAULT NULL,
   `activo` char(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `clave` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `clave` (`clave`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -94,7 +98,7 @@ CREATE TABLE `sala` (
 
 LOCK TABLES `sala` WRITE;
 /*!40000 ALTER TABLE `sala` DISABLE KEYS */;
-INSERT INTO `sala` VALUES (1111,2,11,'2025-04-16','','',1,'A'),(93108,2,12,'2025-05-28','','',NULL,'A'),(123433,3,9,'2025-04-15','','',0,'A');
+INSERT INTO `sala` VALUES (1111,2,11,'2025-04-16','','',1,'A',NULL),(17210,2,25,'2025-05-30','','',NULL,'A','EUHTOXVH'),(59003,2,24,'2025-05-30','','',NULL,'A','ACRW3HET'),(76556,2,18,'2025-05-29','','',NULL,'A',NULL),(96944,2,12,'2025-05-28','','',NULL,'A',NULL),(123433,3,9,'2025-04-15','','',0,'A',NULL);
 /*!40000 ALTER TABLE `sala` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +116,7 @@ CREATE TABLE `users` (
   `password` varchar(45) DEFAULT NULL,
   `tipousuario` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +125,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Ruben','ruben@ruben','1234','1'),(2,'Manuel','manuel@manuel','1234','2'),(3,'Juan','Juan@manuel','1234','1'),(4,'Jose','jose@gmail.com','Jose_rafa2312','1'),(5,'Javier','javier@gmail.com','Javier123!','1'),(6,'Filiberto','fili@gmail.com','Fili_1234','1');
+INSERT INTO `users` VALUES (1,'Ruben','ruben@ruben','1234','1'),(2,'Manuel','manuel@manuel','1234','2'),(3,'Juan','Juan@manuel','1234','1'),(4,'Jose','jose@gmail.com','Jose_rafa2312','1'),(5,'Javier','javier@gmail.com','Javier123!','1'),(6,'Filiberto','fili@gmail.com','Fili_1234','1'),(7,'a','a@hotmail.com','Javier1234!','2'),(8,'prueba','prueba@hotmail.cm','Prueba1234!','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,8 +161,17 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `Id de formulario`,
  1 AS `Titulo de formulario`,
  1 AS `Ruta de formulario`,
- 1 AS `Fecha de creacion`*/;
+ 1 AS `Fecha de creacion`,
+ 1 AS `clave`*/;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping events for database 'activeclassroom'
+--
+
+--
+-- Dumping routines for database 'activeclassroom'
+--
 
 --
 -- Final view structure for view `vista_participantes`
@@ -191,7 +204,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_salas` AS select `s`.`id` AS `Id de Sala`,`s`.`idcreador` AS `Id de creador`,`u`.`username` AS `Nombre de creador`,`f`.`id` AS `Id de formulario`,`f`.`titulo` AS `Titulo de formulario`,`f`.`rutaform` AS `Ruta de formulario`,`s`.`fechacreacion` AS `Fecha de creacion` from ((`sala` `s` join `users` `u` on((`s`.`idcreador` = `u`.`id`))) join `formulario` `f` on((`s`.`idformulario` = `f`.`id`))) */;
+/*!50001 VIEW `vista_salas` AS select `s`.`id` AS `Id de Sala`,`s`.`idcreador` AS `Id de creador`,`u`.`username` AS `Nombre de creador`,`f`.`id` AS `Id de formulario`,`f`.`titulo` AS `Titulo de formulario`,`f`.`rutaform` AS `Ruta de formulario`,`s`.`fechacreacion` AS `Fecha de creacion`,`s`.`clave` AS `clave` from ((`sala` `s` join `users` `u` on((`s`.`idcreador` = `u`.`id`))) join `formulario` `f` on((`s`.`idformulario` = `f`.`id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -205,4 +218,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-28 19:12:06
+-- Dump completed on 2025-05-30 12:53:46

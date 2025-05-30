@@ -334,30 +334,32 @@ export default function Graficas() {
   const username = localStorage.getItem("username");
 
   const handleEliminarCuestionario = async () => {
-  if (!cuestionarioEliminarId) return;
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/eliminarsala/${cuestionarioEliminarId}`,
-      { method: "DELETE" }
-    );
-    const data = await response.json();
-    alert(data); // Puedes mostrar el mensaje de éxito o error
+    if (!cuestionarioEliminarId) return;
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/eliminarsala/${cuestionarioEliminarId}`,
+        { method: "DELETE" }
+      );
+      const data = await response.json();
+      alert(data); // Puedes mostrar el mensaje de éxito o error
 
-    // Actualiza la lista de cuestionarios después de eliminar
-    setCuestionarios((prev) =>
-      prev.filter((c) => c["Id de Sala"] !== cuestionarioEliminarId)
-    );
-    setCuestionarioEliminarId("");
-    cerrarDialogEliminar();
-    // Si el cuestionario eliminado estaba seleccionado, deselecciónalo
-    if (cuestionarioSeleccionadoId === cuestionarioEliminarId) {
-      setCuestionarioSeleccionadoId(null);
+      // Actualiza la lista de cuestionarios después de eliminar
+      setCuestionarios((prev) =>
+        prev.filter((c) => c["Id de Sala"] !== cuestionarioEliminarId)
+      );
+      setCuestionarioEliminarId("");
+      cerrarDialogEliminar();
+      // Si el cuestionario eliminado estaba seleccionado, deselecciónalo
+      if (cuestionarioSeleccionadoId === cuestionarioEliminarId) {
+        setCuestionarioSeleccionadoId(null);
+      }
+    } catch (error) {
+      alert("Error al eliminar el cuestionario");
+      console.error(error);
     }
-  } catch (error) {
-    alert("Error al eliminar el cuestionario");
-    console.error(error);
-  }
-};
+  };
 
   return (
     <>
@@ -604,6 +606,14 @@ export default function Graficas() {
                           "Sin título"
                         : "Selecciona un cuestionario"}
                     </p>
+                    {cuestionarioSeleccionado && (
+                      <p
+                        className="clave-cuestionario text-center gray-text bold-span"
+                        style={{ fontSize: "1.2em" }}
+                      >
+                        Clave: {cuestionarioSeleccionado["clave"] || "No asignada"}
+                      </p>
+                    )}
                   </div>
                   {cuestionarioSeleccionado && (
                     <>
