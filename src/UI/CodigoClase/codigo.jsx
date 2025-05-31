@@ -78,6 +78,11 @@ function Codigo() {
                 <span className="gray-text text-left">Código de clase</span>
                 <input type="text" className="input-codigo" />
               </div>
+              <button
+                className="green-btn scale green-border-bottom"
+              >
+                Ingresar
+              </button>
               <div
                 className="codigo-clase-contenedor pointer"
                 onClick={abrirDialog}
@@ -85,24 +90,6 @@ function Codigo() {
                 <p className="sm-font">¿Qué es un código de clase?</p>
               </div>
               <hr />
-              {/*
-                
-                <div className="botones">
-                <button
-                  className="white-btn scale sm-font gray-border-bottom"
-                  onClick={toLogin}
-                >
-                  Iniciar sesión
-                </button>
-                <button
-                  className="white-btn scale sm-font gray-border-bottom"
-                  onClick={toSignup}
-                >
-                  Registrarte
-                </button>
-              </div>
-              */}
-              
             </div>
           </h3>
         </div>
