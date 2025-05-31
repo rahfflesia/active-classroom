@@ -12,7 +12,7 @@ export class Alumno extends User{
         const formid = await Salamodel.findOne({
             attributes:['idformulario'],
             where:{
-                id:salaid
+                clave:salaid
             }
         })
         
