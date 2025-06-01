@@ -50,6 +50,7 @@ export class Alumno extends User{
         return jsonform
     }
 
+    // AQUI TAMBIEN LOS DESHICE
     async enviarrespuestas(resultados: any, iduser:number, idsala:number, calificacion:number){
         const formsDir = path.resolve(__dirname, '..','..', 'forms', 'resultados') //sube dos niveles en los directorios
         const fileName = `resultado_formulario_${iduser}_${idsala}.json`
@@ -79,6 +80,7 @@ export class Alumno extends User{
         }
         
     }
+    // AQUI TERMINA LA PARTE QUE DESHICE
 
     async obtenerlistaparticipaciones(iduser:string){
         try {

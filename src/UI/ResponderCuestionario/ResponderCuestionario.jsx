@@ -46,7 +46,7 @@ function ResponderCuestionario() {
   return () => {
     clearInterval(timerRef.current);
   };
-// eslint-disable-next-line
+
 }, [formulario, preguntaActual, mostrarRetro, bloquearOpciones, finalizado]);
 
   // Redirige después de 5 segundos al terminar
@@ -58,6 +58,56 @@ function ResponderCuestionario() {
       return () => clearTimeout(timeout);
     }
   }, [showEnd, navigate]);
+
+
+
+  // ESTO DE AQUÍ FUE UN CAMBIO QUE AUN NO FUNCIONA
+  useEffect(() => {
+    const enviarYRecibirResultados = async () => {
+      if (finalizado && formulario && !showEnd) {
+        console.log("Enviando resultados...");
+        try {
+          // Enviar resultados del alumno
+          const apiUrl = import.meta.env.VITE_API_URL;
+          const participanteid = localStorage.getItem("iduser");
+          const salaid = formulario.salaid;
+          const calificacion = Number(puntaje);
+          const userid = formulario.userId;
+
+          // Construir el payload
+          const payload = {
+            salaid,
+            userid,
+            username: localStorage.getItem("username"),
+            participanteid: participanteid,
+            calificacion,
+            tituloform: formulario.tituloform,
+            questions: formulario.questions.map((q) => ({
+              ...q,
+              electionindex: q.electionindex ?? null,
+              tiempo: q.tiempo,
+            })),
+          };
+          console.log("Que rollo")
+          await fetch(`${apiUrl}/api/enviarresultado`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          // Obtener resultados de la sala
+          const res = await fetch(`${apiUrl}/api/obtenerresultado/${salaid}`);
+          const resultados = await res.json();
+          localStorage.setItem("resultadosSala", JSON.stringify(resultados));
+        } catch (error) {
+          console.error("Error al enviar o recibir resultados:", error);
+        }
+      }
+    };
+
+    enviarYRecibirResultados();
+  }, [finalizado, formulario, puntaje, showEnd]);
+  // AQUÍ TERMINA EL CAMBIO QUE AUN NO FUNCIONA
 
   if (!formulario) return null;
 
@@ -130,13 +180,11 @@ function ResponderCuestionario() {
   setPreguntaActual((prevPreguntaActual) => {
     console.log("Pregunta actual: ", prevPreguntaActual)
     console.log("Cantidad de preguntas: ", formulario.questions.length)
+    console.log("Mensaje de pruebas")
     if (prevPreguntaActual < formulario.questions.length - 1) {
       setTiempo(formulario.questions[prevPreguntaActual + 1].tiempo || 30);
       return prevPreguntaActual + 1;
     } else {
-      console.log("Por alguna razon prende esta cosa")
-      console.log("Pregunta actual al entrar al else: ", prevPreguntaActual)
-      console.log("Cantidad de preguntas al entrar al else: : ", formulario.questions.length - 1)
       setFinalizado(true);
       return prevPreguntaActual; // No avanzar más allá del final
     }

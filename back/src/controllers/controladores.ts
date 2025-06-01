@@ -75,6 +75,7 @@ export const getformulario = async (req:Request, res:Response) =>{
     }
 }
 
+// DESHICE LOS CAMBIOS QUE HABÍAMOS HECHO PARA QUE CHEQUES CON CABEZA FRÍA, ESTO ES LO QUE TENÍAS ANTES
 //Aqui el alumno envia el resultado
 export const enviarresultados = async (req:Request, res:Response) =>{
     const {body} = req
@@ -85,6 +86,8 @@ export const enviarresultados = async (req:Request, res:Response) =>{
         msg:insercion
     })
 }
+// AQUÍ TERMINA LA PARTE QUE DESHICE
+
 
 //aqui el maestro recibe el resultado de toda la actividad
 export const recibirresultados = async (req:Request, res:Response) =>{
