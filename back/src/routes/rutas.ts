@@ -9,12 +9,7 @@ router.post('/signup', signup)//Metodo para realizar el registro
 router.post('/crearsala', createsala)//con esta se crea la sala
 router.get('/entrarsala/:salaid/:iduser', getformulario)//con esta el alumno recibe el formulario
 router.post('/enviarresultado', enviarresultados)//Aqui el alumno envia el resultado
-router.get('/obtenerresultado/:salaid', recibirresultados)//aqui el maestro recibe el resultado de toda la actividad
-<<<<<<<<< Temporary merge branch 1
-router.get('/obtenerresultadoalumno/:salaid/:alumnoid', recibirresultadoalumno)//el alumno recibe los resultados work in progress
-=========
 router.get('/obtenerresultadoalumno/:salaid/:alumnoid', recibirresultadoalumno)//el alumno recibe los resultados work in progress (no se va a hacer)
->>>>>>>>> Temporary merge branch 2
 router.get('/obtenerlistaresultados/:iduser', listaparticipaciones)//lista de salas en las que participo un alumno
 router.get('/obtenerlistasalas/:iduser', listasalas)//lista de salas creadas por maestro
 router.get('/obtenerlistaparticipantes/:idsala', usuariosparticipantes)//esta para actualizar los participantes que hay en cada sala
