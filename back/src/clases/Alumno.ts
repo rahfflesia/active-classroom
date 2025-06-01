@@ -10,12 +10,15 @@ export class Alumno extends User{
     async entrarasala(salaid:string, iduser:number){
         //busca la sala con el id que le das
         const formid = await Salamodel.findOne({
-            attributes:['idformulario'],
+            attributes:['idformulario', 'id'],
             where:{
                 clave:salaid
             }
         })
         
+        const idsala = formid?.dataValues.id //id de la sala
+        console.log(idsala)
+
         const idfomrilario = formid?.dataValues.idformulario
         console.log(idfomrilario)
         //busca la ruta del formulario
@@ -25,15 +28,15 @@ export class Alumno extends User{
                 id:idfomrilario
             }
         })
-
+        
         await Salamodel.increment('cantparticipantes', {
             by: 1,
-            where:{id:salaid}
+            where:{id:idsala}
         })
 
         await Participacionmodel.create({
             iduser:iduser,
-            idsala:salaid,
+            idsala:idsala,
         })
         const rutaformulario = formularioruta?.dataValues.rutaform
         console.log(rutaformulario)

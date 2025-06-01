@@ -307,7 +307,7 @@ function CrearCuestionario() {
                   className="green-btn-cuestionario green-border-bottom scale boton-nav"
                   onClick={handleGuardar}
                 >
-                  Guardar
+                  Crear Sala
                 </button>
               </div>
             </div>
