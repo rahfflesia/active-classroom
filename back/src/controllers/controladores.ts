@@ -67,7 +67,6 @@ export const getformulario = async (req:Request, res:Response) =>{
     
     try{
         const rutaformulario = await alumno.entrarasala(salaid, parseInt(iduser))
-        //console.log("Ruta del formulario", rutaformulario)
         res.json(rutaformulario)
         
     }catch(error){
