@@ -1,86 +1,59 @@
-
 [
-    "Ejemplo de como se ven los resultados cuando termina la actividad, viene en dos partes, en uno estan todos los alumnos que participaron y que opcion escogieron en cada pregunta",
-    "La otra parte es una copia del json del cuestionario original para que puedas usarlo y mostrarlo y analizarlo y eso",
-    "Este json no se usa ni se guarda en ningun lado, solo se envia, se genera cada vez que se quiere consultar resultados, lo pongo aqui nomas para que veas la estructura",
     [
         {
-            "ID de sala": 1111,
-            "ID de formulario": 11,
-            "ID participacion": 1,
+            "ID de sala": 23269,
+            "ID de formulario": 28,
+            "ID participacion": 76,
             "Nombre participante": "Ruben",
-            "Calificacion": 7,
-            "Ruta del resultado": "C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\resultados\\resultado_formulario_001_1111.json",
-            "Respuesta pregunta 0": 2,
-            "Tiempo pregunta 0": 33,
+            "Calificacion": 0,
+            "Ruta del resultado": "C:\\Users\\JAVI_\\OneDrive\\Documentos\\GitHub\\active-classroom\\back\\forms\\resultados\\resultado_formulario_1_23269.json",
+            "Respuesta pregunta 0": 1,
+            "Tiempo pregunta 0": 4,
             "Respuesta pregunta 1": 1,
-            "Tiempo pregunta 1": 33,
-            "Respuesta pregunta 2": 2,
-            "Tiempo pregunta 2": 33
+            "Tiempo pregunta 1": 1
         },
         {
-            "ID de sala": 1111,
-            "ID de formulario": 11,
-            "ID participacion": 2,
-            "Nombre participante": "Manuel",
-            "Calificacion": 10,
-            "Ruta del resultado": "C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\resultados\\resultado_formulario_002_1111.json",
-            "Respuesta pregunta 0": 2,
-            "Tiempo pregunta 0": 33,
-            "Respuesta pregunta 1": 1,
-            "Tiempo pregunta 1": 33,
-            "Respuesta pregunta 2": 3,
-            "Tiempo pregunta 2": 33            
-        },
-        {
-            "ID de sala": 1111,
-            "ID de formulario": 11,
-            "ID participacion": 3,
+            "ID de sala": 23269,
+            "ID de formulario": 28,
+            "ID participacion": 78,
             "Nombre participante": "Juan",
             "Calificacion": 0,
-            "Ruta del resultado": "C:\\Users\\ruben\\Documents\\GitHub\\active-classroom\\back\\forms\\resultados\\resultado_formulario_003_1111.json",
-            "Respuesta pregunta 0": 1,
-            "Tiempo pregunta 0": 33,
-            "Respuesta pregunta 1": 3,
-            "Tiempo pregunta 1": 33,
-            "Respuesta pregunta 2": 2,
-            "Tiempo pregunta 2": 33
+            "Ruta del resultado": "C:\\Users\\JAVI_\\OneDrive\\Documentos\\GitHub\\active-classroom\\back\\forms\\resultados\\resultado_formulario_3_23269.json",
+            "Respuesta pregunta 0": 0,
+            "Tiempo pregunta 0": 6,
+            "Respuesta pregunta 1": 1,
+            "Tiempo pregunta 1": 4
         }
     ],
     {
-        "salaid": "1111",
-        "userId": "2312",
-        "tituloform": "forumalrio de ejemplo",
+        "salaid": "23269",
+        "userId": "2",
+        "username": "Manuel",
+        "tituloform": "Intento",
         "questions": [
             {
-                "question": "¿Cuál es la capital de México?",
+                "numero": 1,
+                "tipo": "quiz",
+                "question": "¿MelaShaco?",
                 "options": [
-                    "Guadalajara",
-                    "Monterrey",
-                    "Ciudad de México",
-                    "Puebla"
+                    "No",
+                    "No",
+                    "Sí",
+                    "No"
                 ],
-                "correctAnswerIndex": 2
+                "correctAnswerIndex": 2,
+                "tiempo": 10,
+                "retroalimentacion": "si",
+                "valor": "dos-puntos"
             },
             {
-                "question": "¿Cuánto es 5 x 6?",
-                "options": [
-                    "11",
-                    "30",
-                    "56",
-                    "26"
-                ],
-                "correctAnswerIndex": 1
-            },
-            {
-                "question": "¿Cuál es el océano más grande?",
-                "options": [
-                    "Atlántico",
-                    "Índico",
-                    "Ártico",
-                    "Pacífico"
-                ],
-                "correctAnswerIndex": 3
+                "numero": 2,
+                "tipo": "verdadero-falso",
+                "question": "¿Shaco Besto Champ?",
+                "correctAnswerIndex": 0,
+                "tiempo": 10,
+                "retroalimentacion": "si",
+                "valor": "cinco-puntos"
             }
         ]
     }

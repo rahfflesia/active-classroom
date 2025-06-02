@@ -11,7 +11,7 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { Pie, Bar, Scatter, Line } from "react-chartjs-2";
+import { Pie, Bar, /*Scatter,*/ Line } from "react-chartjs-2";
 import { useNavigate } from "react-router-dom";
 ChartJS.register(
   CategoryScale,
@@ -31,178 +31,298 @@ import iconoAyuda from "../../../public/iconos/help-icon.png";
 import { useRef, useState, useEffect, use } from "react";
 import fotoPerfilDummy from "../../../public/iconos/user.png";
 
-const datosPie = {
-  labels: ["Correctas", "Incorrectas", "Sin responder"],
-  datasets: [
-    {
-      label: "Respuestas del cuestionario",
-      data: [12, 5, 3],
-      backgroundColor: [
-        "rgb(48, 193, 130)",
-        "rgb(255, 99, 132)",
-        "rgb(201, 203, 207)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
+var resultadosfinalesJSON = [];
+var participaciones = [];
+var cuestionario = [];
+var datospai = [0, 0, 0];
 
-const datosBarra = {
-  labels: ["José", "Jorge", "Carmen", "Rubén", "Alondra", "Eduardo", "Lucía"],
-  datasets: [
-    {
-      label: "Número de aciertos",
-      data: [5, 7, 8, 9, 9, 9, 9],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-        "rgba(255, 205, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(201, 203, 207, 0.2)",
-      ],
-      borderColor: [
-        "rgb(255, 99, 132)",
-        "rgb(255, 159, 64)",
-        "rgb(255, 205, 86)",
-        "rgb(75, 192, 192)",
-        "rgb(54, 162, 235)",
-        "rgb(153, 102, 255)",
-        "rgb(201, 203, 207)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
-
-const datosErrorPregunta = {
-  labels: [
-    "Pregunta 1",
-    "Pregunta 7",
-    "Pregunta 9",
-    "Pregunta 13",
-    "Pregunta 17",
-    "Pregunta 19",
-    "Pregunta 20",
-  ],
-  datasets: [
-    {
-      label: "Porcentaje de error",
-      data: [0.5, 0.6, 0.77, 0.79, 0.82, 0.9, 0.93],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-        "rgba(255, 205, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(201, 203, 207, 0.2)",
-      ],
-      borderColor: [
-        "rgb(255, 99, 132)",
-        "rgb(255, 159, 64)",
-        "rgb(255, 205, 86)",
-        "rgb(75, 192, 192)",
-        "rgb(54, 162, 235)",
-        "rgb(153, 102, 255)",
-        "rgb(201, 203, 207)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
-
-const datosScatter = {
+/*const datosScatter = {
   datasets: [
     {
       label: "Tiempo en relación a aciertos",
       data: [
         { x: 5, y: 60 }, // X -> Tiempo que tardó en minutos, Y -> Porcentaje de aciertos
-        { x: 10, y: 80 },
-        { x: 3, y: 40 },
-        { x: 7, y: 70 },
-        { x: 8, y: 90 },
-        { x: 4, y: 90 },
-        { x: 1, y: 10 },
-        { x: 2, y: 45 },
-        { x: 6, y: 65 },
-        { x: 11, y: 85 },
       ],
       backgroundColor: "rgb(255, 99, 132)",
     },
   ],
-};
-
-const datosGraficaLinea = {
-  labels: [
-    "Pregunta 1",
-    "Pregunta 2",
-    "Pregunta 3",
-    "Pregunta 4",
-    "Pregunta 5",
-    "Pregunta 6",
-    "Pregunta 7",
-    "Pregunta 8",
-    "Pregunta 9",
-    "Pregunta 10",
-    "Pregunta 11",
-    "Pregunta 12",
-    "Pregunta 13",
-    "Pregunta 14",
-    "Pregunta 15",
-    "Pregunta 16",
-    "Pregunta 17",
-    "Pregunta 18",
-    "Pregunta 19",
-    "Pregunta 20",
-    "Pregunta 21",
-    "Pregunta 22",
-    "Pregunta 23",
-    "Pregunta 24",
-    "Pregunta 25",
-    "Pregunta 26",
-    "Pregunta 27",
-    "Pregunta 28",
-    "Pregunta 29",
-    "Pregunta 30",
-    "Pregunta 31",
-    "Pregunta 32",
-    "Pregunta 33",
-    "Pregunta 34",
-    "Pregunta 35",
-    "Pregunta 36",
-    "Pregunta 37",
-    "Pregunta 38",
-    "Pregunta 39",
-    "Pregunta 40",
-    "Pregunta 41",
-    "Pregunta 42",
-    "Pregunta 43",
-    "Pregunta 44",
-    "Pregunta 45",
-    "Pregunta 46",
-    "Pregunta 47",
-    "Pregunta 48",
-    "Pregunta 49",
-    "Pregunta 50",
-  ],
-  datasets: [
-    {
-      label: "Tiempo promedio por pregunta (segundos)",
-      data: [
-        103, 14, 55, 72, 67, 41, 99, 24, 90, 25, 53, 102, 20, 71, 79, 44, 17,
-        115, 67, 28, 113, 104, 52, 75, 105, 61, 114, 12, 78, 89, 58, 21, 53, 42,
-        102, 35, 86, 78, 75, 21, 31, 27, 41, 104, 48, 27, 118, 23, 75, 115,
-      ],
-      fill: false,
-      borderColor: "rgb(75, 192, 192)",
-      tension: 0.3,
-    },
-  ],
-};
+};*/
 
 export default function Graficas() {
+
+  const [datosBarraAlumnos, setDatosBarraAlumnos] = useState({
+  labels: [],
+  datasets: [
+    {
+      label: "Porcentaje de aciertos",
+      data: [],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+        "rgba(255, 205, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(201, 203, 207, 0.2)",
+      ],
+      borderColor: [
+        "rgb(255, 99, 132)",
+        "rgb(255, 159, 64)",
+        "rgb(255, 205, 86)",
+        "rgb(75, 192, 192)",
+        "rgb(54, 162, 235)",
+        "rgb(153, 102, 255)",
+        "rgb(201, 203, 207)",
+      ],
+      borderWidth: 1,
+    },
+  ],
+});
+
+function DatosBarraAlumnos() {
+  if (!participaciones || !cuestionario || !cuestionario.questions) return;
+
+  const totalPreguntas = cuestionario.questions.length;
+  const labels = [];
+  const data = [];
+
+  participaciones.forEach((alumno) => {
+    let correctas = 0;
+    for (let i = 0; i < totalPreguntas; i++) {
+      if (
+        alumno[`Respuesta pregunta ${i}`] === cuestionario.questions[i].correctAnswerIndex
+      ) {
+        correctas++;
+      }
+    }
+    const porcentaje = totalPreguntas > 0 ? (correctas / totalPreguntas) * 100 : 0;
+    if (porcentaje <= 50) {
+      labels.push(alumno["Nombre participante"]);
+      data.push(Number(porcentaje.toFixed(2)));
+    }
+  });
+
+  setDatosBarraAlumnos({
+    labels,
+    datasets: [
+      {
+        label: "Porcentaje de aciertos",
+        data,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 205, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(201, 203, 207, 0.2)",
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
+          "rgb(153, 102, 255)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  });
+}
+
+  const [datosErrorPreguntaState, setDatosErrorPregunta] = useState({
+  labels: [],
+  datasets: [
+    {
+      label: "Porcentaje de error",
+      data: [],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+        "rgba(255, 205, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(201, 203, 207, 0.2)",
+      ],
+      borderColor: [
+        "rgb(255, 99, 132)",
+        "rgb(255, 159, 64)",
+        "rgb(255, 205, 86)",
+        "rgb(75, 192, 192)",
+        "rgb(54, 162, 235)",
+        "rgb(153, 102, 255)",
+        "rgb(201, 203, 207)",
+      ],
+      borderWidth: 1,
+    },
+  ],
+});
+
+function DatosErrorPregunta() {
+  const labels = cuestionario.questions.map((q, idx) => `Pregunta ${idx + 1}`);
+  const errores = cuestionario.questions.map((q, idx) => {
+    let total = 0;
+    let incorrectas = 0;
+    participaciones.forEach((resultado) => {
+      const respuesta = resultado[`Respuesta pregunta ${idx}`];
+      if (respuesta !== null && respuesta !== undefined) {
+        total++;
+        if (respuesta !== q.correctAnswerIndex) {
+          incorrectas++;
+        }
+      }
+    });
+    // Porcentaje de error
+    return total > 0 ? Number(((incorrectas / total) * 100).toFixed(2)) : 0;
+  });
+
+  setDatosErrorPregunta({
+    labels,
+    datasets: [
+      {
+        label: "Porcentaje de error",
+        data: errores,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+          "rgba(255, 205, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(201, 203, 207, 0.2)",
+        ],
+        borderColor: [
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
+          "rgb(153, 102, 255)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  });
+}
+
+
+  const [datosGraficaLinea, setDatosGraficaLinea] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Tiempo promedio por pregunta (segundos)",
+        data: [],
+        fill: false,
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.3,
+      },
+    ],
+  });
+
+  function DatosGraficaLinea() {
+    if (!participaciones || !cuestionario || !cuestionario.questions) return;
+
+    const labels = cuestionario.questions.map(
+      (q, idx) => `Pregunta ${idx + 1}`
+    );
+    const promedios = cuestionario.questions.map((q, idx) => {
+      let suma = 0;
+      let cuenta = 0;
+      participaciones.forEach((resultado) => {
+        const tiempo = resultado[`Tiempo pregunta ${idx}`];
+        if (typeof tiempo === "number" && !isNaN(tiempo)) {
+          suma += tiempo;
+          cuenta++;
+        }
+      });
+      return cuenta > 0 ? Number((suma / cuenta).toFixed(2)) : 0;
+    });
+
+    setDatosGraficaLinea({
+      labels,
+      datasets: [
+        {
+          label: "Tiempo promedio por pregunta (segundos)",
+          data: promedios,
+          fill: false,
+          borderColor: "rgb(75, 192, 192)",
+          tension: 0.3,
+        },
+      ],
+    });
+  }
+
+  const [datosPie, setDatosPie] = useState({
+    labels: ["Correctas", "Incorrectas", "Sin responder"],
+    datasets: [
+      {
+        label: "Respuestas del cuestionario",
+        data: [0, 0, 0],
+        backgroundColor: [
+          "rgb(48, 193, 130)",
+          "rgb(255, 99, 132)",
+          "rgb(201, 203, 207)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  });
+
+  function DatosPie() {
+    let correctas = 0;
+    let incorrectas = 0;
+    let sinResponder = 0;
+
+    console.log("Participaciones:", participaciones);
+    participaciones.forEach((resultado) => {
+      const cantidadpreguntas = cuestionario.questions.length;
+      //console.log("Respuestas alumno: ", resultado["Respuesta pregunta 1"])
+      console.log("Pregunta 1: ", cuestionario.questions[0].correctAnswerIndex);
+
+      for (let i = 0; i < cantidadpreguntas; i++) {
+        if (
+          resultado[`Respuesta pregunta ${i}`] ==
+          cuestionario.questions[i].correctAnswerIndex
+        ) {
+          correctas++;
+        } else if (
+          resultado[`Respuesta pregunta ${i}`] !=
+            cuestionario.questions[i].correctAnswerIndex &&
+          resultado[`Respuesta pregunta ${i}`] != null
+        ) {
+          incorrectas++;
+        } else {
+          sinResponder++;
+        }
+      }
+    });
+    datospai[0] = correctas;
+    datospai[1] = incorrectas;
+    datospai[2] = sinResponder;
+
+    //Colorear grafica
+    setDatosPie({
+      labels: ["Correctas", "Incorrectas", "Sin responder"],
+      datasets: [
+        {
+          label: "Respuestas del cuestionario",
+          data: [correctas, incorrectas, sinResponder],
+          backgroundColor: [
+            "rgb(48, 193, 130)",
+            "rgb(255, 99, 132)",
+            "rgb(201, 203, 207)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    });
+    console.log("Resultados: ", datospai);
+  }
+
   const dialogRef = useRef(null);
 
   const abrirDialogExportar = () => {
@@ -279,6 +399,34 @@ export default function Graficas() {
     }
   }, [navigate, userId]);
 
+  const Elegircuestionario = (c) => {
+    setCuestionarioSeleccionadoId(c["Id de Sala"]);
+    localStorage.setItem("resultadosfinales", "");
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/obtenerresultado/${c["Id de Sala"]}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Datos del cuestionario seleccionado:", data);
+        localStorage.removeItem("resultadosfinales");
+        localStorage.setItem("resultadosfinales", JSON.stringify(data));
+        resultadosfinalesJSON =
+        JSON.parse(localStorage.getItem("resultadosfinales")) || [];
+        participaciones = resultadosfinalesJSON[0];
+        cuestionario = resultadosfinalesJSON[1];
+
+        console.log("Participaciones: ", participaciones);
+
+        DatosPie();
+        DatosGraficaLinea();
+        DatosErrorPregunta();
+        DatosBarraAlumnos();
+      })
+      .catch((err) => {
+        console.error("Error al obtener datos del cuestionario", err);
+      });
+  };
+
   // Esto es para los selects de los cuestionarios ya sea eliminar o exportar
   const renderOpcionesCuestionarios = () =>
     cuestionarios.map((c) => (
@@ -306,7 +454,7 @@ export default function Graficas() {
           className={`contenedor-cuestionarios ${
             cuestionarioSeleccionadoId === c["Id de Sala"] ? "seleccionado" : ""
           }`}
-          onClick={() => setCuestionarioSeleccionadoId(c["Id de Sala"])}
+          onClick={() => Elegircuestionario(c)}
           style={{ cursor: "pointer" }}
         >
           <div className="elemento-cuestionario circular pointer p-3">
@@ -611,7 +759,8 @@ export default function Graficas() {
                         className="clave-cuestionario text-center gray-text bold-span"
                         style={{ fontSize: "1.2em" }}
                       >
-                        Clave: {cuestionarioSeleccionado["clave"] || "No asignada"}
+                        Clave:{" "}
+                        {cuestionarioSeleccionado["clave"] || "No asignada"}
                       </p>
                     )}
                   </div>
@@ -643,9 +792,10 @@ export default function Graficas() {
                             Preguntas con mayor índice de error
                           </p>
                           <div className="contenedor-grafica">
-                            <Bar data={datosErrorPregunta}></Bar>
+                            <Bar data={datosErrorPreguntaState}></Bar>
                           </div>
                         </div>
+                        {/*
                         <div className="col-sm sombra-graficas carta-grafica circular p-3">
                           <p className="verde bold-span text-left">
                             Relación entre tiempo y puntuación
@@ -654,12 +804,13 @@ export default function Graficas() {
                             <Scatter data={datosScatter}></Scatter>
                           </div>
                         </div>
+                        */}
                         <div className="col-sm sombra-graficas carta-grafica circular p-3">
                           <p className="verde bold-span text-left">
                             Alumnos con 50% o menos aciertos
                           </p>
                           <div className="contenedor-grafica">
-                            <Bar data={datosBarra} />
+                            <Bar data={datosBarraAlumnos} />
                           </div>
                         </div>
                       </div>

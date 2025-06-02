@@ -165,17 +165,6 @@ function Login() {
           <p className="gray-text centrar-parrafo small-font">
             <strong>Inicia sesión</strong>
           </p>
-          <MicrosoftLoginButton />
-
-
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-            useOneTap
-          />
-        
- 
-
           <div className="contenedor-formulario">
             <span className="gray-text">Nombre de usuario</span>
             <input 

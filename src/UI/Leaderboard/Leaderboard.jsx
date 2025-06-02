@@ -1,7 +1,14 @@
 import "./leaderboard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 function Leaderboard() {
+
+  const navigate = useNavigate();
+  function toMainPage() {
+    navigate("/codigo");
+  }
+
   return (
     <>
       <div className="contenedor-raiz-leaderboard">
@@ -24,9 +31,6 @@ function Leaderboard() {
                 <span className="w-25 bold-span d-flex justify-content-center align-items-center">
                   Puntos
                 </span>
-                <span className="w-25 bold-span d-flex justify-content-center">
-                  Aciertos
-                </span>
               </div>
               <div className="contenedor-posicion d-flex justify-content-evenly p-3 gray-border-bottom">
                 <span className="w-25 bold-span verde posicion d-flex justify-content-center">
@@ -37,9 +41,6 @@ function Leaderboard() {
                 </span>
                 <span className="w-25 bold-span verde puntos d-flex justify-content-center">
                   100
-                </span>
-                <span className="w-25 bold-span verde aciertos d-flex justify-content-center">
-                  20/20
                 </span>
               </div>
               <div className="contenedor-posicion d-flex justify-content-evenly p-3 gray-border-bottom">
@@ -52,9 +53,6 @@ function Leaderboard() {
                 <span className="w-25 d-flex justify-content-center bold-span verde puntos text-center">
                   95
                 </span>
-                <span className="w-25 d-flex justify-content-center bold-span verde aciertos text-center">
-                  18/20
-                </span>
               </div>
               <div className="contenedor-posicion d-flex justify-content-evenly p-3 gray-border-bottom">
                 <span className="w-25 d-flex justify-content-center bold-span verde posicion text-center">
@@ -65,9 +63,6 @@ function Leaderboard() {
                 </span>
                 <span className="w-25 d-flex justify-content-center bold-span verde puntos text-center">
                   90
-                </span>
-                <span className="w-25 d-flex justify-content-center bold-span verde aciertos text-center">
-                  17/20
                 </span>
               </div>
               <div className="contenedor-posicion d-flex justify-content-evenly p-3 gray-border-bottom">
@@ -80,9 +75,6 @@ function Leaderboard() {
                 <span className="w-25 d-flex justify-content-center bold-span verde puntos text-center">
                   85
                 </span>
-                <span className="w-25 d-flex justify-content-center bold-span verde aciertos text-center">
-                  15/20
-                </span>
               </div>
               <div className="contenedor-posicion d-flex justify-content-evenly p-3 gray-border-bottom">
                 <span className="w-25 d-flex justify-content-center bold-span verde posicion text-center">
@@ -93,9 +85,6 @@ function Leaderboard() {
                 </span>
                 <span className="w-25 d-flex justify-content-center bold-span verde puntos text-center">
                   75
-                </span>
-                <span className="w-25 d-flex justify-content-center bold-span verde aciertos text-center">
-                  13/20
                 </span>
               </div>
               <div className="contenedor-posicion d-flex justify-content-evenly p-3 gray-border-bottom">
@@ -108,9 +97,6 @@ function Leaderboard() {
                 <span className="w-25 d-flex justify-content-center bold-span verde puntos text-center">
                   65
                 </span>
-                <span className="w-25 d-flex justify-content-center bold-span verde aciertos text-center">
-                  11/20
-                </span>
               </div>
               <div className="contenedor-posicion d-flex justify-content-evenly p-3 gray-border-bottom">
                 <span className="w-25 d-flex justify-content-center bold-span verde posicion text-center">
@@ -122,14 +108,11 @@ function Leaderboard() {
                 <span className="w-25 d-flex justify-content-center bold-span verde puntos text-center">
                   60
                 </span>
-                <span className="w-25 d-flex justify-content-center bold-span verde aciertos text-center">
-                  10/20
-                </span>
               </div>
             </div>
             <div className="d-flex gap-2 justify-content-center">
-              <button className="green-btn-cuestionario green-border-bottom">
-                Ir a sección de estadísticas
+              <button className="green-btn-cuestionario green-border-bottom" onClick={toMainPage}>
+                Volver a página principal
               </button>
             </div>
           </div>

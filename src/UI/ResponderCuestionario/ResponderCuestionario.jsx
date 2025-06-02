@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "./respondercuestionario.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+let respuestas = []
+let tiempotardado = []
+let tiemporesactual = 0
+
 function ResponderCuestionario() {
   const [formulario, setFormulario] = useState(null);
   const [preguntaActual, setPreguntaActual] = useState(0);
@@ -15,9 +19,9 @@ function ResponderCuestionario() {
   const [showEnd, setShowEnd] = useState(false);
   const timerRef = useRef(null);
   const navigate = useNavigate();
+  const form = JSON.parse(localStorage.getItem("formularioActual"));
   
   useEffect(() => {
-    const form = JSON.parse(localStorage.getItem("formularioActual"));
     setFormulario(form);
     setTiempo(form?.questions[0]?.tiempo || 30);
   }, []);
@@ -30,15 +34,19 @@ function ResponderCuestionario() {
   tiempoFinalizadoRef.current = false;
 
   timerRef.current = setInterval(() => {
+    
     setTiempo((t) => {
-      if (t <= 1) {
+      if (t === 0) {
         clearInterval(timerRef.current);
         if (!tiempoFinalizadoRef.current) {
           tiempoFinalizadoRef.current = true;
           handleTiempoFinalizado();
+          tiempotardado.push(t)
         }
         return 0;
       }
+      tiemporesactual = (form?.questions[0]?.tiempo) - t
+      console.log("Tiempo actual en segundos: ", tiemporesactual)
       return t - 1;
     });
   }, 1000);
@@ -48,17 +56,6 @@ function ResponderCuestionario() {
   };
 
 }, [formulario, preguntaActual, mostrarRetro, bloquearOpciones, finalizado]);
-
-  // Redirige después de 5 segundos al terminar
-  useEffect(() => {
-    if (showEnd) {
-      const timeout = setTimeout(() => {
-        navigate("/leaderboard");
-      }, 5000);
-      return () => clearTimeout(timeout);
-    }
-  }, [showEnd, navigate]);
-
 
 
   // ESTO DE AQUÍ FUE UN CAMBIO QUE AUN NO FUNCIONA
@@ -73,7 +70,8 @@ function ResponderCuestionario() {
           const salaid = formulario.salaid;
           const calificacion = Number(puntaje);
           const userid = formulario.userId;
-
+          console.log("Respuestas finalzadas: ", respuestas)
+          console.log("Timpeos tardados: ", tiempotardado)
           // Construir el payload
           const payload = {
             salaid,
@@ -82,10 +80,10 @@ function ResponderCuestionario() {
             participanteid: participanteid,
             calificacion,
             tituloform: formulario.tituloform,
-            questions: formulario.questions.map((q) => ({
+            questions: formulario.questions.map((q, i) => ({
               ...q,
-              electionindex: q.electionindex ?? null,
-              tiempo: q.tiempo,
+              electionindex: respuestas[i] ?? null,
+              tiempo: tiempotardado[i],
             })),
           };
           console.log("Que rollo")
@@ -118,14 +116,23 @@ function ResponderCuestionario() {
       <div className="raiz d-flex flex-column align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <h2 className="verde">¡Cuestionario terminado!</h2>
         <h3 className="white-text">Puntaje final: {puntaje}</h3>
-        <p className="white-text">Redirigiendo a la tabla de posiciones...</p>
+        <p className="white-text">Espera indicaciones de tu profesor...</p>
+        <button
+          className="green-btn-responder-cuestionario mt-3 p-3"
+          onClick={() => {
+            navigate("/codigo");
+          }
+          }
+        >
+          Volver a página principal
+        </button>
       </div>
     );
   }
 
   const pregunta = formulario.questions[preguntaActual];
 
-  const incisosQuiz = ["A", "B", "C", "D", "E", "F"];
+  const incisosQuiz = ["A", "B", "C", "D"];
   const opcionesVF = ["Verdadero", "Falso"];
 
   function valorAPuntos(valor) {
@@ -146,18 +153,20 @@ function ResponderCuestionario() {
   const handleSeleccion = (idx) => {
     if (mostrarRetro || bloquearOpciones) return;
     console.log("Seleccion: ", idx)
-    respuestas.push(idx)
+    console.log("Respuestas: ", respuestas)
     setSeleccion(idx);
   };
 
   const handleSiguiente = () => {
     clearInterval(timerRef.current);
     setBloquearOpciones(true);
-
     if (seleccion === pregunta.correctAnswerIndex) {
       setPuntaje((p) => p + valorAPuntos(pregunta.valor));
     }
-
+    respuestas.push(seleccion)
+    tiempotardado.push(tiemporesactual)
+    tiemporesactual = 0
+    console.log("Respuestas: ", respuestas)
     if (pregunta.retroalimentacion?.toLowerCase() === "si") {
       setMostrarRetro(true);
       setTimeout(() => {
