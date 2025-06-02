@@ -234,13 +234,7 @@ function Signup() {
           <p className="gray-text centrar-parrafo small-font">
             <strong>Regístrate</strong>
           </p>
-          <MicrosoftLoginButton/>
-
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-            useOneTap
-          />
+          {/*<MicrosoftLoginButton/>*/}
 
           <div className="contenedor-formulario">
             <span className="gray-text">Nombre de usuario</span>

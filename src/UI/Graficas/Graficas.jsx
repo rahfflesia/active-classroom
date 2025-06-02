@@ -709,6 +709,7 @@ function DatosErrorPregunta() {
                     Eliminar
                   </p>
                 </div>
+                {/*
                 <div className="d-flex justify-content-center align-items-center flex-column contenedor-icono-interno">
                   <img
                     src={iconoExportar}
@@ -722,6 +723,8 @@ function DatosErrorPregunta() {
                     Exportar
                   </p>
                 </div>
+                */}
+                
                 <div className="d-flex justify-content-center align-items-center flex-column contenedor-icono-interno">
                   <img
                     src={iconoAyuda}

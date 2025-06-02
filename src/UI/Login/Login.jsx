@@ -191,9 +191,7 @@ function Login() {
           <button className="green-btn scale green-border-bottom small-font" onClick={loguear}>
             Iniciar sesión
           </button>
-          <h5 className="verde small-font">
-            <strong>¿Olvidaste tu contraseña?</strong>
-          </h5>
+          
           <hr />
           <button
             className="white-btn scale gray-border-bottom small-font"
