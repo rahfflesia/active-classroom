@@ -17,6 +17,6 @@ router.get('/obtenerlistaparticipantes/:idsala', usuariosparticipantes)//esta pa
 router.post('/login/google/:token', enviarGoogle)
 router.post('/login/microsoft/:token', enviarMicrosoft)
 router.delete('/eliminarsala/:salaid', eliminarsala)
-
+ 
 
 export default router

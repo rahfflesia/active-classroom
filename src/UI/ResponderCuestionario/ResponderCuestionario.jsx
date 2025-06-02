@@ -15,7 +15,7 @@ function ResponderCuestionario() {
   const [showEnd, setShowEnd] = useState(false);
   const timerRef = useRef(null);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const form = JSON.parse(localStorage.getItem("formularioActual"));
     setFormulario(form);
@@ -64,7 +64,7 @@ function ResponderCuestionario() {
   // ESTO DE AQUÍ FUE UN CAMBIO QUE AUN NO FUNCIONA
   useEffect(() => {
     const enviarYRecibirResultados = async () => {
-      if (finalizado && formulario && !showEnd) {
+      if (finalizado && formulario /*&& !showEnd*/) {
         console.log("Enviando resultados...");
         try {
           // Enviar resultados del alumno
@@ -145,6 +145,8 @@ function ResponderCuestionario() {
 
   const handleSeleccion = (idx) => {
     if (mostrarRetro || bloquearOpciones) return;
+    console.log("Seleccion: ", idx)
+    respuestas.push(idx)
     setSeleccion(idx);
   };
 
